@@ -12,17 +12,17 @@ class TV:
         return self.volume
 
     def change_channel(self, state):
-        if(isOn):
+        if(self.isOn):
             if (state):
                 self.channel = (self.channel + 1) % 120
-                print "Canal next: " + str(elf.channel)
+                print "Canal next: " + str(self.channel)
             else:
                 if(self.channel - 1 <= 0):
                     self.set_channel(120);
-                    print "Canal prev: " + str(sel.channel)
+                    print "Canal prev: " + str(self.channel)
                 else:
-                    self.chennel -= 1
-                    print "Canal prev: " + str(elf.channel)
+                    self.channel -= 1
+                    print "Canal prev: " + str(self.channel)
         else:
             print "El tv esta apagado, enciendalo."
 
@@ -60,8 +60,7 @@ class TV:
             else:
                 self.isOn = False
                 print "Tv apagada."
-///////////////////////////////////////////////////////////////////////////////
-
+#///////////////////////////////////////////////////////////////////////////////
 class Light:
     def __init__ (self):
         self.isOn = False
@@ -119,7 +118,7 @@ class Light:
                 self.intensity -= 10
                 self.turn_on_off(True)
                 print "Intensidad en: " + str(self.intensity)
-///////////////////////////////////////////////////////////////////////////////
+#///////////////////////////////////////////////////////////////////////////////
 class Shower:
     def __init__(self):
         self.isOn = False
@@ -128,7 +127,7 @@ class Shower:
 
     def get_state(self):
         return self.isOn
-    def get_state(self):
+    def get_temp(self):
         return self.temp
     def get_flow(self):
         return self.flow
@@ -141,7 +140,7 @@ class Shower:
                 self.isOn = True
                 print "Ducha abierta."
         else:
-            if(not self, isOn):
+            if(not self.isOn):
                 print "La ducha ya esta cerrada."
             else:
                 self.isOn = False
@@ -185,7 +184,7 @@ class Shower:
                     self.flow -= 2
         else:
             print "No puedo modificar el nivel de flujo, la ducha esta cerrada"
-///////////////////////////////////////////////////////////////////////////////
+#///////////////////////////////////////////////////////////////////////////////
 class Dishwasher:
 
     def __init__(self):
@@ -222,8 +221,7 @@ class Dishwasher:
             self.set_time(time)
         else:
             print "No hay platos sucios para lavar en el lavaplatos"
-///////////////////////////////////////////////////////////////////////////////
-
+#///////////////////////////////////////////////////////////////////////////////
 class SoundSystem:
 
     def __init__ (self):
@@ -284,3 +282,88 @@ class SoundSystem:
                 print "La cancion actual es : " + str(self.song)
         else:
             print "No puedo modificar, esta apagado"
+#///////////////////////////////////////////////////////////////////////////////
+class Curtains:
+    
+    def __init__(self):
+        self.isOpen = False #Falso totalmente cerradas, True totalmente abiertas
+        self.cant = 0 #0 es cerrada, 100 es totalmente abierta
+    
+    def get_state(self):
+        return self.isOpen
+    
+    def get_cant(self):
+        return self.cant
+        
+    def turn_open_closed(self, state):
+        if(state):
+            if(self.isOpen):
+                print "Las cortinas ya estan abiertas."
+            else:
+                self.isOpen = True
+                self.cant = 100
+                print "Cortinas abiertas."
+        else:
+            if(not self.isOpen):
+                print "Las cortinas ya estan cerradas."
+            else:
+                self.isOpen = False
+                self.cant = 0
+                print "Cortinas cerradaa."
+        
+    def up_down_cant(self, state):
+        if(state):
+            if(self.isOpen):
+                print "Las cortinas ya estan totalmente abiertas"
+            else:
+                if(self.cant + 10 > 100):
+                    self.cant = 100
+                    print "Las cortinas ya estan totalmente abiertas"
+                else:
+                    self.cant += 10
+                    print "Las cortinas estan abiertas en un " + str(self.cant)+"%"
+        else:
+            if(not self.isOpen):
+                print "Las cortinas ya estan totalmente cerradas"
+            else:
+                if(self.cant - 10 < 0):
+                    self.cant = 0
+                    print "Las cortinas ya estan cerradas totalmente"
+                else:
+                    self.cant -= 10
+                    print "Las cortinas estan abiertas en un " + str(self.cant)+"%"
+ #///////////////////////////////////////////////////////////////////////////////
+class Printer:
+    
+    def __init__(self):
+        self.isOn = False
+        self.sheets = 10 #Numero de hojas que tiene la impresora
+    
+    def get_state(self):
+        return self.isOn
+    
+    def get_sheets(self):
+        return self.sheets
+    
+    def put_sheets(self, sheets):
+        self.sheets += sheets
+    
+    def turn_on_off(self, state):
+        if(state):
+            if(self.isOn):
+                print "La impresora ya esta encendida"
+            else:
+                print "Impresora encendida"
+        else:
+            if(not self.isOn):
+                print "La impresora ya esta apagada"
+            else:
+                print "Impresora apagada"
+    
+    def print_out(self, pages, copies = 1):
+        if(pages*copies <= self.sheets):
+            self.sheets -= pages*copies
+            print "Documentos impresos...","La impresora tiene ahora " + str(self.sheets) + " hoja(s) disponibles" 
+        else:
+            print "Por favor ponga al menos " + str(pages*copies - self.sheets) + " hoja(s) en la impresora para poder imprimir su documento"
+            
