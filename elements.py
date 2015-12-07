@@ -728,7 +728,7 @@ class Oven:
         self.isOn = True
         self.temp = temp
         print "La temperatura para la coccion sera de " + self.temp + " C"
-    
+#///////////////////////////////////////////////////////////////////////////////    
 class Dryer:
     def __init__(self):
         self.isOn = False
