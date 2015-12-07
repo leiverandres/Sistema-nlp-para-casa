@@ -658,7 +658,7 @@ class Washer:
               self.isOn = False
               print "La lavadora esta apagada"
 
-  def change_state(self, state = "Regular"):
+  def change_state(self, state = "Delicado"):
       if(self.isOn):
           if(state in self.state):
               self.index_state = self.state.index(state)
