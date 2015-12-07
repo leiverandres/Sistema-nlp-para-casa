@@ -504,24 +504,24 @@ class Alert:
             print "No puedo modificar el volumen, la alarma esta apagada"
 #///////////////////////////////////////////////////////////////////////////////
 class Burner:
-    
+
     def __init__(self):
         self.isOn = False
         self.id = 0
         self.intensity = 0
-        
+
     def get_Power(self):
         return self.isOn
-    
+
     def get_id(self):
         return self.id
-    
+
     def get_intensity(self):
         return self.intensity
-    
+
     def set_id(self, id):
         self.id = id
-    
+
     def turn_on_off(self, state):
         if(state):
             if(self.isOn):
@@ -533,7 +533,7 @@ class Burner:
                 print "La hornilla " + str(self.id) + " ya esta apagada"
             else:
                 print "La hornilla" + str(self.id) + " esta apagada"
-    
+
     def change_intensity(self, state):
         if(state):
             self.isOn = True
@@ -553,28 +553,149 @@ class Burner:
                 print "La hornilla " + str(self.id) + " es con una intensidad de " + str(self.intensity)
 #///////////////////////////////////////////////////////////////////////////////
 class Stove:
-    
+
     def __init__(self):
         self.hornillas = [Burner(), Burner(), Burner(), Burner()]
         self.hornillas[0].id = 1
         self.hornillas[1].id = 2
         self.hornillas[2].id = 3
         self.hornillas[3].id = 4
-    
+
     def get_hornilla(self, id): # id: 1-4
         if(id <= 0 or id > 4):
             print "La hornilla especificada no es valida"
         else:
             return self.hornillas[id - 1]
-    
+
     def turn_on_off(self, id, state):
         if(id <= 0 or id > 4):
             print "La hornilla especificada no es valida"
         else:
             self.hornillas[id - 1].turn_on_off(state)
-    
+
     def change_intensity_hornilla(self, id, state):
         if(id <= 0 or id > 4):
             print "La hornilla especificada no es valida"
         else:
             self.hornillas[id - 1].change_intensity(state)
+#////////////////////////////////////////////////////////////////////////////
+class Fridge:
+    def __init__(self):
+        self.isOn = False
+        self.temp = 12
+        self.elements = ["pastel", "fruta", "carne", "pollo", "verduras", "quesadillas", "vino", "cerveza"]
+        self.no_elem = len(self.elements)
+
+    def get_no_elem(self):
+        return self.no_elem
+    def get_elements(self):
+        print "Elementos en la nevera: "
+        for i in self.elements:
+            print i
+
+    def rm_element(self, elem):
+        if(self.no_elem > 0):
+            if(elem in self.elements):
+                self.elements.remove(elem)
+                print "Elemento removido " + elem
+            else:
+                print "El elemento no se encuentra en la nevera"
+        else:
+            print "No hay elementos, es hora de comprar!"
+
+    def add_elements(self, elem):
+        self.elements.append(elem)
+        print "Elemento agregado " + elem
+
+    def up_down_temp(self, state):
+        if(self.isOn):
+            if(state):
+                self.temp += 1
+            else:
+                self.temp -=1
+        else:
+            print "Nevera apagada"
+
+    def put_temp(self, temp):
+        if(self.isOn):
+            self.temp = temp
+        else:
+            print "Nevera apagada"
+#/////////////////////////////////////////////////////////////////////////////////
+
+class Washer:
+  def _init_(self):
+      self.isOn = False
+      self.time = 0
+      self.index_state = 4
+      self.state = ["Lana", "Delicado", "Sintetico", "Resistente", "Intensivo"]
+
+  def get_Power(self):
+      return self.isOn
+
+  def get_time(self):
+      return self.time
+
+  def get_state(self):
+      return self.state
+
+  def change_time(self, minute):
+      self.isOn = True
+      self.time = minute
+      print "El tiempo de lavado es de " + self.time + " minutos"
+
+  def turn_on_off(self, state):
+      if(state):
+          if(self.isOn):
+              print "La lavadora ya esta encendida"
+          else:
+              self.isOn = True
+          print "Lavadora encendida"
+      else:
+          if(not self.isOn):
+              print "La lavadora ya esta apagada"
+          else:
+              self.isOn = False
+              print "La lavadora esta apagada"
+
+  def change_state(self, state = "Regular"):
+      if(self.isOn):
+          if(state in self.state):
+              self.index_state = self.state.index(state)
+              print "La estado actual es : " + self.state[self.index_state]
+          else:
+              print "El estado que desea no existe, se pondra el estado por defecto"
+      else:
+          print "No es posible ir a ese estado porque la lavadora esta apagada"
+
+#//////////////////////////////////////////////////////////////////////////////
+
+class Phone:
+    def __init__(self):
+        self.last_number = ""
+        self.agenda = ["321456789", "789456123", "741258963", "369852147"]
+        self.numbers = len(self.agenda)
+        self.mensajes = ["fñjahsñfdhasñdjfh sdhfañsdjhfñadhs fkjasdgf kjah",
+                         "sjdhfñasdjfhlaskjdhf asf asidf hiashd fiphasdpfsd",
+                         "sdfisjdfowhefoasodfoasdhfphsadfpkh sdphf pahs dfph"]
+
+    def llamar(self, num):
+        print "Llamando a ... " + num
+
+    def contesta(self):
+        print "Hablando con"
+
+    def add_agenda(self, num):
+        self.agenda.append(num)
+        print "Numero agradado " + num
+
+    def remove_agenda(self, num):
+        if(num in self.agenda)
+            self.agenda.remove(num)
+        else:
+            print "El numero no existe"
+
+    def mensaje(self):
+        print "Los mensajes son:"
+        for i in self.mensajes:
+            print i
