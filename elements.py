@@ -661,3 +661,4 @@ class Dryer(Power):
                 print "El estado que desea no existe, se pondra el estado por defecto"
         else:
             print "No es posible ir a ese estado porque la secadora esta apagada"
+
