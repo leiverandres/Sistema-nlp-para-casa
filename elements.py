@@ -284,17 +284,17 @@ class SoundSystem:
             print "No puedo modificar, esta apagado"
 #///////////////////////////////////////////////////////////////////////////////
 class Curtains:
-    
+
     def __init__(self):
         self.isOpen = False #Falso totalmente cerradas, True totalmente abiertas
         self.cant = 0 #0 es cerrada, 100 es totalmente abierta
-    
+
     def get_state(self):
         return self.isOpen
-    
+
     def get_cant(self):
         return self.cant
-        
+
     def turn_open_closed(self, state):
         if(state):
             if(self.isOpen):
@@ -310,7 +310,7 @@ class Curtains:
                 self.isOpen = False
                 self.cant = 0
                 print "Cortinas cerradaa."
-        
+
     def up_down_cant(self, state):
         if(state):
             if(self.isOpen):
@@ -334,20 +334,20 @@ class Curtains:
                     print "Las cortinas estan abiertas en un " + str(self.cant)+"%"
  #///////////////////////////////////////////////////////////////////////////////
 class Printer:
-    
+
     def __init__(self):
         self.isOn = False
         self.sheets = 10 #Numero de hojas que tiene la impresora
-    
+
     def get_state(self):
         return self.isOn
-    
+
     def get_sheets(self):
         return self.sheets
-    
+
     def put_sheets(self, sheets):
         self.sheets += sheets
-    
+
     def turn_on_off(self, state):
         if(state):
             if(self.isOn):
@@ -359,11 +359,146 @@ class Printer:
                 print "La impresora ya esta apagada"
             else:
                 print "Impresora apagada"
-    
+
     def print_out(self, pages, copies = 1):
         if(pages*copies <= self.sheets):
             self.sheets -= pages*copies
-            print "Documentos impresos...","La impresora tiene ahora " + str(self.sheets) + " hoja(s) disponibles" 
+            print "Documentos impresos...","La impresora tiene ahora " + str(self.sheets) + " hoja(s) disponibles"
         else:
             print "Por favor ponga al menos " + str(pages*copies - self.sheets) + " hoja(s) en la impresora para poder imprimir su documento"
-            
+#/////////////////////////////////////////////////////////////////////////////////////////////
+
+class Email:
+    def __init__(self):
+        self.inbox = ["hi, need help", "meeting saturday", "another mail"] #numero de corros sin leer
+        self.to_read = len(self.inbox)
+
+    def get_mesa(self):
+        return self.to_read
+
+    def without_read(self):
+        print "Hay " + str(self.get_mesa()) + " mensajes sin leer"
+
+    def list_mesa(self):
+        if(self.to_read > 0):
+            print "Todos los mensajes"
+            for i in self.inbox:
+                print i
+        else:
+            print "No hay mensajes por leer."
+
+    def show_one_mesa(self, index):
+        if(index <= self.to_read):
+            print "Mesaje numero " + str(index)
+            print self.inbox[index]
+        else:
+            print "No existe el mensaje solicitado"
+
+    def show_last_mesa(self):
+        if(self.to_read > 0):
+            print self.inbox[self.to_read - 1]
+        else:
+            print "No hay mensajes por leer."
+
+    def show_oldest_mesa(self):
+        if(self.to_read > 0):
+            print self.inbox[0]
+        else:
+            print "No hay mensajes por leer."
+
+    def remove_mesa(self, index):#index debe venir index 1
+        if(index <= self.to_read):
+            print "mensaje eliminado:\n" + self.inbox.pop(index)
+            self.to_read -= 1
+        else:
+            print "No existe el mensaje solicitado"
+
+    def send_mesaje(self, string):
+        print "Mensaje enviado:\n" + string
+#//////////////////////////////////////////////////////////////////////////////
+
+class Air:
+    def __init__(self):
+        self.isOn = False
+        self.temp = 25 #grados centigrados
+
+    def get_isOn(self):
+        return self.isOn
+    def get_temp(self):
+        return self.temp
+
+    def turn_on_off(self, state):
+        if(state):
+            if(self.isOn):
+                print "El aire acondicionado ya esta encendido"
+            else:
+                print "Aire acondicionado encendido"
+                self.isOn = True
+        else:
+            if(not self.isOn):
+                print "El aire acondicionado ya esta apagado"
+            else:
+                print "Aire acondicionado apagado"
+                self.isOn = False
+
+    def put_temp(self, temp):
+        if(self.isOn):
+            self.temp = temp
+            print "La temperatura esta en " + str(self.temp) + " grados C"
+        else:
+            print "No puedo modifica la temperatura, el aire esta apagado"
+
+    def up_down_temp(self, state):
+        if(self.isOn):
+            if(state):
+                self.temp += 1
+            else:
+                self.temp -= 1
+            print "La temperatura esta en " + str(self.temp) + " grados C"
+        else:
+            print "No puedo modifica la temperatura, el aire esta apagado"
+
+#////////////////////////////////////////////////////////////////////////////
+#security alarm
+class Alert:
+    def __init__(self):
+        self.isOn = False
+        self.volume = 7 #max 10
+
+    def get_isOn(self):
+        return self.isOn
+    def get_volume(self):
+        return self.volume
+
+    def turn_on_off(self, state):
+        if(state):
+            if(self.isOn):
+                print "La alarma ya esta apagada"
+            else:
+                self.isOn = True
+                print "Alarma encendida"
+        else:
+            if(not self.isOn):
+                print "La alarma ya esta apagada"
+            else:
+                self.isOn = False
+                print "Alarma apagada"
+
+    def up_down_vol(self, state):
+        if(self.isOn):
+            if(state):
+                if((self.volume + 1) > 10):
+                    self.volume =  10
+                    print "El volumen esta en su maximo valor: 10"
+                else:
+                    self.volume += 1
+                    print "El volumen de la alarma es: " + str(self.volume)
+            else:
+                if((self.volume - 1) < 2):
+                    self.volumen = 2
+                    print "El volumen esta en su minimo valor: 2"
+                else:
+                    self.volume -= 1
+                    print "El volumen de la alarma es: " + str(self.volume)
+        else:
+            print "No puedo modificar el volumen, la alarma esta apagada"
