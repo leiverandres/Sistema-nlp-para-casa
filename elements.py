@@ -373,7 +373,7 @@ class Air(Power):
     def put_temp(self, temp):
         if(self.isOn):
             self.temp = temp
-            print "La temperatura esta en " + str(self.temp) + " grados C"
+            print "La temperatura esta en " + str(self.temp) + " grados °C"
         else:
             print "No puedo modifica la temperatura, el aire esta apagado"
 
@@ -383,7 +383,7 @@ class Air(Power):
                 self.temp += 1
             else:
                 self.temp -= 1
-            print "La temperatura esta en " + str(self.temp) + " grados C"
+            print "La temperatura esta en " + str(self.temp) + " grados °C"
         else:
             print "No puedo modifica la temperatura, el aire esta apagado"
 
@@ -631,12 +631,12 @@ class Oven(Power):
     def change_temp(self, temp):
         self.isOn = True
         self.temp = temp
-        print "La temperatura para la coccion sera de " + self.temp + " C"
+        print "La temperatura para la coccion sera de " + self.temp + " °C"
 #///////////////////////////////////////////////////////////////////////////////    
 
 class Dryer(Power):
     def __init__(self):
-       Power.__init__(self, "Secadora")
+        Power.__init__(self, "Secadora")
         self.time = 0
         self.index_state = 0
         self.state = ["Presecado", "Delicado", "Regular", "Mix"]
