@@ -689,3 +689,87 @@ class Phone:
     def remove_agenda(self, num):
         if(num )
             self.agenda.remove(num)
+#///////////////////////////////////////////////////////////////////////////////
+class Oven:
+    def __init__(self):
+        self.isOn = False
+        self.temp = 0 #Centigrados
+        self.time = 0 #Minutos
+    
+    def get_Power(self):
+        return self.isOn
+    
+    def get_temp(self):
+        return self.temp
+    
+    def get_time(self):
+        return self.time
+    
+    def turn_on_off(self, state):
+        if(state):
+            if(self.isOn):
+                print "El horno ya esta prendido"
+            else:
+                self.isOn = True
+                print "El horno esta prendido"
+        else:
+            if(not self.isOn):
+                print "El horno ya esta apagado"
+            else:
+                self.isOn = False
+                print "El horno esta apagado"
+    
+    def change_time(self, minute):
+        self.isOn = True
+        self.time = minute
+        print "EL tiempo para de coccion sera de " + self.time + " minutos"
+    
+    def change_temp(self, temp):
+        self.isOn = True
+        self.temp = temp
+        print "La temperatura para la coccion sera de " + self.temp + " C"
+    
+class Dryer:
+    def __init__(self):
+        self.isOn = False
+        self.time = 0
+        self.index_state = 0
+        self.state = ["Presecado", "Delicado", "Regular", "Mix"]
+    
+    def get_Power(self):
+        return self.isOn
+    
+    def get_time(self):
+        return self.time
+        
+    def get_state(self):
+        return self.state
+    
+    def change_time(self, minute):
+        self.isOn = True
+        self.time = minute
+        print "El tiempo de secado es de " + self.time + " minutos"
+    
+    def turn_on_off(self, state):
+        if(state):
+            if(self.isOn):
+                print "La secadora ya esta encendida"
+            else:
+                self.isOn = True
+                print "Secadora encendida"
+        else:
+            if(not self.isOn):
+                print "La secadora ya esta apagada"
+            else:
+                self.isOn = False
+                print "La secadora esta apagada"
+    
+    def change_state(self, state = "Regular"):
+        if(self.isOn):
+            if(state in self.state):
+                self.index_state = self.state.index(state)
+                print "La estado actual es : " + self.state[self.index_state]
+            else:
+                print "El estado que desea no existe, se pondra el estado por defecto"
+        else:
+            print "No es posible ir a ese estado porque la secadora esta apagada"
