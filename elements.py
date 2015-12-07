@@ -1,12 +1,33 @@
-class TV:
-    def __init__(self):
+# -*- coding: utf-8 -*-
+class Power:
+    def __init__(self, obj):
         self.isOn = False
-        self.channel = 1#max 100
+        self.obj = obj
+    
+    def get_Power(self):
+        return self.isOn
+    
+    def turn_on_off(self, state):
+        if(state):
+            if(self.isOn):
+                print "El/La(s) "+ self.obj + " ya esta encendida/abierta(s)."
+            else:
+                self.isOn = True
+                print  self.obj + " encendida."
+        else:
+            if(not self.isOn):
+                print "El/La(s) "+ self.obj + " ya esta apagada/cerrada(s)."
+            else:
+                self.isOn = False
+                print self.obj + " apagada."
+
+#///////////////////////////////////////////////////////////////////////////////
+class TV(Power):
+    def __init__(self):
+        Power.__init__(self, "TV")
+        self.channel = 1 #max 100
         self.volume = 10
 
-    def get_state(self):
-        return self.isOn
-        
     def get_channel(self):
         return self.channel
         
@@ -48,46 +69,15 @@ class TV:
                 print "Volumen --: " + str(self.volume)
         else:
             print "El tv esta apagado, enciendalo."
-
-    def turn_on_off(self, state):
-        if(state):
-            if(self.isOn):
-                print "El tv ya esta encendida."
-            else:
-                self.isOn = True
-                print "Tv encendida."
-        else:
-            if(not self.isOn):
-                print "El tv ya esta apagada."
-            else:
-                self.isOn = False
-                print "Tv apagada."
+            
 #///////////////////////////////////////////////////////////////////////////////
-
-class Light:
+class Light(Power):
     def __init__ (self):
-        self.isOn = False
+        Power.__init__(self, "Luz")
         self.intensity = 0
 
-    def get_state(self):
-        return self.isOn
-        
     def get_intensity(self):
         return self.intensity
-
-    def turn_on_off(self, state):
-        if(state):
-            if(self.isOn):
-                print "La Luz ya esta encedida."
-            else:
-                self.isOn = True
-                print "Luz encendida."
-        else:
-            if(not self.isOn):
-                print "La luz ya esta apagada."
-            else:
-                self.isOn = False
-                print "Luz apagada."
 
     def set_intensity(self, cant):
         if(cant == 0):
@@ -124,34 +114,17 @@ class Light:
                 print "Intensidad en: " + str(self.intensity)
 #///////////////////////////////////////////////////////////////////////////////
 
-class Shower:
+class Shower(Power):
     def __init__(self):
-        self.isOn = False
+        Power.__init__(self, "Ducha")
         self.temp = 25 #temperatura
         self.flow = 0
 
-    def get_state(self):
-        return self.isOn
-        
     def get_temp(self):
         return self.temp
         
     def get_flow(self):
         return self.flow
-
-    def turn_on_off(self, state):
-        if(state):
-            if(self.isOn):
-                print "La ducha ya esta abierta."
-            else:
-                self.isOn = True
-                print "Ducha abierta."
-        else:
-            if(not self.isOn):
-                print "La ducha ya esta cerrada."
-            else:
-                self.isOn = False
-                print "Ducha cerrada."
 
     def up_down_temp(self, state):
         if(self.isOn):
@@ -193,15 +166,12 @@ class Shower:
             print "No puedo modificar el nivel de flujo, la ducha esta cerrada"
 #///////////////////////////////////////////////////////////////////////////////
 
-class Dishwasher:
+class Dishwasher(Power):
     def __init__(self):
-        self.isOn = False
+        Power.__init__(self, "Lavaplatos")
         self.haveDish = False
         self.time = 0
 
-    def get_Power(self):
-        return self.isOn
-        
     def get_have_dish(self):
         return self.haveDish
         
@@ -211,20 +181,6 @@ class Dishwasher:
     def set_have_dish(self, state):
         self.haveDish = state
 
-    def turn_on_off(self, state):
-        if(state):
-            if(self.isOn):
-                print "El lavaplatos ya esta encedido"
-            else:
-                self.isOn = True
-                print "Lavaplatos encendio"
-        else:
-            if(not self.isOn):
-                print "El lavaplatos ya esta apagado"
-            else:
-                self.isOn = False
-                print "Lavaplatos apagado"
-
     def wash(self, time = 5):
         if(self.haveDish):
             self.isOn = True
@@ -232,25 +188,23 @@ class Dishwasher:
         else:
             print "No hay platos sucios para lavar en el lavaplatos"
 #///////////////////////////////////////////////////////////////////////////////
-class SoundSystem:
+
+class SoundSystem(Power):
     def __init__ (self):
-        self.isOn = False
+        Power.__init__(self, "Equipo")
         self.volume = 0
         self.song = 0 #max 15
         self.stations = ["88.2", "89.6", "95.6", "98.4", "100.2", "102.5", "103.9", "105.7", "106.9", "107.9"]
         self.index_station = 0
-
-    def turn_on_off(self, state):
-        if(state):
-            if(self.isOn):
-                print "El equipo ya esta encendido"
-            else:
-                self.isOn = True
-        else:
-            if(not self.isOn):
-                print "El equipo ya esta apagado"
-            else:
-                self.isOn = False
+    
+    def get_volume(self):
+        return self.volume
+    
+    def get_stations(self):
+        return self.stations
+    
+    def get_num_song(self):
+        return self.song
 
     def change_station(self, station = "88.2"):
         if(self.isOn):
@@ -293,36 +247,33 @@ class SoundSystem:
             print "No puedo modificar, esta apagado"
 #///////////////////////////////////////////////////////////////////////////////
 
-class Curtains:
+class Curtains(Power):
     def __init__(self):
-        self.isOpen = False #Falso totalmente cerradas, True totalmente abiertas
+        Power.__init__(self, "Cortinas")
         self.cant = 0 #0 es cerrada, 100 es totalmente abierta
-
-    def get_state(self):
-        return self.isOpen
 
     def get_cant(self):
         return self.cant
 
     def turn_open_closed(self, state):
         if(state):
-            if(self.isOpen):
+            if(self.isOn):
                 print "Las cortinas ya estan abiertas."
             else:
-                self.isOpen = True
+                self.isOn = True
                 self.cant = 100
                 print "Cortinas abiertas."
         else:
-            if(not self.isOpen):
+            if(not self.isOn):
                 print "Las cortinas ya estan cerradas."
             else:
-                self.isOpen = False
+                self.isOn = False
                 self.cant = 0
                 print "Cortinas cerradaa."
 
     def up_down_cant(self, state):
         if(state):
-            if(self.isOpen):
+            if(self.isOn):
                 print "Las cortinas ya estan totalmente abiertas"
             else:
                 if(self.cant + 10 > 100):
@@ -332,7 +283,7 @@ class Curtains:
                     self.cant += 10
                     print "Las cortinas estan abiertas en un " + str(self.cant)+"%"
         else:
-            if(not self.isOpen):
+            if(not self.isOn):
                 print "Las cortinas ya estan totalmente cerradas"
             else:
                 if(self.cant - 10 < 0):
@@ -343,34 +294,16 @@ class Curtains:
                     print "Las cortinas estan abiertas en un " + str(self.cant)+"%"
  #///////////////////////////////////////////////////////////////////////////////
  
-class Printer:
-
+class Printer(Power):
     def __init__(self):
-        self.isOn = False
+        Power.__init__(self, "Impresora")
         self.sheets = 10 #Numero de hojas que tiene la impresora
-
-    def get_state(self):
-        return self.isOn
 
     def get_sheets(self):
         return self.sheets
 
     def put_sheets(self, sheets):
         self.sheets += sheets
-
-    def turn_on_off(self, state):
-        if(state):
-            if(self.isOn):
-                print "La impresora ya esta encendida"
-            else:
-                self.isOn = True
-                print "Impresora encendida"
-        else:
-            if(not self.isOn):
-                print "La impresora ya esta apagada"
-            else:
-                self.isOn = False
-                print "Impresora apagada"
 
     def print_out(self, pages, copies = 1):
         if(pages*copies <= self.sheets):
@@ -429,30 +362,13 @@ class Email:
         print "Mensaje enviado:\n" + string
 #//////////////////////////////////////////////////////////////////////////////
 
-class Air:
+class Air(Power):
     def __init__(self):
-        self.isOn = False
+        Power.__init__(self, "Aire acondicionado")
         self.temp = 25 #grados centigrados
 
-    def get_isOn(self):
-        return self.isOn
-        
     def get_temp(self):
         return self.temp
-
-    def turn_on_off(self, state):
-        if(state):
-            if(self.isOn):
-                print "El aire acondicionado ya esta encendido"
-            else:
-                print "Aire acondicionado encendido"
-                self.isOn = True
-        else:
-            if(not self.isOn):
-                print "El aire acondicionado ya esta apagado"
-            else:
-                print "Aire acondicionado apagado"
-                self.isOn = False
 
     def put_temp(self, temp):
         if(self.isOn):
@@ -474,30 +390,13 @@ class Air:
 #////////////////////////////////////////////////////////////////////////////
 
 #security alarm
-class Alert:
+class Alert(Power):
     def __init__(self):
-        self.isOn = False
+        Power.__init__(self, "Alarma")
         self.volume = 7 #max 10
 
-    def get_isOn(self):
-        return self.isOn
-        
     def get_volume(self):
         return self.volume
-
-    def turn_on_off(self, state):
-        if(state):
-            if(self.isOn):
-                print "La alarma ya esta apagada"
-            else:
-                self.isOn = True
-                print "Alarma encendida"
-        else:
-            if(not self.isOn):
-                print "La alarma ya esta apagada"
-            else:
-                self.isOn = False
-                print "Alarma apagada"
 
     def up_down_vol(self, state):
         if(self.isOn):
@@ -518,6 +417,7 @@ class Alert:
         else:
             print "No puedo modificar el volumen, la alarma esta apagada"
 #///////////////////////////////////////////////////////////////////////////////
+
 class Burner:
     def __init__(self):
         self.isOn = False
@@ -639,15 +539,12 @@ class Fridge:
             print "Nevera apagada"
 #/////////////////////////////////////////////////////////////////////////////////
 
-class Washer:
+class Washer(Power):
   def _init_(self):
-      self.isOn = False
+      Power.__init__(self, "Lavadora")
       self.time = 0
       self.index_state = 4
       self.state = ["Lana", "Delicado", "Sintetico", "Resistente", "Intensivo"]
-
-  def get_Power(self):
-      return self.isOn
 
   def get_time(self):
       return self.time
@@ -659,20 +556,6 @@ class Washer:
       self.isOn = True
       self.time = minute
       print "El tiempo de lavado es de " + self.time + " minutos"
-
-  def turn_on_off(self, state):
-      if(state):
-          if(self.isOn):
-              print "La lavadora ya esta encendida"
-          else:
-              self.isOn = True
-          print "Lavadora encendida"
-      else:
-          if(not self.isOn):
-              print "La lavadora ya esta apagada"
-          else:
-              self.isOn = False
-              print "La lavadora esta apagada"
 
   def change_state(self, state = "Delicado"):
       if(self.isOn):
@@ -697,7 +580,7 @@ class Phone:
                         "koaj faś jfáo jsofj aoś jfo af'jaojfóa fsaój"];
 
     def llamar(self, num):
-        if(num in agenda):    
+        if(num in self.agenda):    
             print "Llamando a ... " + num
             self.last = num
         else:
@@ -714,7 +597,7 @@ class Phone:
         print "mensaje agregado"
 
     def contesta(self, num = ""):
-        if(not (num == ""))    
+        if(not (num == "")):    
             print "Hablando con" + num
         else:
             print "Hablando"
@@ -728,34 +611,17 @@ class Phone:
             self.agenda.remove(num)
 #///////////////////////////////////////////////////////////////////////////////
 
-class Oven:
+class Oven(Power):
     def __init__(self):
-        self.isOn = False
+        Power.__init__(self, "Horno")
         self.temp = 0 #Centigrados
         self.time = 0 #Minutos
-    
-    def get_Power(self):
-        return self.isOn
     
     def get_temp(self):
         return self.temp
     
     def get_time(self):
         return self.time
-    
-    def turn_on_off(self, state):
-        if(state):
-            if(self.isOn):
-                print "El horno ya esta prendido"
-            else:
-                self.isOn = True
-                print "El horno esta prendido"
-        else:
-            if(not self.isOn):
-                print "El horno ya esta apagado"
-            else:
-                self.isOn = False
-                print "El horno esta apagado"
     
     def change_time(self, minute):
         self.isOn = True
@@ -768,15 +634,12 @@ class Oven:
         print "La temperatura para la coccion sera de " + self.temp + " C"
 #///////////////////////////////////////////////////////////////////////////////    
 
-class Dryer:
+class Dryer(Power):
     def __init__(self):
-        self.isOn = False
+       Power.__init__(self, "Secadora")
         self.time = 0
         self.index_state = 0
         self.state = ["Presecado", "Delicado", "Regular", "Mix"]
-    
-    def get_Power(self):
-        return self.isOn
     
     def get_time(self):
         return self.time
@@ -788,20 +651,6 @@ class Dryer:
         self.isOn = True
         self.time = minute
         print "El tiempo de secado es de " + self.time + " minutos"
-    
-    def turn_on_off(self, state):
-        if(state):
-            if(self.isOn):
-                print "La secadora ya esta encendida"
-            else:
-                self.isOn = True
-                print "Secadora encendida"
-        else:
-            if(not self.isOn):
-                print "La secadora ya esta apagada"
-            else:
-                self.isOn = False
-                print "La secadora esta apagada"
     
     def change_state(self, state = "Regular"):
         if(self.isOn):
