@@ -691,12 +691,33 @@ class Phone:
         self.last_number = ""
         self.agenda = ["321456789", "789456123", "741258963", "369852147"]
         self.numbers = len(self.agenda)
+        self.last = ""
+        self.mensajes = ["pjfpjapsfj djf ao jdfjasdfpjasdp fasoj fd",
+                        "asfdjikajfi afj kfa ff kafj kajfk ajkfa jskfj", 
+                        "koaj faś jfáo jsofj aoś jfo af'jaojfóa fsaój"];
 
     def llamar(self, num):
-        print "Llamando a ... " + num
+        if(num in agenda):    
+            print "Llamando a ... " + num
+            self.last = num
+        else:
+            print "el numero no se encuentra en la agenda" 
+    
+    def llamar_ult(self):
+        if(not (self.last == "")):
+            print "Llamando a ... " + self.last
+        else:
+            print "No hay llamadas registradas"
+    
+    def add_mesa(self, mesa):
+        self.mensajes.append(mesa)
+        print "mensaje agregado"
 
-    def contesta(self):
-        print "Hablando con"
+    def contesta(self, num = ""):
+        if(not (num == ""))    
+            print "Hablando con" + num
+        else:
+            print "Hablando"
 
     def add_agenda(self, num):
         self.agenda.append(num)
