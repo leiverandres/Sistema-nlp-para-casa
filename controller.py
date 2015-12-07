@@ -22,6 +22,14 @@ class Controller_house:
         ans = random.choice(opc)
         return resp
     
+    def respond(self, str):
+        #Modificarlo segun nuestro proyecto
+        '''for i in range(0, len(self.keys)):
+          match = self.keys[i].match(str)
+          if match:
+            resp = self.values[i]
+            return resp[0](resp[1],resp[2])''' 
+
     def stateHouse(self): #Aca se dira el estado actual de la casa
         pass
 
