@@ -71,9 +71,9 @@ class TV(Power):
             print "El tv esta apagado, enciendalo."
             
 #///////////////////////////////////////////////////////////////////////////////
-class Light(Power):
+class Light(Power): # Clase para las luces de la casa y para las lamparas
     def __init__ (self):
-        Power.__init__(self, "Luz")
+        Power.__init__(self, "Luz/Lampara")
         self.intensity = 0
 
     def get_intensity(self):
@@ -661,4 +661,3 @@ class Dryer(Power):
                 print "El estado que desea no existe, se pondra el estado por defecto"
         else:
             print "No es posible ir a ese estado porque la secadora esta apagada"
-
