@@ -502,3 +502,79 @@ class Alert:
                     print "El volumen de la alarma es: " + str(self.volume)
         else:
             print "No puedo modificar el volumen, la alarma esta apagada"
+#///////////////////////////////////////////////////////////////////////////////
+class Burner:
+    
+    def __init__(self):
+        self.isOn = False
+        self.id = 0
+        self.intensity = 0
+        
+    def get_Power(self):
+        return self.isOn
+    
+    def get_id(self):
+        return self.id
+    
+    def get_intensity(self):
+        return self.intensity
+    
+    def set_id(self, id):
+        self.id = id
+    
+    def turn_on_off(self, state):
+        if(state):
+            if(self.isOn):
+                print "La hornilla " + str(self.id) + " ya esta encendida"
+            else:
+                print "La hornilla " + str(self.id) + " esta encendida"
+        else:
+            if(not self.isOn):
+                print "La hornilla " + str(self.id) + " ya esta apagada"
+            else:
+                print "La hornilla" + str(self.id) + " esta apagada"
+    
+    def change_intensity(self, state):
+        if(state):
+            self.isOn = True
+            if(self.intensity + 2 > 10):
+                self.intensity = 10
+                print "La hornilla " + str(self.id) + " esta en su maximo intensidad"
+            else:
+                self.intensity += 2
+                print "La hornilla " + str(self.id) + " es con una intensidad de " + str(self.intensity)
+        else:
+            if(self.intensity - 2 < 0):
+                self.isOn = False
+                self.intensity = 0
+                print "La hornilla " + str(self.id) + " esta apagada"
+            else:
+                self.intensity -= 2
+                print "La hornilla " + str(self.id) + " es con una intensidad de " + str(self.intensity)
+#///////////////////////////////////////////////////////////////////////////////
+class Stove:
+    
+    def __init__(self):
+        self.hornillas = [Burner(), Burner(), Burner(), Burner()]
+        self.hornillas[0].id = 1
+        self.hornillas[1].id = 2
+        self.hornillas[2].id = 3
+        self.hornillas[3].id = 4
+    
+    def get_hornilla(self, id): # id: 1-4
+        if(id <= 0 or id > 4):
+            print "La hornilla especificada no es valida"
+        else:
+            return self.hornillas[id - 1]
+    
+    def turn_on_off(self, id, state):
+        if(id <= 0 or id > 4):
+            print "La hornilla especificada no es valida"
+        else:
+            self.hornillas[id - 1].turn_on_off(state)
+    
+    def change_intensity_hornilla(self, id, state):
+        if(id <= 0 or id > 4):
+            print "La hornilla especificada no es valida"
+        else:
+            self.hornillas[id - 1].change_intensity(state)
