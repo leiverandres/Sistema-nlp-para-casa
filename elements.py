@@ -5,9 +5,11 @@ class TV:
         self.volume = 10
 
     def get_state(self):
-        return self.isOn;
+        return self.isOn
+        
     def get_channel(self):
         return self.channel
+        
     def get_volume(self):
         return self.volume
 
@@ -61,13 +63,15 @@ class TV:
                 self.isOn = False
                 print "Tv apagada."
 #///////////////////////////////////////////////////////////////////////////////
+
 class Light:
     def __init__ (self):
         self.isOn = False
         self.intensity = 0
 
     def get_state(self):
-        return self.isOn;
+        return self.isOn
+        
     def get_intensity(self):
         return self.intensity
 
@@ -119,6 +123,7 @@ class Light:
                 self.turn_on_off(True)
                 print "Intensidad en: " + str(self.intensity)
 #///////////////////////////////////////////////////////////////////////////////
+
 class Shower:
     def __init__(self):
         self.isOn = False
@@ -127,8 +132,10 @@ class Shower:
 
     def get_state(self):
         return self.isOn
+        
     def get_temp(self):
         return self.temp
+        
     def get_flow(self):
         return self.flow
 
@@ -185,8 +192,8 @@ class Shower:
         else:
             print "No puedo modificar el nivel de flujo, la ducha esta cerrada"
 #///////////////////////////////////////////////////////////////////////////////
-class Dishwasher:
 
+class Dishwasher:
     def __init__(self):
         self.isOn = False
         self.haveDish = False
@@ -194,10 +201,13 @@ class Dishwasher:
 
     def get_Power(self):
         return self.isOn
+        
     def get_have_dish(self):
         return self.haveDish
+        
     def set_time(self, time):
         self.time = time
+        
     def set_have_dish(self, state):
         self.haveDish = state
 
@@ -223,7 +233,6 @@ class Dishwasher:
             print "No hay platos sucios para lavar en el lavaplatos"
 #///////////////////////////////////////////////////////////////////////////////
 class SoundSystem:
-
     def __init__ (self):
         self.isOn = False
         self.volume = 0
@@ -283,8 +292,8 @@ class SoundSystem:
         else:
             print "No puedo modificar, esta apagado"
 #///////////////////////////////////////////////////////////////////////////////
-class Curtains:
 
+class Curtains:
     def __init__(self):
         self.isOpen = False #Falso totalmente cerradas, True totalmente abiertas
         self.cant = 0 #0 es cerrada, 100 es totalmente abierta
@@ -333,6 +342,7 @@ class Curtains:
                     self.cant -= 10
                     print "Las cortinas estan abiertas en un " + str(self.cant)+"%"
  #///////////////////////////////////////////////////////////////////////////////
+ 
 class Printer:
 
     def __init__(self):
@@ -353,11 +363,13 @@ class Printer:
             if(self.isOn):
                 print "La impresora ya esta encendida"
             else:
+                self.isOn = True
                 print "Impresora encendida"
         else:
             if(not self.isOn):
                 print "La impresora ya esta apagada"
             else:
+                self.isOn = False
                 print "Impresora apagada"
 
     def print_out(self, pages, copies = 1):
@@ -424,6 +436,7 @@ class Air:
 
     def get_isOn(self):
         return self.isOn
+        
     def get_temp(self):
         return self.temp
 
@@ -459,6 +472,7 @@ class Air:
             print "No puedo modifica la temperatura, el aire esta apagado"
 
 #////////////////////////////////////////////////////////////////////////////
+
 #security alarm
 class Alert:
     def __init__(self):
@@ -467,6 +481,7 @@ class Alert:
 
     def get_isOn(self):
         return self.isOn
+        
     def get_volume(self):
         return self.volume
 
@@ -504,7 +519,6 @@ class Alert:
             print "No puedo modificar el volumen, la alarma esta apagada"
 #///////////////////////////////////////////////////////////////////////////////
 class Burner:
-
     def __init__(self):
         self.isOn = False
         self.id = 0
@@ -552,8 +566,8 @@ class Burner:
                 self.intensity -= 2
                 print "La hornilla " + str(self.id) + " es con una intensidad de " + str(self.intensity)
 #///////////////////////////////////////////////////////////////////////////////
-class Stove:
 
+class Stove:
     def __init__(self):
         self.hornillas = [Burner(), Burner(), Burner(), Burner()]
         self.hornillas[0].id = 1
@@ -579,6 +593,7 @@ class Stove:
         else:
             self.hornillas[id - 1].change_intensity(state)
 #////////////////////////////////////////////////////////////////////////////
+
 class Fridge:
     def __init__(self):
         self.isOn = False
@@ -588,6 +603,7 @@ class Fridge:
 
     def get_no_elem(self):
         return self.no_elem
+        
     def get_elements(self):
         print "Elementos en la nevera: "
         for i in self.elements:
@@ -690,6 +706,7 @@ class Phone:
         if(num in self.agenda):
             self.agenda.remove(num)
 #///////////////////////////////////////////////////////////////////////////////
+
 class Oven:
     def __init__(self):
         self.isOn = False
@@ -729,6 +746,7 @@ class Oven:
         self.temp = temp
         print "La temperatura para la coccion sera de " + self.temp + " C"
 #///////////////////////////////////////////////////////////////////////////////    
+
 class Dryer:
     def __init__(self):
         self.isOn = False
