@@ -687,7 +687,7 @@ class Phone:
         print "Numero agradado " + num
 
     def remove_agenda(self, num):
-        if(num )
+        if(num in self.agenda):
             self.agenda.remove(num)
 #///////////////////////////////////////////////////////////////////////////////
 class Oven:
