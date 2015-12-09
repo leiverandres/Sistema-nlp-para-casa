@@ -20,7 +20,7 @@ class Controller_house:
                 "Puedo irme a descansar?", 
                 "Te sientes a gusto con lo que hago?"]
         ans = random.choice(opc)
-        return resp
+        return ans
     
     def respond(self, str):
         #Modificarlo segun nuestro proyecto
