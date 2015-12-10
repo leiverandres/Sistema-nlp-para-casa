@@ -23,7 +23,7 @@ class Namespace(dict):
 
   def controlVentana2(self, attr, value):
   # 1 abierto, 0 cerrado, value indica 1 para abrir, 0 para cerrar.=
-    
+
     ##print "estabado2 :" + str(self[attr]) + "  valor: " + str(value)
     if(self[attr] == 0 and value == 1):
       self[attr] = 1
@@ -38,7 +38,7 @@ class Namespace(dict):
 
   def controlVentana3(self, attr, value):
   # 1 abierto, 0 cerrado, value indica 1 para abrir, 0 para cerrar.=
-    
+
     ##print "estabado3 :" + str(self[attr]) + "  valor: " + str(value)
     if(self[attr] == 0 and value == 1):
       self[attr] = 1
@@ -64,11 +64,11 @@ class Namespace(dict):
         ventanas.append(attr1[x] +  " fue cerrada")
     return str(ventanas)
 
-      
+
 
   def controlPuertappal(self, attr, value):
   # 1 abierto, 0 cerrado, value indica 1 para abrir, 0 para cerrar.=
-    
+
     #print "estabado1 :" + str(self[attr]) + "  valor: " + str(value)
     if(self[attr] == 0 and value == 1):
       self[attr] = 1
@@ -83,7 +83,7 @@ class Namespace(dict):
 
   def controlPuertacuarto(self, attr, value):
   # 1 abierto, 0 cerrado, value indica 1 para abrir, 0 para cerrar.=
-    
+
     #print "estabado2 :" + str(self[attr]) + "  valor: " + str(value)
     if(self[attr] == 0 and value == 1):
       self[attr] = 1
@@ -98,7 +98,7 @@ class Namespace(dict):
 
   def controlPuertabano(self, attr, value):
   # 1 abierto, 0 cerrado, value indica 1 para abrir, 0 para cerrar.=
-    
+
     ##print "estabado3 :" + str(self[attr]) + "  valor: " + str(value)
     if(self[attr] == 0 and value == 1):
       self[attr] = 1
@@ -295,7 +295,7 @@ class Namespace(dict):
     elif(self[attr] == 1 and value == 0):
       self[attr] = 0
       return "La luz del cuarto fue apagada"
-  
+
   def controlLuzCocina(self, attr, value):
   # 1 abierto, 0 cerrado, value indica 1 para abrir, 0 para cerrar.=
     if(self[attr] == 0 and value == 1):
@@ -308,7 +308,7 @@ class Namespace(dict):
     elif(self[attr] == 1 and value == 0):
       self[attr] = 0
       return "La luz de la cocina fue apagada"
- 
+
   def controlLuzBano(self, attr, value):
   # 1 abierto, 0 cerrado, value indica 1 para abrir, 0 para cerrar.=
     if(self[attr] == 0 and value == 1):
@@ -321,7 +321,7 @@ class Namespace(dict):
     elif(self[attr] == 1 and value == 0):
       self[attr] = 0
       return "La luz del bano fue apagada"
-  
+
   def controlLuzPatio(self, attr, value):
   # 1 abierto, 0 cerrado, value indica 1 para abrir, 0 para cerrar.=
     if(self[attr] == 0 and value == 1):
@@ -334,7 +334,7 @@ class Namespace(dict):
     elif(self[attr] == 1 and value == 0):
       self[attr] = 0
       return "La luz del patio fue apagada"
-  
+
   def controlLuzComedor(self, attr, value):
   # 1 abierto, 0 cerrado, value indica 1 para abrir, 0 para cerrar.=
     if(self[attr] == 0 and value == 1):
@@ -347,7 +347,7 @@ class Namespace(dict):
     elif(self[attr] == 1 and value == 0):
       self[attr] = 0
       return "La luz del comedor fue apagada"
-  
+
   def controlLuces(self, attr1, valor):
     luces= []
     # 1 abierto, 0 cerrado, valor indica 1 para abrir, 0 para cerrar.=
@@ -358,7 +358,7 @@ class Namespace(dict):
       elif (self[attr1[x]] == 1 and valor == 0):
         self[attr1[x]] = 0
         luces.append(attr1[x] + " fue apagada")
-    return str(luces)   
+    return str(luces)
 
   def controlEstados(self, attr1, valor):
     estados = []
@@ -367,8 +367,8 @@ class Namespace(dict):
       if(self[attr1[x]] == 0):
         estados.append(attr1[x] + " se encuentra apagado o cerrado")
       elif (self[attr1[x]] == 1 ):
-        estados.append(attr1[x] + " se encuentra encendido o abierto")  
-    return str (estados) 
+        estados.append(attr1[x] + " se encuentra encendido o abierto")
+    return str (estados)
 
   def estado(self, attr, attr1):
     if(self[attr] == 0):
@@ -387,4 +387,3 @@ class Namespace(dict):
 
   def mal(self, attr, attr1):
     return attr
-
