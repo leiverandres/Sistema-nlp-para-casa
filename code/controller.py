@@ -33,7 +33,6 @@ ventanas      = [Curtains(), Curtains(), Curtains(),
 luces         = [Light(), Light(), Light(), Light(), Light(), Light(),
                  Light(), Light(), Light(), Light(), Light(), Light()]
 
-
 #Patio
 lavadora      = Washer()
 secadora      = Dryer()
