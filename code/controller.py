@@ -64,6 +64,7 @@ class Controller_house:
           if match:
             resp = self.values[i]
             return resp[0](resp[1],resp[2])''' 
+        pass
 
     def stateHouse(self): #Aca se dira el estado actual de la casa
         pass
@@ -74,3 +75,7 @@ gPats = [
     #formato --> nombre de la funcion, lista de argumentos
     ]],
 ]
+
+#Haciendo pruebas
+telefono.contesta("3117223438")
+impresora.turn_on_off(True)

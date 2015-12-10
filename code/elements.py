@@ -598,13 +598,13 @@ class Phone:
 
     def contesta(self, num = ""):
         if(not (num == "")):    
-            print "Hablando con" + num
+            print "Hablando con " + num
         else:
             print "Hablando"
 
     def add_agenda(self, num):
         self.agenda.append(num)
-        print "Numero agradado " + num
+        print "Numero agregado " + num
 
     def remove_agenda(self, num):
         if(num in self.agenda):
