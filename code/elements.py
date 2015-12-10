@@ -540,7 +540,7 @@ class Fridge:
 #/////////////////////////////////////////////////////////////////////////////////
 
 class Washer(Power):
-  def _init_(self):
+  def __init__(self):
       Power.__init__(self, "Lavadora")
       self.time = 0
       self.index_state = 4
