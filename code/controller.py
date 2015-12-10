@@ -6,6 +6,42 @@ from elements import *
 
 #//////////////////////////////////////////////////////////////////////
 # Creando los objetos de la casa
+#Telefono ubicado en el segundo piso
+telefono      = Phone()
+
+#Baño
+ducha         = Shower()
+
+#Cocina
+lavaplatos    = Dishwasher()
+estufa        = Stove()
+horno         = Oven()
+nevera        = Fridge()
+
+#Pasillo
+impresora     = Printer()
+correos       = Email()
+
+#Habitaciones
+lamparas      = [Light(), Light(), Light()]
+tvs           = [TV(), TV(), TV()]
+
+#Sala y cuartos
+ventanas      = [Curtains(), Curtains(), Curtains(),
+                Curtains(), Curtains(), Curtains(),
+                Curtains(), Curtains(), Curtains()]
+luces         = [Light(), Light(), Light(), Light(), Light(), Light(),
+                 Light(), Light(), Light(), Light(), Light(), Light()]
+
+
+#Patio
+lavadora      = Washer()
+secadora      = Dryer()
+
+#Otros
+acondicionado = Air()
+sonido        = [SoundSystem(), SoundSystem()]
+alarmas       = [Alert(), Alert()]
 
 #//////////////////////////////////////////////////////////////////////
 

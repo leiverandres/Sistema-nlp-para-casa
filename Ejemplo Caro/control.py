@@ -121,7 +121,7 @@ class Namespace(dict):
         puertas.append (attr1[x]  + "fue abierta")
       elif (self[attr1[x]] == 1 and valor == 0):
         self[attr1[x]] = 0
-        pueras.append(attr1[x] + " fue cerrada")
+        puertas.append(attr1[x] + " fue cerrada")
     return str(puertas)
 
   def controlNevera(self, attr, value):
