@@ -120,7 +120,6 @@ gPats = [
 ]
 
 
-<<<<<<< HEAD
 
 # #Haciendo pruebas
 # tvs[0].turn_on_off(True)
@@ -130,7 +129,6 @@ s = "init"
 while(s != "salir"):
     s = raw_input("TÚ: ")
     print control.respond(s)
-=======
 #Haciendo pruebas
 print tvs[0]
 print tvs[1]
@@ -181,4 +179,3 @@ print sonido[0]
 print sonido[1]
 print alarmas[0]
 print alarmas[1]
->>>>>>> 10c82af9624cc42c75eeef014848665f86c6a4e4
