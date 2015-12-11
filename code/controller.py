@@ -45,11 +45,6 @@ alarmas       = [Alert(), Alert()]
 
 #///////////////////////////////////////////////////////////////////////
 
-class namespace(dict):
-    def __getattr__(self, attr):
-        return self[attr]
-    def __setattr__(self, attr, value):
-        self[atrr] = value
 
 #//////////////////////////////////////////////////////////////////////
 
@@ -86,8 +81,20 @@ gPats = [
 
 
 # #Haciendo pruebas
-# tvs[0].turn_on_off(True)
-# print tvs[0]
-control = Controller_house()
-s = raw_input("TÚ: ")
-print control.respond(s)
+print tvs[0],tvs[1],tvs[2]
+print telefono
+print ducha
+print estufa
+print lavaplatos
+print horno
+print nevera
+print impresora
+print correos
+print lamparas[0],lamparas[1],lamparas[2]
+print ventanas[0],ventanas[1],ventanas[2],ventanas[3],ventanas[4],ventanas[5],ventanas[6],ventanas[7],ventanas[8]
+print luces[0],luces[1],luces[2],luces[3],luces[4],luces[5],luces[6],luces[7],luces[8],luces[9],luces[10],luces[11]
+print lavadora
+print secadora
+print acondicionado
+print sonido[0],sonido[1]
+print alarmas[0],alarmas[1]

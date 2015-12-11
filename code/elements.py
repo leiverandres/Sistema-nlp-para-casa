@@ -76,7 +76,7 @@ class TV(Power):
             s += "El tv esta encendido, el canal actual es " + str(self.channel) + " y tiene un volumen de " + str(self.volume)
         else:
             s += "El tv esta apagado"
-        return s
+        return s+"\n"
 
 #///////////////////////////////////////////////////////////////////////////////
 class Light(Power): # Clase para las luces de la casa y para las lamparas
@@ -127,7 +127,7 @@ class Light(Power): # Clase para las luces de la casa y para las lamparas
             s += "La luz/lampara esta encendida y su intensidad es " + str(self.intensity) + "%"
         else:
             s += "La luz/lampara esta apagado"
-        return s
+        return s+"\n"
 #///////////////////////////////////////////////////////////////////////////////
 
 class Shower(Power):
@@ -284,7 +284,7 @@ class SoundSystem(Power):
             s += "El equipo esta encendido, se encuentra en la emisora " + self.stations[self.index_station] + " y la cancion para reproducir es el track #" + str(self.song)
         else:
             s += "El equipo esta apagado"
-        return s
+        return s+"\n"
 #///////////////////////////////////////////////////////////////////////////////
 
 class Curtains(Power):
@@ -333,13 +333,13 @@ class Curtains(Power):
                     self.cant -= 10
                     return "Las cortinas estan abiertas en un " + str(self.cant)+"%"
         
-        def __str__(self):
-            s = ""
-            if(self.isOn):
-                s += "Las cortinas de la ventana estan abiertas en un " + str(self.cant) + "%"
-            else:
-                s += "Las cortinas de la ventana estan cerradas"
-            return s
+    def __str__(self):
+        s = ""
+        if(self.isOn):
+            s += "Las cortinas de la ventana estan abiertas en un " + str(self.cant) + "%"
+        else:
+            s += "Las cortinas de la ventana estan cerradas"
+        return s+"\n"
  #///////////////////////////////////////////////////////////////////////////////
 
 class Printer(Power):
@@ -492,7 +492,7 @@ class Alert(Power):
             s += "La alarma esta encendida/activada y esta con un volumen de " + str(self.volume)
         else:
             s += "La alarma esta apagada/desactivada"
-        return s
+        return s+"\n"
 #///////////////////////////////////////////////////////////////////////////////
 
 class Burner:
@@ -546,10 +546,10 @@ class Burner:
     def __str__(self):
         s = ""
         if(self.isOn):
-            s += "La hornilla " + self.id + " esta encendida y esta con una intensidad de " + str(self.intensity)
+            s += "La hornilla " + str(self.id) + " esta encendida y esta con una intensidad de " + str(self.intensity)
         else:
-            s += "La hornilla " + self.id + " esta apagada"
-        return s
+            s += "La hornilla " + str(self.id) + " esta apagada"
+        return s+"\n"
 #///////////////////////////////////////////////////////////////////////////////
 
 class Stove:
@@ -717,7 +717,7 @@ class Phone:
     
     def list_msj(self):
         s = ""
-        if len(self.mensajes > 0):
+        if len(self.mensajes) > 0:
             s += "Todos los mensajes:\n"
             for i in self.mensajes:
                 s += i + "\n"
@@ -733,7 +733,7 @@ class Phone:
     
     def list_contacts(self):
         s = ""
-        if len(self.agenda > 0):
+        if len(self.agenda) > 0:
             s += "Todos los contactos:\n"
             for i in self.agenda:
                 s += i + "\n"
