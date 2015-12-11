@@ -753,9 +753,6 @@ class Phone:
     def remove_agenda(self, num):
         if(num in self.agenda):
             self.agenda.remove(num)
-<<<<<<< HEAD
-
-=======
         return "Contacto removido" 
     
     def __str__(self):
@@ -763,7 +760,6 @@ class Phone:
         s += self.list_contacts() + "\n"
         s += self.list_msj()
         return s
->>>>>>> 10c82af9624cc42c75eeef014848665f86c6a4e4
 #///////////////////////////////////////////////////////////////////////////////
 
 class Oven(Power):
