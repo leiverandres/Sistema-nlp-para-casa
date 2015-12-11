@@ -81,7 +81,9 @@ gPats = [
 
 
 # #Haciendo pruebas
-print tvs[0],tvs[1],tvs[2]
+print tvs[0]
+print tvs[1] 
+print tvs[2]
 print telefono
 print ducha
 print estufa
@@ -90,11 +92,34 @@ print horno
 print nevera
 print impresora
 print correos
-print lamparas[0],lamparas[1],lamparas[2]
-print ventanas[0],ventanas[1],ventanas[2],ventanas[3],ventanas[4],ventanas[5],ventanas[6],ventanas[7],ventanas[8]
-print luces[0],luces[1],luces[2],luces[3],luces[4],luces[5],luces[6],luces[7],luces[8],luces[9],luces[10],luces[11]
+print lamparas[0] 
+print lamparas[1] 
+print lamparas[2]
+print ventanas[0] 
+print ventanas[1] 
+print ventanas[2] 
+print ventanas[3] 
+print ventanas[4] 
+print ventanas[5]
+print ventanas[6]
+print ventanas[7]
+print ventanas[8]
+print luces[0]
+print luces[1]
+print luces[2]
+print luces[3]
+print luces[4]
+print luces[5]
+print luces[6]
+print luces[7]
+print luces[8]
+print luces[9]
+print luces[10]
+print luces[11]
 print lavadora
 print secadora
 print acondicionado
-print sonido[0],sonido[1]
-print alarmas[0],alarmas[1]
+print sonido[0]
+print sonido[1]
+print alarmas[0]
+print alarmas[1]

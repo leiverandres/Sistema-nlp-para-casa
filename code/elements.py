@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 class Power:
-    def __init__(self, obj):
+    def __init__(self, obj, id):
         self.isOn = False
         self.obj = obj
+        self.id = id
 
     def get_Power(self):
         return self.isOn
@@ -23,8 +24,8 @@ class Power:
 
 #///////////////////////////////////////////////////////////////////////////////
 class TV(Power):
-    def __init__(self):
-        Power.__init__(self, "TV")
+    def __init__(self, id):
+        Power.__init__(self, "TV", id)
         self.channel = 1 #max 100
         self.volume = 10
 
@@ -76,12 +77,12 @@ class TV(Power):
             s += "El tv esta encendido, el canal actual es " + str(self.channel) + " y tiene un volumen de " + str(self.volume)
         else:
             s += "El tv esta apagado"
-        return s+"\n"
+        return s
 
 #///////////////////////////////////////////////////////////////////////////////
 class Light(Power): # Clase para las luces de la casa y para las lamparas
-    def __init__ (self):
-        Power.__init__(self, "Luz/Lampara")
+    def __init__ (self, id):
+        Power.__init__(self, "Luz/Lampara", id)
         self.intensity = 0
 
     def get_intensity(self):
@@ -127,12 +128,12 @@ class Light(Power): # Clase para las luces de la casa y para las lamparas
             s += "La luz/lampara esta encendida y su intensidad es " + str(self.intensity) + "%"
         else:
             s += "La luz/lampara esta apagado"
-        return s+"\n"
+        return s
 #///////////////////////////////////////////////////////////////////////////////
 
 class Shower(Power):
-    def __init__(self):
-        Power.__init__(self, "Ducha")
+    def __init__(self, id):
+        Power.__init__(self, "Ducha", id)
         self.temp = 25 #temperatura
         self.flow = 0
 
@@ -191,8 +192,8 @@ class Shower(Power):
 #///////////////////////////////////////////////////////////////////////////////
 
 class Dishwasher(Power):
-    def __init__(self):
-        Power.__init__(self, "Lavaplatos")
+    def __init__(self, id):
+        Power.__init__(self, "Lavaplatos", id)
         self.haveDish = False
         self.time = 0
 
@@ -222,8 +223,8 @@ class Dishwasher(Power):
 #///////////////////////////////////////////////////////////////////////////////
 
 class SoundSystem(Power):
-    def __init__ (self):
-        Power.__init__(self, "Equipo")
+    def __init__ (self, id):
+        Power.__init__(self, "Equipo", id)
         self.volume = 0
         self.song = 0 #max 15
         self.stations = ["88.2", "89.6", "95.6", "98.4", "100.2", "102.5", "103.9", "105.7", "106.9", "107.9"]
@@ -284,12 +285,12 @@ class SoundSystem(Power):
             s += "El equipo esta encendido, se encuentra en la emisora " + self.stations[self.index_station] + " y la cancion para reproducir es el track #" + str(self.song)
         else:
             s += "El equipo esta apagado"
-        return s+"\n"
+        return s
 #///////////////////////////////////////////////////////////////////////////////
 
 class Curtains(Power):
-    def __init__(self):
-        Power.__init__(self, "Cortinas")
+    def __init__(self, id):
+        Power.__init__(self, "Cortinas", id)
         self.cant = 0 #0 es cerrada, 100 es totalmente abierta
 
     def get_cant(self):
@@ -339,12 +340,12 @@ class Curtains(Power):
             s += "Las cortinas de la ventana estan abiertas en un " + str(self.cant) + "%"
         else:
             s += "Las cortinas de la ventana estan cerradas"
-        return s+"\n"
+        return s
  #///////////////////////////////////////////////////////////////////////////////
 
 class Printer(Power):
-    def __init__(self):
-        Power.__init__(self, "Impresora")
+    def __init__(self, id):
+        Power.__init__(self, "Impresora", id)
         self.sheets = 10 #Numero de hojas que tiene la impresora
 
     def get_sheets(self):
@@ -425,8 +426,8 @@ class Email:
 #//////////////////////////////////////////////////////////////////////////////
 
 class Air(Power):
-    def __init__(self):
-        Power.__init__(self, "Aire acondicionado")
+    def __init__(self, id):
+        Power.__init__(self, "Aire acondicionado", id)
         self.temp = 25 #grados centigrados
 
     def get_temp(self):
@@ -460,8 +461,8 @@ class Air(Power):
 
 #security alarm
 class Alert(Power):
-    def __init__(self):
-        Power.__init__(self, "Alarma")
+    def __init__(self, id):
+        Power.__init__(self, "Alarma", id)
         self.volume = 7 #max 10
 
     def get_volume(self):
@@ -492,7 +493,7 @@ class Alert(Power):
             s += "La alarma esta encendida/activada y esta con un volumen de " + str(self.volume)
         else:
             s += "La alarma esta apagada/desactivada"
-        return s+"\n"
+        return s
 #///////////////////////////////////////////////////////////////////////////////
 
 class Burner:
@@ -549,7 +550,7 @@ class Burner:
             s += "La hornilla " + str(self.id) + " esta encendida y esta con una intensidad de " + str(self.intensity)
         else:
             s += "La hornilla " + str(self.id) + " esta apagada"
-        return s+"\n"
+        return s
 #///////////////////////////////////////////////////////////////////////////////
 
 class Stove:
@@ -643,8 +644,8 @@ class Fridge:
 #/////////////////////////////////////////////////////////////////////////////////
 
 class Washer(Power):
-    def __init__(self):
-      Power.__init__(self, "Lavadora")
+    def __init__(self, id):
+      Power.__init__(self, "Lavadora", id)
       self.time = 0
       self.index_state = 4
       self.state = ["Lana", "Delicado", "Sintetico", "Resistente", "Intensivo"]
@@ -758,8 +759,8 @@ class Phone:
 #///////////////////////////////////////////////////////////////////////////////
 
 class Oven(Power):
-    def __init__(self):
-        Power.__init__(self, "Horno")
+    def __init__(self, id):
+        Power.__init__(self, "Horno", id)
         self.temp = 0 #Centigrados
         self.time = 0 #Minutos
 
@@ -789,8 +790,8 @@ class Oven(Power):
 #///////////////////////////////////////////////////////////////////////////////
 
 class Dryer(Power):
-    def __init__(self):
-        Power.__init__(self, "Secadora")
+    def __init__(self, id):
+        Power.__init__(self, "Secadora", id)
         self.time = 0
         self.index_state = 0
         self.state = ["Presecado", "Delicado", "Regular", "Mix"]
