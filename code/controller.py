@@ -10,42 +10,37 @@ from elements import *
 telefono      = Phone()
 
 #Baño
-ducha         = Shower()
+ducha         = Shower(1)
 
 #Cocina
-lavaplatos    = Dishwasher()
+lavaplatos    = Dishwasher(1)
 estufa        = Stove()
-horno         = Oven()
+horno         = Oven(1)
 nevera        = Fridge()
 
 #Pasillo
-impresora     = Printer()
+impresora     = Printer(1)
 correos       = Email()
 
 #Habitaciones
-lamparas      = [Light(), Light(), Light()]
-tvs           = [TV(), TV(), TV()]
+lamparas      = [Light(1), Light(2), Light(3)]
+tvs           = [TV(1), TV(2), TV(3)]
 
 #Sala y cuartos
-ventanas      = [Curtains(), Curtains(), Curtains(),
-                Curtains(), Curtains(), Curtains(),
-                Curtains(), Curtains(), Curtains()]
-luces         = [Light(), Light(), Light(), Light(), Light(), Light(),
-                 Light(), Light(), Light(), Light(), Light(), Light()]
+ventanas      = [Curtains(1), Curtains(2), Curtains(3),
+                Curtains(4), Curtains(5), Curtains(6),
+                Curtains(7), Curtains(8), Curtains(9)]
+luces         = [Light(1), Light(2), Light(3), Light(4), Light(5), Light(6),
+                 Light(7), Light(8), Light(9), Light(10), Light(11), Light(12)]
 
 #Patio
-lavadora      = Washer()
-secadora      = Dryer()
+lavadora      = Washer(1)
+secadora      = Dryer(1)
 
 #Otros
-acondicionado = Air()
-sonido        = [SoundSystem(), SoundSystem()]
-alarmas       = [Alert(), Alert()]
-
-
-#///////////////////////////////////////////////////////////////////////
-
-
+acondicionado = Air(1)
+sonido        = [SoundSystem(1), SoundSystem(2)]
+alarmas       = [Alert(1), Alert(2)]
 #//////////////////////////////////////////////////////////////////////
 
 class Controller_house:
@@ -79,19 +74,22 @@ gPats = [
 ]
 
 
-
-# #Haciendo pruebas
+#Haciendo pruebas
 print tvs[0]
 print tvs[1] 
 print tvs[2]
+
 print telefono
+print impresora
+print correos
+
 print ducha
+
 print estufa
 print lavaplatos
 print horno
 print nevera
-print impresora
-print correos
+
 print lamparas[0] 
 print lamparas[1] 
 print lamparas[2]
@@ -104,6 +102,7 @@ print ventanas[5]
 print ventanas[6]
 print ventanas[7]
 print ventanas[8]
+
 print luces[0]
 print luces[1]
 print luces[2]
@@ -116,8 +115,10 @@ print luces[8]
 print luces[9]
 print luces[10]
 print luces[11]
+
 print lavadora
 print secadora
+
 print acondicionado
 print sonido[0]
 print sonido[1]
