@@ -23,15 +23,15 @@ impresora     = Printer(1)
 correos       = Email()
 
 #Habitaciones
-lamparas      = [Light(1), Light(2), Light(3)]
+lamparas      = [Light(1, "Lampara"), Light(2, "Lampara"), Light(3, "Lampara")]
 tvs           = [TV(1), TV(2), TV(3)]
 
 #Sala y cuartos
 ventanas      = [Curtains(1), Curtains(2), Curtains(3),
                 Curtains(4), Curtains(5), Curtains(6),
                 Curtains(7), Curtains(8), Curtains(9)]
-luces         = [Light(1), Light(2), Light(3), Light(4), Light(5), Light(6),
-                 Light(7), Light(8), Light(9), Light(10), Light(11), Light(12)]
+luces         = [Light(1, "Luz"), Light(2, "Luz"), Light(3, "Luz"), Light(4, "Luz"), Light(5, "Luz"), Light(6, "Luz"),
+                 Light(7, "Luz"), Light(8, "Luz"), Light(9, "Luz"), Light(10, "Luz"), Light(11, "Luz"), Light(12, "Luz")]
 
 #Patio
 lavadora      = Washer(1)
@@ -131,7 +131,7 @@ class Controller_house:
 
     def stateHouse(self): #Aca se dira el estado actual de la casa
         pass
-
+'''
 gPats = [
     #========================= TV ========================================
     [r"(.*)(enciende|prende|prenda|encienda|enciendete|enciendase|prendase|prendete)(.*)(tv|televisor|television|tele)(.*)",#cual?
@@ -190,3 +190,6 @@ s = "init"
 while(s != "salir"):
     s = raw_input("TÚ: ")
     print control.respond(s)
+'''
+
+print print_all()

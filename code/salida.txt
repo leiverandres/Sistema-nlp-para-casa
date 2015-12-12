@@ -1,6 +1,54 @@
-El tv esta apagado
-El tv esta apagado
-El tv esta apagado
+			 _____________________________________________
+			|                                             |
+			| El estado de todos los elementos de la casa |
+			|_____________________________________________|
+
+Estado de las ventanas:
+
+Las cortinas de la primera ventana de la sala estan cerradas
+Las cortinas de la segunda ventana de la sala estan cerradas
+Las cortinas de la ventana de la cocina estan cerradas
+Las cortinas de la primera ventana del comedor estan cerradas
+Las cortinas de la segunda ventana del comedor estan cerradas
+Las cortinas de la ventana de la primera habitacion estan cerradas
+Las cortinas de la ventana de la segunda habitacion estan cerradas
+Las cortinas de la ventana de la sala del segundo piso estan cerradas
+Las cortinas de la ventana del pasillo del segundo piso estan cerradas
+
+Estado de las luces:
+
+La luz de la entrada esta apagada
+La luz de la sala esta apagada
+La luz del patio esta apagada
+La luz del comedor esta apagada
+La luz de la cocina esta apagada
+La luz del pasillo del primer piso esta apagada
+La luz de las escaleras esta apagada
+La luz del pasillo del segundo piso esta apagada
+La luz de la sala del segundo piso esta apagada
+La luz de la primera habitacion esta apagada
+La luz de la segunda habitacion esta apagada
+La luz del baño esta apagada
+
+Estado de las lamparas:
+
+La lampara de la izquierda de la primera habitacion esta apagada
+La lampara de la derecha de la primera habitacion esta apagada
+La lampara de la segunda habitacion esta apagada
+
+Estado de los televisores:
+
+El tv de la sala esta apagado
+El tv de la primera habitacion esta apagado
+El tv de la segunda habitacion esta apagado
+
+Estado de los equipos de sonido: 
+
+El equipodel primer piso esta apagado
+El equipodel segunda piso esta apagado
+
+Estado del telefono:
+
 Todos los contactos:
 321456789
 789456123
@@ -12,49 +60,58 @@ pjfpjapsfj djf ao jdfjasdfpjasdp fasoj fd
 asfdjikajfi afj kfa ff kafj kajfk ajkfa jskfj
 koaj faś jfáo jsofj aoś jfo af'jaojfóa fsaój
 
-La ducha esta cerrada
-La hornilla 1 esta apagada
-La hornilla 2 esta apagada
-La hornilla 3 esta apagada
-La hornilla 4 esta apagada
 
-El lavaplatos esta apagado
-El horno esta apagado
-La nevera esta apagada
+Estado de la impresora:
+
 La impresora esta apagada
+
+Estado de los Emails:
+
 Todos los mensajes:
 hi, need help
 meeting saturday
 another mail
 
-La luz/lampara esta apagado
-La luz/lampara esta apagado
-La luz/lampara esta apagado
-Las cortinas de la ventana estan cerradas
-Las cortinas de la ventana estan cerradas
-Las cortinas de la ventana estan cerradas
-Las cortinas de la ventana estan cerradas
-Las cortinas de la ventana estan cerradas
-Las cortinas de la ventana estan cerradas
-Las cortinas de la ventana estan cerradas
-Las cortinas de la ventana estan cerradas
-Las cortinas de la ventana estan cerradas
-La luz/lampara esta apagado
-La luz/lampara esta apagado
-La luz/lampara esta apagado
-La luz/lampara esta apagado
-La luz/lampara esta apagado
-La luz/lampara esta apagado
-La luz/lampara esta apagado
-La luz/lampara esta apagado
-La luz/lampara esta apagado
-La luz/lampara esta apagado
-La luz/lampara esta apagado
-La luz/lampara esta apagado
-La lavadora esta apagada
-La secadora esta apagada
+
+Estado de las alarmas:
+
+La alarma de la puerta esta apagada/desactivada
+La alarma de las ventanas esta apagada/desactivada
+
+Estado del aire acondicionado:
+
 El aire acondicionado esta apagado
-El equipo esta apagado
-El equipo esta apagado
-La alarma esta apagada/desactivada
-La alarma esta apagada/desactivada
+
+Estado de la ducha:
+
+La ducha esta cerrada
+
+Estado de la lavadora:
+
+La lavadora esta apagada
+
+Estado de la secadora:
+
+La secadora esta apagada
+
+Estado del lavaplatos:
+
+El lavaplatos esta apagado
+
+Estado de la estufa:
+
+La hornilla 1 esta apagada
+La hornilla 2 esta apagada
+La hornilla 3 esta apagada
+La hornilla 4 esta apagada
+
+
+Estado del horno:
+
+El horno esta apagado
+
+Estado de la nevera:
+
+La nevera esta apagada
+
+
