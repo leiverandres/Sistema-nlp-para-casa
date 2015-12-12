@@ -174,14 +174,82 @@ gPats = [
         [ tvs[0].change_channel, True, None
         ]],
 
-    [r"(.*)(aumente|incremente|suba)?(.*)volumen(.*)(tv|televisor|television|tele)(.*)",
-        [ tvs[0].change_channel, False, None
+    [r"(.*)(aumente|aumenta|incremente|incrementa|suba|sube)(.*)volumen(.*)(tv|televisor|television|tele)(.*)",
+        [ tvs[0].change_volume, True, None
+        ]],
+
+    [r"(.*)m(a|á)s(.*)volumen(.*)",
+        [ tvs[0].change_volume, True, None
+        ]],
+
+    [r"(.*)(disminuya|disminuye|baja|baje)(.*)volumen(.*)(tv|televisor|television|tele)(.*)",
+        [ tvs[0].change_volume, False, None
         ]],
      # falta
+     # hace tv cada piso
+     # set un vol o channel especefico
      # default: por favor especifica que tv quieres modificar
      # capturar datos de expresiones regulares
-     #conflicto volumen tv y equipo?
-     #======================================================================
+     # conflicto volumen tv y equipo?
+
+     #============================= light ===================================
+
+     [r"(.*)(enciende|prende|prenda|encienda|enciendete|enciendase|prendase|prendete)(.*)luz(.*)",
+         [ lamparas[0].turn_on_off, True, None
+         ]],
+
+    [r"(.*)(apaga|apague|apaguese|apagate)(.*)luz(.*)",
+        [ lamparas[0].turn_on_off, False, None
+        ]],
+
+    [r"(.*)(aumente|aumenta|incremente|incrementa|suba|sube)(.*)luz(.*)",
+        [ lamparas[0].up_down_intensity, True, None
+        ]],
+
+    [r"(.*)m(a|á)s(.*)luz(.*)",
+        [ lamparas[0].up_down_intensity, True, None
+        ]],
+
+    [r"(.*)(disminuya|disminuye|baja|baje)(.*)luz(.*)",
+        [ lamparas[0].up_down_intensity, False, None
+        ]],
+
+    [r"(.*)menos(.*)luz(.*)",
+        [ lamparas[0].up_down_intensity, False, None
+        ]],
+
+    #falta
+    #set un valor de intensidad
+    #cual luz
+    #=========================== shower =====================================
+
+    [r"(.*)(abra|abre|activa|active|enciende|encienda)(.*)(ducha|llave)(.*)",
+        [ ducha.turn_on_off, True, None
+        ]],
+
+    [r"(.*)(cierre|cierra|desactiva|desactive|apaga|apague)(.*)(ducha|llave)(.*)",
+        [ ducha.turn_on_off, False, None
+        ]],
+
+    [r"(.*)(aumente|aumenta|incremente|incrementa|suba|sube)(.*)temperatura(.*)(ducha|llave)(.*)",
+        [ ducha.up_down_temp, True, None
+        ]],
+
+    [r"(.*)(disminuya|disminuye|baja|baje)(.*)temperatura(.*)(ducha|llave)(.*)",
+        [ ducha.up_down_temp, False, None
+        ]],
+
+    [r"(.*)(aumente|aumenta|incremente|incrementa|suba|sube)(.*)flujo(.*)agua(.*)(ducha|llave)?(.*)",
+        [ ducha.up_down_flow, True, None
+        ]],
+
+    [r"(.*)(disminuya|disminuye|baja|baje)(.*)flujo(.*)agua(.*)(ducha|llave)?(.*)",
+        [ ducha.up_down_flow, False, None
+        ]],
+
+    #============================ Dishwasher =================================
+
+
 ]
 #Haciendo pruebas
 control = Controller_house()
