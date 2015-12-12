@@ -131,7 +131,7 @@ class Controller_house:
 
     def stateHouse(self): #Aca se dira el estado actual de la casa
         pass
-'''
+
 gPats = [
     #========================= TV ========================================
     [r"(.*)(enciende|prende|prenda|encienda|enciendete|enciendase|prendase|prendete)(.*)(tv|televisor|television|tele)(.*)",#cual?
@@ -258,6 +258,5 @@ s = "init"
 while(s != "salir"):
     s = raw_input("TÚ: ")
     print control.respond(s)
-'''
 
 print print_all()
