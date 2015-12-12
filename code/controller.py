@@ -127,63 +127,70 @@ class Controller_house:
           match = self.keys[i].match(str)
           if match:
             resp = self.values[i]
-            return resp[0](resp[1],resp[2])
+            if(len(resp) == 1):
+                return resp[0]()
+            elif(len(resp) == 2):
+                return resp[0](resp[1])
+            elif(len(resp) == 3):
+                return resp[0](resp[1], resp[2])
+            else:
+                return "Error, no hay argumentos ni función"
 
     def stateHouse(self): #Aca se dira el estado actual de la casa
         pass
 
 gPats = [
     #========================= TV ========================================
-    [r"(.*)(enciende|prende|prenda|encienda|enciendete|enciendase|prendase|prendete)(.*)(tv|televisor|television|tele)(.*)",#cual?
-        [ tvs[0].turn_on_off, True, None
+    [r'(.*)(enciende|prende|prenda|encienda|enciendete|enciendase|prendase|prendete)(.*)(tv|televisor|television|tele)(.*)',#cual?
+        [ tvs[0].turn_on_off, True
         ]],
 
-    [r"(.*)(tv|televisor|television|tele)(.*)(enciende|prende|prenda|encienda|enciendete|enciendase|prendase|prendete)(.*)",#cual?
-        [ tvs[0].turn_on_off, True, None
+    [r'(.*)(tv|televisor|television|tele)(.*)(enciende|prende|prenda|encienda|enciendete|enciendase|prendase|prendete)(.*)',#cual?
+        [ tvs[0].turn_on_off, True
         ]],
 
-    [r"(.*)(apaga|apague|apaguese|apagate)(.*)(tv|televisor|television|tele)(.*)",#cual?
-        [ tvs[0].turn_on_off, False, None
+    [r'(.*)(apaga|apague|apaguese|apagate)(.*)(tv|televisor|television|tele)(.*)',#cual?
+        [ tvs[0].turn_on_off, False
         ]],
 
-    [r"(.*)(tv|televisor|television|tele)(.*)(apaga|apague|apaguese|apagate)(.*)",#cual?
-        [ tvs[0].turn_on_off, False, None
+    [r'(.*)(tv|televisor|television|tele)(.*)(apaga|apague|apaguese|apagate)(.*)',#cual?
+        [ tvs[0].turn_on_off, False
         ]],
 
-    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(siguiente|pr(o|ó)ximo) canal(.*)",
-        [ tvs[0].change_channel, True, None
+    [r'(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(siguiente|pr(o|ó)ximo) canal(.*)',
+        [ tvs[0].change_channel, True
         ]],
 
-    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)canal (siguiente|pr(o|ó)ximo)(.*)",
-        [ tvs[0].change_channel, True, None
+    [r'(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)canal (siguiente|pr(o|ó)ximo)(.*)',
+        [ tvs[0].change_channel, True
         ]],
 
-    [r"((.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(anterior) canal(.*)",
-        [ tvs[0].change_channel, False, None
+    [r'(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(anterior) canal(.*)',
+        [ tvs[0].change_channel, False
         ]],
 
-    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)canal (pasado|anterior)(.*)",
-        [ tvs[0].change_channel, False, None
+    [r'(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)canal (pasado|anterior)(.*)',
+        [ tvs[0].change_channel, False
         ]],
 
-    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)canal (pasado|anterior)(.*)",
-        [ tvs[0].change_channel, False, None
+    [r'(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)canal (pasado|anterior)(.*)',
+        [ tvs[0].change_channel, False
         ]],
 
-    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)(.*)canal(.*)",
-        [ tvs[0].change_channel, True, None
+    [r'(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)(.*)canal(.*)',
+        [ tvs[0].change_channel, True
         ]],
 
-    [r"(.*)(aumente|aumenta|incremente|incrementa|suba|sube)(.*)volumen(.*)(tv|televisor|television|tele)(.*)",
-        [ tvs[0].change_volume, True, None
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube)(.*)volumen(.*)(tv|televisor|television|tele)(.*)',
+        [ tvs[0].change_volume, True
         ]],
 
-    [r"(.*)m(a|á)s(.*)volumen(.*)",
-        [ tvs[0].change_volume, True, None
+    [r'(.*)m(a|á)s(.*)volumen(.*)',
+        [ tvs[0].change_volume, True
         ]],
 
-    [r"(.*)(disminuya|disminuye|baja|baje)(.*)volumen(.*)(tv|televisor|television|tele)(.*)",
-        [ tvs[0].change_volume, False, None
+    [r'(.*)(disminuya|disminuye|baja|baje)(.*)volumen(.*)(tv|televisor|television|tele)(.*)',
+        [ tvs[0].change_volume, False
         ]],
      # falta
      # hace tv cada piso
@@ -194,28 +201,28 @@ gPats = [
 
      #============================= light ===================================
 
-     [r"(.*)(enciende|prende|prenda|encienda|enciendete|enciendase|prendase|prendete)(.*)luz(.*)",
-         [ lamparas[0].turn_on_off, True, None
+     [r'(.*)(enciende|prende|prenda|encienda|enciendete|enciendase|prendase|prendete)(.*)luz(.*)',
+         [ lamparas[0].turn_on_off, True
          ]],
 
-    [r"(.*)(apaga|apague|apaguese|apagate)(.*)luz(.*)",
-        [ lamparas[0].turn_on_off, False, None
+    [r'(.*)(apaga|apague|apaguese|apagate)(.*)luz(.*)',
+        [ lamparas[0].turn_on_off, False, if((type(resp[i]) == str) in resp)
         ]],
 
-    [r"(.*)(aumente|aumenta|incremente|incrementa|suba|sube)(.*)luz(.*)",
-        [ lamparas[0].up_down_intensity, True, None
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube)(.*)luz(.*)',
+        [ lamparas[0].up_down_intensity, True
         ]],
 
-    [r"(.*)m(a|á)s(.*)luz(.*)",
-        [ lamparas[0].up_down_intensity, True, None
+    [r'(.*)(m(a|á)s)(.*)luz(.*)',
+        [ lamparas[0].up_down_intensity, True
         ]],
 
-    [r"(.*)(disminuya|disminuye|baja|baje)(.*)luz(.*)",
-        [ lamparas[0].up_down_intensity, False, None
+    [r'(.*)(disminuya|disminuye|baja|baje)(.*)luz(.*)',
+        [ lamparas[0].up_down_intensity, False
         ]],
 
-    [r"(.*)menos(.*)luz(.*)",
-        [ lamparas[0].up_down_intensity, False, None
+    [r'(.*)menos(.*)luz(.*)',
+        [ lamparas[0].up_down_intensity, False
         ]],
 
     #falta
@@ -223,29 +230,29 @@ gPats = [
     #cual luz
     #=========================== shower =====================================
 
-    [r"(.*)(abra|abre|activa|active|enciende|encienda)(.*)(ducha|llave)(.*)",
-        [ ducha.turn_on_off, True, None
+    [r'(.*)(abra|abre|activa|active|enciende|encienda)(.*)(ducha|llave)(.*)',
+        [ ducha.turn_on_off, True
         ]],
 
-    [r"(.*)(cierre|cierra|desactiva|desactive|apaga|apague)(.*)(ducha|llave)(.*)",
-        [ ducha.turn_on_off, False, None
+    [r'(.*)(cierre|cierra|desactiva|desactive|apaga|apague)(.*)(ducha|llave)(.*)',
+        [ ducha.turn_on_off, False
         ]],
 
-    [r"(.*)(aumente|aumenta|incremente|incrementa|suba|sube)(.*)temperatura(.*)(ducha|llave)(.*)",
-        [ ducha.up_down_temp, True, None
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube)(.*)temperatura(.*)(ducha|llave)(.*)',
+        [ ducha.up_down_temp, True
         ]],
 
-    [r"(.*)(disminuya|disminuye|baja|baje)(.*)temperatura(.*)(ducha|llave)(.*)",
-        [ ducha.up_down_temp, False, None
+    [r'(.*)(disminuya|disminuye|baja|baje)(.*)temperatura(.*)(ducha|llave)(.*)',
+        [ ducha.up_down_temp, False
         ]],
 
-    [r"(.*)(aumente|aumenta|incremente|incrementa|suba|sube)(.*)flujo(.*)agua(.*)(ducha|llave)?(.*)",
-        [ ducha.up_down_flow, True, None
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube)(.*)flujo(.*)agua(.*)(ducha|llave)?(.*)',
+        [ ducha.up_down_flow, True
         ]],
 
-    [r"(.*)(disminuya|disminuye|baja|baje)(.*)flujo(.*)agua(.*)(ducha|llave)?(.*)",
-        [ ducha.up_down_flow, False, None
-        ]],
+    [r'(.*)(disminuya|disminuye|baja|baje)(.*)flujo(.*)agua(.*)(ducha|llave)?(.*)',
+        [ ducha.up_down_flow, False
+        ]]
 
     #============================ Dishwasher =================================
 
@@ -253,10 +260,8 @@ gPats = [
 ]
 #Haciendo pruebas
 control = Controller_house()
-print print_all()
-s = "init"
+# print print_all()
+s = ''
 while(s != "salir"):
     s = raw_input("TÚ: ")
     print control.respond(s)
-
-print print_all()
