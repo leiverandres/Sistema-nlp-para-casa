@@ -42,7 +42,72 @@ acondicionado = Air(1)
 sonido        = [SoundSystem(1), SoundSystem(2)]
 alarmas       = [Alert(1), Alert(2)]
 #//////////////////////////////////////////////////////////////////////
+def print_all():
+    s =  "\t\t\t _____________________________________________\n"
+    s += "\t\t\t|                                             |\n"
+    s += "\t\t\t| El estado de todos los elementos de la casa |\n"
+    s += "\t\t\t|_____________________________________________|\n\n"
 
+    s += "Estado de las ventanas:\n\n"
+    s += ventanas[0].__str__() + "\n" + ventanas[1].__str__() + "\n"
+    s += ventanas[2].__str__() + "\n" + ventanas[3].__str__() + "\n"
+    s += ventanas[4].__str__() + "\n" + ventanas[5].__str__() + "\n"
+    s += ventanas[6].__str__() + "\n" + ventanas[7].__str__() + "\n"
+    s += ventanas[8].__str__() + "\n\n"
+
+    s += "Estado de las luces:\n\n"
+    s += luces[0].__str__() + "\n" + luces[1].__str__() + "\n" + luces[2].__str__() + "\n"
+    s += luces[3].__str__() + "\n" + luces[4].__str__() + "\n" + luces[5].__str__() + "\n"
+    s += luces[6].__str__() + "\n" + luces[7].__str__() + "\n" + luces[8].__str__() + "\n"
+    s += luces[9].__str__() + "\n" + luces[10].__str__() + "\n" + luces[11].__str__() + "\n\n"
+
+    s += "Estado de las lamparas:\n\n"
+    s += lamparas[0].__str__() + "\n" + lamparas[1].__str__() + "\n" + lamparas[2].__str__() + "\n\n"
+
+    s += "Estado de los televisores:\n\n"
+    s += tvs[0].__str__() + "\n" + tvs[1].__str__() + "\n" + tvs[2].__str__() + "\n\n"
+
+    s += "Estado de los equipos de sonido: \n\n"
+    s += sonido[0].__str__() + "\n" + sonido[1].__str__() + "\n\n"
+
+    s += "Estado del telefono:\n\n"
+    s += telefono.__str__() + "\n\n"
+
+    s += "Estado de la impresora:\n\n"
+    s += impresora.__str__() + "\n\n"
+
+    s += "Estado de los Emails:\n\n"
+    s += correos.__str__() + "\n\n"
+
+    s += "Estado de las alarmas:\n\n"
+    s += alarmas[0].__str__() + "\n" + alarmas[1].__str__() + "\n\n"
+
+    s += "Estado del aire acondicionado:\n\n"
+    s += acondicionado.__str__() + "\n\n"
+
+    s += "Estado de la ducha:\n\n"
+    s += ducha.__str__() + "\n\n"
+
+    s += "Estado de la lavadora:\n\n"
+    s += lavadora.__str__() + "\n\n"
+
+    s += "Estado de la secadora:\n\n"
+    s += secadora.__str__() + "\n\n"
+
+    s += "Estado del lavaplatos:\n\n"
+    s += lavaplatos.__str__() + "\n\n"
+
+    s += "Estado de la estufa:\n\n"
+    s += estufa.__str__() + "\n\n"
+
+    s += "Estado del horno:\n\n"
+    s += horno.__str__() + "\n\n"
+
+    s += "Estado de la nevera:\n\n"
+    s += nevera.__str__() + "\n\n"
+
+    return s
+#//////////////////////////////////////////////////////////////////////
 class Controller_house:
     def __init__(self):
         self.keys = map(lambda x: re.compile(x[0], re.IGNORECASE), gPats)
@@ -118,64 +183,10 @@ gPats = [
      #conflicto volumen tv y equipo?
      #======================================================================
 ]
-
-
-
-# #Haciendo pruebas
-# tvs[0].turn_on_off(True)
-# print tvs[0]
+#Haciendo pruebas
 control = Controller_house()
+print print_all()
 s = "init"
 while(s != "salir"):
     s = raw_input("TÚ: ")
     print control.respond(s)
-#Haciendo pruebas
-# print tvs[0]
-# print tvs[1]
-# print tvs[2]
-#
-# print telefono
-# print impresora
-# print correos
-#
-# print ducha
-#
-# print estufa
-# print lavaplatos
-# print horno
-# print nevera
-#
-# print lamparas[0]
-# print lamparas[1]
-# print lamparas[2]
-# print ventanas[0]
-# print ventanas[1]
-# print ventanas[2]
-# print ventanas[3]
-# print ventanas[4]
-# print ventanas[5]
-# print ventanas[6]
-# print ventanas[7]
-# print ventanas[8]
-#
-# print luces[0]
-# print luces[1]
-# print luces[2]
-# print luces[3]
-# print luces[4]
-# print luces[5]
-# print luces[6]
-# print luces[7]
-# print luces[8]
-# print luces[9]
-# print luces[10]
-# print luces[11]
-#
-# print lavadora
-# print secadora
-#
-# print acondicionado
-# print sonido[0]
-# print sonido[1]
-# print alarmas[0]
-# print alarmas[1]
