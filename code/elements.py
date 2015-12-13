@@ -696,7 +696,7 @@ class Fridge:
         self.no_elem = len(self.elements)
 
     def get_no_elem(self):
-        return self.no_elem
+        return "La nevera tiene " + str(self.no_elem) + " articulos"
 
     def get_elements(self):
         s = ""
@@ -757,7 +757,7 @@ class Washer(Power):
         return str(self.time) + " min"
 
     def get_state(self):
-        return self.state[self.index_state]
+        return "El estado de la lavadora es " + self.state[self.index_state]
 
     def change_time(self, minute):
         self.isOn = True
@@ -874,10 +874,10 @@ class Oven(Power):
         self.id = id
 
     def get_temp(self):
-        return str(self.temp) + "°c"
+        return "La temperatura del horno es " + str(self.temp) + " °C"
 
     def get_time(self):
-        return str(self.time) + "min"
+        return "El horno esta en " + str(self.time) + " min"
 
     def change_time(self, minute):
         self.isOn = True
@@ -910,7 +910,7 @@ class Dryer(Power):
         return str(self.time) + " min"
 
     def get_state(self):
-        return self.state[self.index_state]
+        return "El estado de la secadora es " + self.state[self.index_state]
 
     def change_time(self, minute):
         self.isOn = True
