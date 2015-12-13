@@ -147,19 +147,19 @@ class Controller_house:
 
 gPats = [
     #========================= TV ========================================
-    [r'(.*)(enciende|prende|prenda|encienda)(.*)(tv|televisor|television|tele)(.*)(sala|primer piso|piso (primero|1|uno))(.*)',
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)(tv|televisor|television|tele)(.*)(sala|primer piso|piso (primero|1|uno))(.*)',
         [ tvs[0].turn_on_off, True
         ]],
 
-    [r'(.*)(enciende|prende|prenda|encienda)(.*)(tv|televisor|television|tele)(.*)(primera habitaci(o|ó)n)(.*)',
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)(tv|televisor|television|tele)(.*)(primera habitaci(o|ó)n)(.*)',
         [ tvs[1].turn_on_off, True
         ]],
 
-    [r'(.*)(enciende|prende|prenda|encienda)(.*)(tv|televisor|television|tele)(.*)(segunda habitaci(o|ó)n)(.*)',
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)(tv|televisor|television|tele)(.*)(segunda habitaci(o|ó)n)(.*)',
         [ tvs[2].turn_on_off, True
         ]],
 
-    [r'(.*)(enciende|prende|prenda|encienda)(.*)(todos )?(tvs|televisores|televisiones|teles)(.*)',
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)(todos )?(tvs|televisores|televisiones|teles)(.*)',
         [ print_objs, tvs, True
         ]],
 
@@ -251,7 +251,7 @@ gPats = [
 
      #============================= light ===================================
 
-     [r'(.*)(enciende|prende|prenda|encienda)(.*)luz(.*)',
+     [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)luz(.*)',
          [ lamparas[0].turn_on_off, True
          ]],
 
@@ -281,8 +281,12 @@ gPats = [
     #luces otros sitios
     #=========================== shower =====================================
 
-    [r'(.*)(abra|abre|activa|active|enciende|encienda)(.*)(ducha|llave)(.*)',
+    [r'(.*)(abra|abre|activa|active|enciende|encienda|activa|active)(.*)(ducha|llave)(.*)',
         [ ducha.turn_on_off, True
+        ]],
+
+    [r'(.*)(apaga|apague)(.*)(ducha|llave)(.*)',
+        [ ducha.turn_on_off, False
         ]],
 
     [r'(.*)(cierre|cierra|desactiva|desactive|apaga|apague)(.*)(ducha|llave)(.*)',
@@ -307,8 +311,12 @@ gPats = [
 
     #================================= Dishwasher =============================
 
-    [r'(.*)(enciende|prende|prenda|encienda)(.*)lavaplatos(.*)',
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)lavaplatos(.*)',
         [ lavaplatos.turn_on_off, True
+        ]],
+
+    [r'(.*)(apaga|apague)(.*)lavaplatos(.*)',
+        [ lavaplatos.turn_on_off, False
         ]],
 
     [r'(.*)(hay|todos|estan)(.*)platos(.*)(sucios|por lavar|para lavar)(\?)?(.*)',
@@ -327,6 +335,20 @@ gPats = [
 
     #================================= printer ================================
 
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)impresora(.*)',
+        [ impresora.turn_on_off, True
+        ]],
+
+    [r'(.*)(apaga|apague)(.*)impresora(.*)',
+        [ impresora.turn_on_off, False
+        ]],
+
+    [r'(.*)(imprima|imprime|imprimir)(.*)(copias)?(.*)',
+        [ impresora.print_out, 5, 1
+        ]],
+
+    # falta
+    # capturar copias y No paginas
     #================================= Email ==================================
 
     #================================= Air ====================================
