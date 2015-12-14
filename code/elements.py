@@ -108,23 +108,23 @@ class TV(Power):
         self.id = id
 
     def get_channel(self):
-        return self.channel
+        return "El TV " + place6(self.id) + " esta en el canal " + str(self.channel)
 
     def get_volume(self):
-        return self.volume
+        return "El TV " + place6(self.id) + " tiene el volumen en  " + str(self.volume)
 
     def change_channel(self, state):
         if(self.isOn):
             if (state):
                 self.channel = (self.channel + 1) % 120
-                return "Canal next: " + str(self.channel)
+                return "El Canal siguiente en el TV " + place6(self.id) + " " + str(self.channel)
             else:
                 if(self.channel - 1 <= 0):
                     self.set_channel(120);
-                    return "Canal prev: " + str(self.channel)
+                    return "El Canal anterior en el TV " + place6(self.id) + " " + str(self.channel)
                 else:
                     self.channel -= 1
-                    return "Canal prev: " + str(self.channel)
+                    return "El Canal anterior en el TV " + place6(self.id) + " " + str(self.channel)
         else:
             return "El tv " + place6(self.id) + " esta apagado, enciendalo."
 
@@ -132,29 +132,29 @@ class TV(Power):
         if(self.isOn):
             if(channel > 0 and channel < 121):
                 self.channel = channel
-                return "Canal actual: " + str(channel)
+                return "Canal actualen el TV " + place6(self.id) + " " + str(self.channel)
             else:
-                return "No existe este canal."
+                return "No existe este canal en el TV " + place6(self.id)
         else:
-            return "El tv " + place6(self.id) + "esta apagado, enciendalo."
+            return "El TV " + place6(self.id) + "esta apagado, enciendalo."
 
     def change_volume(self, state):
         if(self.isOn):
             if(state):
                 self.volume += 1
-                return "Volumen ++: " + str(self.volume)
+                return "El TV "+ place6(self.id) +" tiene el volumen ++: " + str(self.volume)
             else:
                 self.volume -= 1
-                return "Volumen --: " + str(self.volume)
+                return "El TV "+ place6(self.id) +" tiene el volumen --: " + str(self.volume)
         else:
-            return "El tv " + place6(self.id) + " esta apagado, enciendalo."
+            return "El TV " + place6(self.id) + " esta apagado, enciendalo."
 
     def __str__(self):
         s = ""
         if(self.isOn):
-            s += "El tv " + place6(self.id) + " esta encendido, el canal actual es " + str(self.channel) + " y tiene un volumen de " + str(self.volume)
+            s += "El TV " + place6(self.id) + " esta encendido, el canal actual es " + str(self.channel) + " y tiene un volumen de " + str(self.volume)
         else:
-            s += "El tv " + place6(self.id) + " esta apagado"
+            s += "El TV " + place6(self.id) + " esta apagado"
         return s
 
 #///////////////////////////////////////////////////////////////////////////////
@@ -167,56 +167,54 @@ class Light(Power): # Clase para las luces de la casa y para las lamparas
         self.intensity = 0
         self.id = id
         self.obj = obj
+        if self.obj == "Luz":
+            self.place = place3(self.id)
+        else:
+            self.place = place4(self.id)
 
     def get_intensity(self):
-        return self.intensity
+        return "La intensidad actual de la " + self.obj + " " + self.place + " " + str(self.intensity)
 
     def set_intensity(self, cant):
         if(cant == 0):
             self.turn_on_off(True)
             self.intensity = 15
             self.turn_on_off(True)
-            return "Canal intensidad actual: " + str(self.intensity)
+            return "La intensidad actual de la " + self.obj + " " + self.place + " " + str(self.intensity)
         elif(cant == 1):
             self.turn_on_off(True)
             self.intensity = 50
-            return "Canal intensidad actual: " + str(self.intensity)
+            return "La intensidad actual de la " + self.obj + " " + self.place + " " + str(self.intensity)
         elif(cant == 2):
             #self.turn_on_off(True)
             self.intensity = 75
-            return "Canal intensidad actual: " + str(self.intensity)
+            return "La intensidad actual de la " + self.obj + " " + self.place + " " + str(self.intensity)
 
     def up_down_intensity(self, state):
         if(state):
             if((self.intensity + 10) > 100):
                 self.intensity = 100
-                return "La intensidad esta en su maximo valor " + str(self.intensity)
+                return "La intensidad de la " + self.obj + " " + self.place + " esta en su maximo valor " + str(self.intensity)
             else:
                 self.intensity += 10
                 self.turn_on_off(True)
-                return "Intensidad en: " + str(self.intensity)
+                return "La intensidad de la " + self.obj + " " + self.place + " esta en " + str(self.intensity)
         else:
             if((self.intensity - 10) < 0):
                 self.intensity = 0
                 self.turn_on_off(False)
-                return "La intesidad esta en su minimo valor." + str(self.intensity)
+                return "La intensidad de la " + self.obj + " " + self.place + " esta en su minimo valor " + str(self.intensity)
             else:
                 self.intensity -= 10
                 self.turn_on_off(True)
-                return "Intensidad en: " + str(self.intensity)
+                return "La intensidad de la " + self.obj + " " + self.place + " esta en " + str(self.intensity)
 
     def __str__(self):
         s = ""
         if(self.isOn):
-            if(self.obj == "Luz"):
-                s += "La luz " + place3(self.id) +" esta encendida y su intensidad es " + str(self.intensity) + "%"
-            elif(self.obj == "Lampara"):
-                s += "La lampara "+ place4(self.id) +" esta encendida y su intensidad es " + str(self.intensity) + "%"
+            s += "La " + self.obj + " " + self.place + " esta encendida y su intensidad es " + str(self.intensity) + "%"
         else:
-            if(self.obj == "Luz"):
-                s += "La luz " + place3(self.id) + " esta apagada"
-            elif(self.obj == "Lampara"):
-                s += "La lampara "+ place4(self.id) +" esta apagada"
+            s += "La " + self.obj + " " + self.place + " esta apagada"
         return s
 #///////////////////////////////////////////////////////////////////////////////
 
@@ -228,10 +226,10 @@ class Shower(Power):
         self.id = id
 
     def get_temp(self):
-        return self.temp
+        return "El agua esta en " + str(self.temp) + "% de su temperatura maxima."
 
     def get_flow(self):
-        return self.flow
+        return "El nivel del flujo es " + str(self.flow)
 
     def up_down_temp(self, state):
         if(self.isOn):
@@ -293,12 +291,20 @@ class Dishwasher(Power):
             return "Si, hay platos por lavar"
         else:
             return "No, no hay platos por lavar"
+    
+    def get_time(self, time):
+        return "El tiempo de lavado actual es de " + str(self.time) + " minutos"
 
     def set_time(self, time):
         self.time = time
+        return "El tiempo de lavado sera de " + str(self.time) + " minutos"
 
     def set_have_dish(self, state):
         self.haveDish = state
+        if(self.haveDish):
+            return "Si, hay platos por lavar"
+        else:
+            return "No, no hay platos por lavar"
 
     def wash(self, time = 5):
         if(self.haveDish):
@@ -313,7 +319,7 @@ class Dishwasher(Power):
     def __str__(self):
         s = ""
         if(self.isOn):
-            s += "El lavaplatos esta encendido y el tiempo de lavado sera de " + str(self.time)
+            s += "El lavaplatos esta encendido y el tiempo de lavado sera de " + str(self.time) + " minutos"
         else:
             s += "El lavaplatos esta apagado"
         return s
@@ -329,13 +335,13 @@ class SoundSystem(Power):
         self.id = id
 
     def get_volume(self):
-        return self.volume
+        return "El equipo " + place1(self.id) + " tiene un volumen de " + str(self.volume)
 
     def get_stations(self):
-        return self.stations
+        return "El equipo " + place1(self.id) + " tiene " + self.stations + " emisoras disponibles"
 
     def get_num_song(self):
-        return self.song
+        return "La cancion actual en el equipo " + place1(self.id) + " es el track #" + str(self.song)
 
     def change_station(self, station = "88.2"):
         if(self.isOn):
@@ -366,23 +372,23 @@ class SoundSystem(Power):
         if(self.isOn):
             if(state):
                 self.song = (self.song + 1) % 15
-                return "La cancion actual en el equipo " + place1(self.id) + " es: " + str(self.song)
+                return "La cancion actual en el equipo " + place1(self.id) + " es el track #" + str(self.song)
             else:
                 if((self.song - 1) < 0):
                     self.song += 15
-                    return "La cancion actualen el equipo " + place1(self.id) + " es: " + str(self.song)
+                    return "La cancion actualen el equipo " + place1(self.id) + " es el track #" + str(self.song)
                 else:
                     self.song -= 1
-                return "La cancion actual en el equipo " + place1(self.id) + " es: " + str(self.song)
+                return "La cancion actual en el equipo " + place1(self.id) + " es el track #" + str(self.song)
         else:
-            return "No puedo modificar, el equipo "+ place1(self.id) + " esta apagado"
+            return "No puedo modificar, el equipo " + place1(self.id) + " esta apagado"
 
     def __str__(self):
         s = ""
         if(self.isOn):
             s += "El equipo "+ place1(self.id) + " esta encendido, se encuentra en la emisora " + self.stations[self.index_station] + " y la cancion para reproducir es el track #" + str(self.song)
         else:
-            s += "El equipo"+ place1(self.id) + " esta apagado"
+            s += "El equipo "+ place1(self.id) + " esta apagado"
         return s
 #///////////////////////////////////////////////////////////////////////////////
 
@@ -393,7 +399,7 @@ class Curtains(Power):
         self.id = id
 
     def get_cant(self):
-        return self.cant
+        return "Las cortinas " + place5(self.id) + " estan abiertas en un " + str(self.cant)+"%"
 
     def turn_open_closed(self, state):
         if(state):
@@ -449,10 +455,11 @@ class Printer(Power):
         self.id = id
 
     def get_sheets(self):
-        return self.sheets
+        return "La impresora tiene " + str(self.sheets) + " hoja(s) disponibles"
 
     def put_sheets(self, sheets):
         self.sheets += sheets
+        return "La impresora tiene " + str(self.sheets) + " hoja(s) disponibles"
 
     def print_out(self, pages, copies = 1):
         if(pages*copies <= self.sheets):
@@ -476,7 +483,7 @@ class Email:
         self.to_read = len(self.inbox)
 
     def get_mesa(self):
-        return self.to_read
+        return "Hay " + str(self.get_mesa()) + " mensajes en la bandeja de entrada"
 
     def without_read(self):
         return "Hay " + str(self.get_mesa()) + " mensajes sin leer"
@@ -532,14 +539,14 @@ class Air(Power):
         self.id = id
 
     def get_temp(self):
-        return self.temp
+        return "La temperatura del Aire acondicionado esta en " + str(self.temp) + " °C"
 
     def put_temp(self, temp):
         if(self.isOn):
             self.temp = temp
-            return "La temperatura esta en " + str(self.temp) + " °C"
+            return "La temperatura del Aire acondicionado esta en " + str(self.temp) + " °C"
         else:
-            return "No puedo modifica la temperatura, el aire esta apagado"
+            return "No puedo modifica la temperatura, el Aire acondicionado esta apagado"
 
     def up_down_temp(self, state):
         if(self.isOn):
@@ -568,24 +575,24 @@ class Alert(Power):
         self.id = id
 
     def get_volume(self):
-        return self.volume
+        return "El volumen de la alarma " + place2(self.id) + " esta en " + str(self.volume)
 
     def up_down_vol(self, state):
         if(self.isOn):
             if(state):
                 if((self.volume + 1) > 10):
                     self.volume =  10
-                    return "El volumen de la alarma " + place2(self.id) + " esta en su maximo valor: 10"
+                    return "El volumen de la alarma " + place2(self.id) + " esta en su maximo valor 10"
                 else:
                     self.volume += 1
-                    return "El volumen de la alarma " + place2(self.id) + " es: " + str(self.volume)
+                    return "El volumen de la alarma " + place2(self.id) + " esta en " + str(self.volume)
             else:
                 if((self.volume - 1) < 2):
                     self.volumen = 2
-                    return "El volumen " + place2(self.id) + " esta en su minimo valor: 2"
+                    return "El volumen " + place2(self.id) + " esta en su minimo valor 2"
                 else:
                     self.volume -= 1
-                    return "El volumen de la alarma " + place2(self.id) + " es: " + str(self.volume)
+                    return "El volumen de la alarma " + place2(self.id) + " esta en " + str(self.volume)
         else:
             return "No puedo modificar el volumen, la alarma " + place2(self.id) + " esta apagada"
 
@@ -603,18 +610,6 @@ class Burner:
         self.isOn = False
         self.id = 0
         self.intensity = 0
-
-    def get_Power(self):
-        return self.isOn
-
-    def get_id(self):
-        return self.id
-
-    def get_intensity(self):
-        return self.intensity
-
-    def set_id(self, id):
-        self.id = id
 
     def turn_on_off(self, state):
         if(state):
@@ -667,7 +662,7 @@ class Stove:
         if(id <= 0 or id > 4):
             return "La hornilla especificada no es valida"
         else:
-            return self.hornillas[id - 1]
+            return self.hornillas[id - 1].__str__()
 
     def turn_on_off(self, id, state):
         if(id <= 0 or id > 4):
@@ -733,8 +728,9 @@ class Fridge:
     def put_temp(self, temp):
         if(self.isOn):
             self.temp = temp
+            return "La temperatura de la nevera esta en " + str(self.temp) + " °C"
         else:
-            return "Nevera apagada"
+            return "La Nevera apagada"
 
     def __str__(self):
         s = ""
@@ -752,9 +748,12 @@ class Washer(Power):
       self.index_state = 4
       self.state = ["Lana", "Delicado", "Sintetico", "Resistente", "Intensivo"]
       self.id = id
+      
+    def get_all_state(self):
+        return "Los estados de la lavadora son " + self.state
 
     def get_time(self):
-        return str(self.time) + " min"
+        return "El tiempo de lavado es de " + str(self.time) + " minutos"
 
     def get_state(self):
         return "El estado de la lavadora es " + self.state[self.index_state]
@@ -782,7 +781,7 @@ class Washer(Power):
     def __str__(self):
         s = ""
         if(self.isOn):
-            s += "La lavadora esta encendida, su estado actual es " + self.state[self.index_state] + " y el tiempo de lavado es de " +  str(self.time) + " minutos"
+            s += "La lavadora esta encendida, su estado actual es " + self.state[self.index_state] + " y el tiempo de lavado es de " +  str(self.time) + " minutos y " + self.get_all_state() 
         else:
             s += "La lavadora esta apagada"
         return s
@@ -791,12 +790,13 @@ class Washer(Power):
 class Phone:
     def __init__(self):
         self.last_number = ""
-        self.agenda = ["321456789", "789456123", "741258963", "369852147"]
+        self.agenda = ["321456789", "789456123", "741258963", "369852147", "3117231283", "3164328712"]
         self.numbers = len(self.agenda)
         self.last = ""
-        self.mensajes = ["pjfpjapsfj djf ao jdfjasdfpjasdp fasoj fd",
-                        "asfdjikajfi afj kfa ff kafj kajfk ajkfa jskfj",
-                        "koaj faś jfáo jsofj aoś jfo af'jaojfóa fsaój"];
+        self.mensajes = ["Hola, ¿Me va dar copia de IA?",
+                        "¿Cuales materias perdio?",
+                        "Por favor, mandeme el codigo yo lo miro, pero no se lo copio",
+                        "¿Ya salio a vaciones? Cuando es la farra? xD"];
 
     def llamar(self, num):
         if(num in self.agenda):
@@ -822,7 +822,7 @@ class Phone:
             self.mensajes.remove(msj)
             return "El mensaje: " + msj + " se ha eliminado"
         else:
-            return "El mensaje #" + index + "no existe o no se encuentra disponible"
+            return "El mensaje #" + index + " no existe o no se encuentra disponible"
 
     def list_msj(self):
         s = ""
@@ -874,10 +874,10 @@ class Oven(Power):
         self.id = id
 
     def get_temp(self):
-        return "La temperatura del horno es " + str(self.temp) + " °C"
+        return "La temperatura del horno es de " + str(self.temp) + " °C"
 
     def get_time(self):
-        return "El horno esta en " + str(self.time) + " min"
+        return "El tiempo de coccion actual del horno es de " + str(self.time) + " minutos"
 
     def change_time(self, minute):
         self.isOn = True
@@ -907,10 +907,13 @@ class Dryer(Power):
         self.id = id
 
     def get_time(self):
-        return str(self.time) + " min"
+        return "El tiempo de secado es de " + str(self.time) + " minutos"
 
     def get_state(self):
         return "El estado de la secadora es " + self.state[self.index_state]
+    
+    def get_all_state(self):
+        return "Los estados de la secadora son " + self.state
 
     def change_time(self, minute):
         self.isOn = True
@@ -935,7 +938,7 @@ class Dryer(Power):
     def __str__(self):
         s = ""
         if(self.isOn):
-            s += "La secadora esta encendida, su estado actual es " + self.state[self.index_state] + " y el tiempo de secado es de " +  str(self.time) + " minutos"
+            s += "La secadora esta encendida, su estado actual es " + self.state[self.index_state] + " y el tiempo de secado es de " +  str(self.time) + " minutos y " + self.get_all_state()
         else:
             s += "La secadora esta apagada"
         return s

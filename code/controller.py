@@ -512,6 +512,7 @@ gPats = [
 #apague .. no puedo determinar que apagar
 #agregar ? computador, triturador de comida, licuadora,
 #Haciendo pruebas
+print print_all()
 control = Controller_house()
 # print print_all()
 exit = ["salir", "adios", "hasta luego", "hasta pronto", "chao"]
