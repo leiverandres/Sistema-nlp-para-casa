@@ -136,7 +136,7 @@ class TV(Power):
         if(self.isOn):
             if(channel > 0 and channel < 121):
                 self.channel = channel
-                return "Canal actualen el TV " + place6(self.id) + " " + str(self.channel)
+                return "El Canal actual en el TV " + place6(self.id) + " " + str(self.channel)
             else:
                 return "No existe este canal en el TV " + place6(self.id)
         else:
