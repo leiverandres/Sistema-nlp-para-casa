@@ -69,63 +69,63 @@ def print_all():
     s += "\t\t\t| El estado de todos los elementos de la casa |\n"
     s += "\t\t\t|_____________________________________________|\n\n"
 
-    s += "Estado de las ventanas:\n\n"
-    s += ventanas[0].__str__() + "\n" + ventanas[1].__str__() + "\n"
+    s += "Estado de las ventanas:"
+    s += "\n" + ventanas[0].__str__() + "\n" + ventanas[1].__str__() + "\n"
     s += ventanas[2].__str__() + "\n" + ventanas[3].__str__() + "\n"
     s += ventanas[4].__str__() + "\n" + ventanas[5].__str__() + "\n"
     s += ventanas[6].__str__() + "\n" + ventanas[7].__str__() + "\n"
     s += ventanas[8].__str__() + "\n\n"
 
-    s += "Estado de las luces:\n\n"
-    s += luces[0].__str__() + "\n" + luces[1].__str__() + "\n" + luces[2].__str__() + "\n"
+    s += "Estado de las luces:"
+    s += "\n" + luces[0].__str__() + "\n" + luces[1].__str__() + "\n" + luces[2].__str__() + "\n"
     s += luces[3].__str__() + "\n" + luces[4].__str__() + "\n" + luces[5].__str__() + "\n"
     s += luces[6].__str__() + "\n" + luces[7].__str__() + "\n" + luces[8].__str__() + "\n"
     s += luces[9].__str__() + "\n" + luces[10].__str__() + "\n" + luces[11].__str__() + "\n\n"
 
-    s += "Estado de las lamparas:\n\n"
-    s += lamparas[0].__str__() + "\n" + lamparas[1].__str__() + "\n" + lamparas[2].__str__() + "\n\n"
+    s += "Estado de las lamparas:"
+    s += "\n" + lamparas[0].__str__() + "\n" + lamparas[1].__str__() + "\n" + lamparas[2].__str__() + "\n\n"
 
-    s += "Estado de los televisores:\n\n"
-    s += tvs[0].__str__() + "\n" + tvs[1].__str__() + "\n" + tvs[2].__str__() + "\n\n"
+    s += "Estado de los televisores:"
+    s += "\n" + tvs[0].__str__() + "\n" + tvs[1].__str__() + "\n" + tvs[2].__str__() + "\n\n"
 
-    s += "Estado de los equipos de sonido: \n\n"
-    s += sonido[0].__str__() + "\n" + sonido[1].__str__() + "\n\n"
+    s += "Estado de los equipos de sonido:"
+    s += "\n" + sonido[0].__str__() + "\n" + sonido[1].__str__() + "\n\n"
 
-    s += "Estado del telefono:\n\n"
-    s += telefono.__str__() + "\n\n"
+    s += "Estado del telefono:"
+    s += "\n" + telefono.__str__() + "\n\n"
 
-    s += "Estado de la impresora:\n\n"
-    s += impresora.__str__() + "\n\n"
+    s += "Estado de la impresora:"
+    s += "\n" + impresora.__str__() + "\n\n"
 
-    s += "Estado de los Emails:\n\n"
-    s += correos.__str__() + "\n\n"
+    s += "Estado de los Emails:"
+    s += "\n" + correos.__str__() + "\n\n"
 
-    s += "Estado de las alarmas:\n\n"
-    s += alarmas[0].__str__() + "\n" + alarmas[1].__str__() + "\n\n"
+    s += "Estado de las alarmas:"
+    s += "\n" + alarmas[0].__str__() + "\n" + alarmas[1].__str__() + "\n\n"
 
-    s += "Estado del aire acondicionado:\n\n"
-    s += acondicionado.__str__() + "\n\n"
+    s += "Estado del aire acondicionado:"
+    s += "\n" + acondicionado.__str__() + "\n\n"
 
-    s += "Estado de la ducha:\n\n"
-    s += ducha.__str__() + "\n\n"
+    s += "Estado de la ducha:"
+    s += "\n" + ducha.__str__() + "\n\n"
 
-    s += "Estado de la lavadora:\n\n"
-    s += lavadora.__str__() + "\n\n"
+    s += "Estado de la lavadora:"
+    s += "\n" + lavadora.__str__() + "\n\n"
 
-    s += "Estado de la secadora:\n\n"
-    s += secadora.__str__() + "\n\n"
+    s += "Estado de la secadora:"
+    s += "\n" + secadora.__str__() + "\n\n"
 
-    s += "Estado del lavaplatos:\n\n"
-    s += lavaplatos.__str__() + "\n\n"
+    s += "Estado del lavaplatos:"
+    s += "\n" + lavaplatos.__str__() + "\n\n"
 
-    s += "Estado de la estufa:\n\n"
-    s += estufa.__str__() + "\n\n"
+    s += "Estado de la estufa:"
+    s += "\n" + estufa.__str__() + "\n\n"
 
-    s += "Estado del horno:\n\n"
-    s += horno.__str__() + "\n\n"
+    s += "Estado del horno:"
+    s += "\n" + horno.__str__() + "\n\n"
 
-    s += "Estado de la nevera:\n\n"
-    s += nevera.__str__() + "\n\n"
+    s += "Estado de la nevera:"
+    s += "\n" + nevera.__str__() + "\n\n"
 
     return s
 #//////////////////////////////////////////////////////////////////////

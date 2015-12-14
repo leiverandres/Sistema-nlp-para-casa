@@ -411,59 +411,59 @@ class SoundSystem(Power):
         return s
 #///////////////////////////////////////////////////////////////////////////////
 
-class Curtains(Power):
+class Curtains:
     def __init__(self, id):
-        Power.__init__(self, "Cortinas", place5(id))
+        self.isOn = False
         self.cant = 0 #0 es cerrada, 100 es totalmente abierta
         self.id = id
 
     def get_cant(self):
-        return "Las cortinas " + place5(self.id) + " estan abiertas en un " + str(self.cant)+"%"
+        return "Las Cortinas " + place5(self.id) + " estan abiertas en un " + str(self.cant)+"%"
 
     def turn_open_closed(self, state):
         if(state):
             if(self.isOn):
-                return "Las cortinas " + place5(self.id) + " ya estan abiertas."
+                return "Las Cortinas " + place5(self.id) + " ya estan abiertas."
             else:
                 self.isOn = True
                 self.cant = 100
-                return "Las cortinas " + place5(self.id) + " estan abiertas."
+                return "Las Cortinas " + place5(self.id) + " estan abiertas."
         else:
             if(not self.isOn):
-                return "Las cortinas " + place5(self.id) + " ya estan cerradas."
+                return "Las Cortinas " + place5(self.id) + " ya estan cerradas."
             else:
                 self.isOn = False
                 self.cant = 0
-                return "Las cortinas " + place5(self.id) + " estan cerradaa."
+                return "Las Cortinas " + place5(self.id) + " estan cerradaa."
 
     def up_down_cant(self, state):
         if(state):
             if(self.isOn):
-                return "Las cortinas " + place5(self.id) + " ya estan totalmente abiertas"
+                return "Las Cortinas " + place5(self.id) + " ya estan totalmente abiertas"
             else:
                 if(self.cant + 10 > 100):
                     self.cant = 100
-                    return "Las cortinas " + place5(self.id) + " ya estan totalmente abiertas"
+                    return "Las Cortinas " + place5(self.id) + " ya estan totalmente abiertas"
                 else:
                     self.cant += 10
-                    return "Las cortinas " + place5(self.id) + " estan abiertas en un " + str(self.cant)+"%"
+                    return "Las Cortinas " + place5(self.id) + " estan abiertas en un " + str(self.cant)+"%"
         else:
             if(not self.isOn):
-                return "Las cortinas " + place5(self.id) + " ya estan totalmente cerradas"
+                return "Las Cortinas " + place5(self.id) + " ya estan totalmente cerradas"
             else:
                 if(self.cant - 10 < 0):
                     self.cant = 0
-                    return "Las cortinas " + place5(self.id) + " ya estan cerradas totalmente"
+                    return "Las Cortinas " + place5(self.id) + " ya estan cerradas totalmente"
                 else:
                     self.cant -= 10
-                    return "Las cortinas " + place5(self.id) + " estan abiertas en un " + str(self.cant)+"%"
+                    return "Las Cortinas " + place5(self.id) + " estan abiertas en un " + str(self.cant)+"%"
 
     def __str__(self):
         s = ""
         if(self.isOn):
-            s += "Las cortinas " + place5(self.id) + " estan abiertas en un " + str(self.cant) + "%"
+            s += "Las Cortinas " + place5(self.id) + " estan abiertas en un " + str(self.cant) + "%"
         else:
-            s += "Las cortinas " + place5(self.id) + " estan cerradas"
+            s += "Las Cortinas " + place5(self.id) + " estan cerradas"
         return s
  #///////////////////////////////////////////////////////////////////////////////
 
@@ -823,7 +823,7 @@ class Phone:
         self.mensajes = ["Hola, ¿Me va dar copia de IA?",
                         "¿Cuales materias perdio?",
                         "Por favor, mandeme el codigo yo lo miro, pero no se lo copio",
-                        "¿Ya salio a vaciones? Cuando es la farra? xD"];
+                        "¿Ya salio a vacaciones? Cuando es la farra? xD"];
 
     def llamar(self, num):
         if(num in self.agenda):
