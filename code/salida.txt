@@ -4,69 +4,64 @@
 			|_____________________________________________|
 
 Estado de las ventanas:
-
-Las cortinas de la primera ventana de la sala estan cerradas
-Las cortinas de la segunda ventana de la sala estan cerradas
-Las cortinas de la ventana de la cocina estan cerradas
-Las cortinas de la primera ventana del comedor estan cerradas
-Las cortinas de la segunda ventana del comedor estan cerradas
-Las cortinas de la ventana de la primera habitacion estan cerradas
-Las cortinas de la ventana de la segunda habitacion estan cerradas
-Las cortinas de la ventana de la sala del segundo piso estan cerradas
-Las cortinas de la ventana del pasillo del segundo piso estan cerradas
+Las Cortinas de la primera ventana de la sala estan cerradas
+Las Cortinas de la segunda ventana de la sala estan cerradas
+Las Cortinas de la ventana de la cocina estan cerradas
+Las Cortinas de la primera ventana del comedor estan cerradas
+Las Cortinas de la segunda ventana del comedor estan cerradas
+Las Cortinas de la ventana de la primera habitacion estan cerradas
+Las Cortinas de la ventana de la segunda habitacion estan cerradas
+Las Cortinas de la ventana de la sala del segundo piso estan cerradas
+Las Cortinas de la ventana del pasillo del segundo piso estan cerradas
 
 Estado de las luces:
-
-La luz de la entrada esta apagada
-La luz de la sala esta apagada
-La luz del patio esta apagada
-La luz del comedor esta apagada
-La luz de la cocina esta apagada
-La luz del pasillo del primer piso esta apagada
-La luz de las escaleras esta apagada
-La luz del pasillo del segundo piso esta apagada
-La luz de la sala del segundo piso esta apagada
-La luz de la primera habitacion esta apagada
-La luz de la segunda habitacion esta apagada
-La luz del baño esta apagada
+La Luz de la entrada esta apagada
+La Luz de la sala esta apagada
+La Luz del patio esta apagada
+La Luz del comedor esta apagada
+La Luz de la cocina esta apagada
+La Luz del pasillo del primer piso esta apagada
+La Luz de las escaleras esta apagada
+La Luz del pasillo del segundo piso esta apagada
+La Luz de la sala del segundo piso esta apagada
+La Luz de la primera habitacion esta apagada
+La Luz de la segunda habitacion esta apagada
+La Luz del baño esta apagada
 
 Estado de las lamparas:
-
-La lampara de la izquierda de la primera habitacion esta apagada
-La lampara de la derecha de la primera habitacion esta apagada
-La lampara de la segunda habitacion esta apagada
+La Lampara de la izquierda de la primera habitacion esta apagada
+La Lampara de la derecha de la primera habitacion esta apagada
+La Lampara de la segunda habitacion esta apagada
 
 Estado de los televisores:
+El TV de la sala esta apagado
+El TV de la primera habitacion esta apagado
+El TV de la segunda habitacion esta apagado
 
-El tv de la sala esta apagado
-El tv de la primera habitacion esta apagado
-El tv de la segunda habitacion esta apagado
-
-Estado de los equipos de sonido: 
-
-El equipodel primer piso esta apagado
-El equipodel segunda piso esta apagado
+Estado de los equipos de sonido:
+El equipo del primer piso esta apagado
+El equipo del segunda piso esta apagado
 
 Estado del telefono:
-
 Todos los contactos:
 321456789
 789456123
 741258963
 369852147
+3117231283
+3164328712
 
 Todos los mensajes:
-pjfpjapsfj djf ao jdfjasdfpjasdp fasoj fd
-asfdjikajfi afj kfa ff kafj kajfk ajkfa jskfj
-koaj faś jfáo jsofj aoś jfo af'jaojfóa fsaój
+Hola, ¿Me va dar copia de IA?
+¿Cuales materias perdio?
+Por favor, mandeme el codigo yo lo miro, pero no se lo copio
+¿Ya salio a vacaciones? Cuando es la farra? xD
 
 
 Estado de la impresora:
-
 La impresora esta apagada
 
 Estado de los Emails:
-
 Todos los mensajes:
 hi, need help
 meeting saturday
@@ -74,32 +69,25 @@ another mail
 
 
 Estado de las alarmas:
-
 La alarma de la puerta esta apagada/desactivada
 La alarma de las ventanas esta apagada/desactivada
 
 Estado del aire acondicionado:
-
 El aire acondicionado esta apagado
 
 Estado de la ducha:
-
 La ducha esta cerrada
 
 Estado de la lavadora:
-
 La lavadora esta apagada
 
 Estado de la secadora:
-
 La secadora esta apagada
 
 Estado del lavaplatos:
-
 El lavaplatos esta apagado
 
 Estado de la estufa:
-
 La hornilla 1 esta apagada
 La hornilla 2 esta apagada
 La hornilla 3 esta apagada
@@ -107,11 +95,16 @@ La hornilla 4 esta apagada
 
 
 Estado del horno:
-
 El horno esta apagado
 
 Estado de la nevera:
-
-La nevera esta apagada
-
-
+La nevera esta encendida, esta con una temperatura de 15°C
+Elementos en la nevera:
+pastel
+fruta
+carne
+pollo
+verduras
+quesadillas
+vino
+cerveza
