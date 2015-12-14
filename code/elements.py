@@ -183,11 +183,14 @@ class Light(Power): # Clase para las luces de la casa y para las lamparas
             return "La " + self.obj + " " + self.place + " esta apagada, enciendala"
 
     def set_intensity(self, cant):
+        s = ""
+        if(cant < 0 or cant > 2):
+            cant = 0
+            s += "La cantidad especificada no es valida, se tomara el valor por defecto "
         if(cant == 0):
             self.turn_on_off(True)
             self.intensity = 15
-            self.turn_on_off(True)
-            return "La intensidad actual de la " + self.obj + " " + self.place + " " + str(self.intensity)
+            return s + "La intensidad actual de la " + self.obj + " " + self.place + " " + str(self.intensity)
         elif(cant == 1):
             self.turn_on_off(True)
             self.intensity = 50
@@ -322,7 +325,7 @@ class Dishwasher(Power):
     def wash(self, time = 5):
         if(self.haveDish):
             self.isOn = True
-            self.set_time(time)
+            self.time = time
             self.haveDish = False
             return "Limpiando platos"
         else:
@@ -537,8 +540,9 @@ class Email:
         else:
             return "No hay mensajes por leer."
 
-    def remove_mesa(self, index):#index debe venir index 1
-        if(index <= self.to_read):
+    def remove_mesa(self, index): #index debe venir index 1
+        if(index > 0 and index <= self.to_read):
+            index -= 1
             self.to_read -= 1
             return "mensaje eliminado:\n" + self.inbox.pop(index)
         else:

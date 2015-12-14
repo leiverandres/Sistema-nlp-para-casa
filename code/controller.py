@@ -126,8 +126,17 @@ def print_all():
 
     s += "Estado de la nevera:"
     s += "\n" + nevera.__str__() + "\n\n"
-
     return s
+
+def pull_data(match):
+    if(match.group("numbers1")):
+        return int(match.group("numbers1"))
+    elif(match.group("numbers2")):
+        return int(match.group("numbers2"))
+    elif(match.group("msj")):
+        return match.group("msj")
+    return ""
+
 #//////////////////////////////////////////////////////////////////////
 class Controller_house:
     def __init__(self):
@@ -141,9 +150,8 @@ class Controller_house:
                 "Te sientes a gusto con lo que hago?"]
         ans = random.choice(opc)
         return ans
-
+    
     def respond(self, str):
-        #Modificarlo segun nuestro proyecto
         for i in range(0, len(self.keys)):
           match = self.keys[i].match(str)
           if match:
@@ -156,9 +164,6 @@ class Controller_house:
                 return resp[0](resp[1], resp[2])
             else:
                 return "Error, no hay argumentos ni función"
-
-    def stateHouse(self): #Aca se dira el estado actual de la casa
-        pass
 
 gPats = [
     #========================= TV ========================================
