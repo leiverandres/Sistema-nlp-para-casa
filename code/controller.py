@@ -42,6 +42,21 @@ acondicionado = Air(1)
 sonido        = [SoundSystem(1), SoundSystem(2)]
 alarmas       = [Alert(1), Alert(2)]
 #//////////////////////////////////////////////////////////////////////
+
+def ans_default():
+    ans = ["No entiendo su consulta, por favor intentelo de nuevo",
+            "Por favor sea más especifico",
+            "Su consulta no es valida, vuelva a intentarlo"]
+    s = random.choice(ans)
+    return s
+
+def exit_default():
+    ans = ["Hasta pronto, que tenga un buen dia",
+            "Nos vemos en una proxima ocasión",
+            "Hasta luego"]
+    s = random.choice(ans)
+    return s
+
 def print_objs(objs, state):
     s = ""
     for i in range(len(objs)):
@@ -483,13 +498,24 @@ gPats = [
         ]],
 
     # falta change time and temp
+    
+    # respuesta de salida
+    [r'(salir|adios|hasta luego|hasta pronto|chao)(.*)',
+        [ exit_default
+        ]],
+    
+    # respuesta por defecto
+    [r'(.*)',
+        [ ans_default
+        ]],
 ]
 #apague .. no puedo determinar que apagar
 #agregar ? computador, triturador de comida, licuadora,
 #Haciendo pruebas
 control = Controller_house()
 # print print_all()
+exit = ["salir", "adios", "hasta luego", "hasta pronto", "chao"]
 s = ''
-while(s != "salir"):
+while(s not in exit):
     s = raw_input("TÚ: ")
     print control.respond(s)
