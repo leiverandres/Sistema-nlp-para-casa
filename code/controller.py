@@ -590,7 +590,7 @@ gPats = [
     [r'(.*)(disminuya|disminuye|baja|baje)(.*)temperatura(.*)aire( acondicionado)?(.*)',
         [ False, acondicionado.up_down_temp, False
         ]],
-        
+
      #=========================== shower =====================================
 
     [r'(.*)(abra|abre|activa|active|enciende|encienda|activa|active)(.*)(ducha|llave)(.*)',
@@ -631,6 +631,10 @@ gPats = [
         [ False, lavaplatos.turn_on_off, False
         ]],
 
+    [r'(por favor )?(ponga|pon|pongale|coloque|coloquele|coloca) (?P<numbers1>[0-9]+)( min|minutos)( de tiempo)?( al)? lavaplatos',
+        [ True, lavaplatos.set_time, 1
+        ]],
+
     [r'(.*)(hay|todos|estan)(.*)platos(.*)(sucios|por lavar|para lavar)(\?)?(.*)',
         [ False, lavaplatos.get_have_dish
         ]],
@@ -638,8 +642,6 @@ gPats = [
     [r'(.*)(limpie|limpia|lave|lava)(.*)platos(.*)(sucios|por lavar|para lavar)?(.*)',
         [ False, lavaplatos.wash, 10
         ]],
-
-     # capturar set time
 
      #================================ Sound System ============================
 
