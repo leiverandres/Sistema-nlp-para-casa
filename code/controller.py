@@ -233,7 +233,7 @@ gPats = [
         ]],
 
     [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(siguiente|pr(o|ó)ximo) canal(.*)(tv|televisor|television|tele)(.*)(sala|primer piso|piso (primero|1|uno))(.*)",
-        [ False, tvs[0].change_channel, Tru
+        [ False, tvs[0].change_channel, True
         ]],
 
 
@@ -318,28 +318,100 @@ gPats = [
         [ False, luces[0].turn_on_off, True
         ]],
 
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)luz(.*)sala(.*)',
+        [ False, luces[1].turn_on_off, True
+        ]],
+
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)luz(.*)(patio|zona de lavado)(.*)',
+        [ False, luces[2].turn_on_off, True
+        ]],
+
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)luz(.*)comedor(.*)',
+        [ False, luces[3].turn_on_off, True
+        ]],
+
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)luz(.*)cocina(.*)',
+        [ False, luces[4].turn_on_off, True
+        ]],
+
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)luz(.*)pasillo(.*)primer piso(.*)',
+        [ False, luces[5].turn_on_off, True
+        ]],
+
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)luz(.*)escaleras(.*)',
+        [ False, luces[6].turn_on_off, True
+        ]],
+
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)luz(.*)pasillo(.*)segundo piso(.*)',
+        [ False, luces[7].turn_on_off, True
+        ]],
+
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)luz(.*)sala(.*)segundo piso(.*)',
+        [ False, luces[8].turn_on_off, True
+        ]],
+
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)luz(.*)primera habitacion(.*)',
+        [ False, luces[9].turn_on_off, True
+        ]],
+
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)segunda habitacion(.*)',
+        [ False, luces[10].turn_on_off, True
+        ]],
+
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)baño(.*)',
+        [ False, luces[11].turn_on_off, True
+        ]],
+
     [r'(.*)(apaga|apague)(.*)luz(.*)entrada(.*)',
         [ False, luces[0].turn_on_off, False
         ]],
 
-    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )(de la)? luz de la entrada',
+    [r'(.*)(apaga|apague)(.*)luz(.*)sala(.*)',
+        [ False, luces[1].turn_on_off, False
+        ]],
+
+    [r'(.*)(apaga|apague)(.*)luz(.*)(patio|zona de lavado)(.*)',
+        [ False, luces[2].turn_on_off, False
+        ]],
+
+    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )((de|en) la)? luz de la entrada',
         [ True, luces[0].set_intensity, 1
+        ]],
+
+    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )((de|en) la)? luz de la sala',
+        [ True, luces[1].set_intensity, 1
         ]],
 
     [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)luz(.*)entrada(.*)',
         [ False, luces[0].up_down_intensity, True
         ]],
 
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)luz(.*)sala(.*)',
+        [ False, luces[1].up_down_intensity, True
+        ]],
+
     [r'(.*)(m(a|á)s)(.*)luz(.*)entrada(.*)',
         [ False, luces[0].up_down_intensity, True
+        ]],
+
+    [r'(.*)(m(a|á)s)(.*)luz(.*)sala(.*)',
+        [ False, luces[1].up_down_intensity, True
         ]],
 
     [r'(.*)(disminuya|disminuye|baja|baje)(.*)luz(.*)entrada(.*)',
         [ False, luces[0].up_down_intensity, False
         ]],
 
+    [r'(.*)(disminuya|disminuye|baja|baje)(.*)luz(.*)sala(.*)',
+        [ False, luces[1].up_down_intensity, False
+        ]],
+
     [r'(.*)menos(.*)luz(.*)entrada(.*)',
         [ False, luces[0].up_down_intensity, False
+        ]],
+
+    [r'(.*)menos(.*)luz(.*)sala(.*)',
+        [ False, luces[1].up_down_intensity, False
         ]],
 
     [r'(.*)luz(.*)',
@@ -538,7 +610,7 @@ gPats = [
         ],
 
     [r'(por favor )?(apaga|apague) la hornilla (?P<numbers1>[0-9]+)',
-        [25 True, estufa.turn_on_off, 1, False
+        [ True, estufa.turn_on_off, 1, False
         ]],
 
     [r'(por favor )?((¿)cual es|muestreme|digame) el estado de la hornilla (?P<numbers1>[0-9]+)(\?)?',
