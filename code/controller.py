@@ -78,9 +78,77 @@ class Controller_house:
         pass
 
 gPats = [
-  [r'(.*)televisor(.*)',
-  [ tvs[0].turn_on_off, True, None
-    ]],
+    #phone requests
+    # [r"""((.*)(llama|llamar|llamada|llame)(.*)(ultimo|ultima)(numero|contacto)(.*)) |
+    #     ((.*)(ultimo|ultima)(.*)(llamada|numero|contacto)(.*))""",
+    #     [ telefono.llamar_ult, 0, 0
+    #     ]],
+    #
+    # [r"(.*)(llama|llamar|llamada|llame)(.*)(numero|contacto)(.*)",
+    #     [ telefono.llamar, 0, 0
+    #     ]],
+    #
+    # [r"(.*)(llama|llamar|llamada|llame)(.*)(numero|contacto)(.*)",
+    #     [ telefono.llamar, 0, 0
+        # ]],
+
+    #tv
+    # pon el siguiente canal
+    #pasalo de canal
+    #siguiente canal
+    # siguiente canal
+    #cambia canal
+    #siguiente
+    # pasa al siguiente canal
+    #========================= TV ========================================
+    [r"(.*)(enciende|prende|prenda|encienda|enciendete|enciendase|prendase|prendete)(.*)(tv|televisor|television|tele)(.*)",#cual?
+        [ tvs[0].turn_on_off, True, None
+        ]],
+
+    [r"(.*)(tv|televisor|television|tele)(.*)(enciende|prende|prenda|encienda|enciendete|enciendase|prendase|prendete)(.*)",#cual?
+        [ tvs[0].turn_on_off, True, None
+        ]],
+
+    [r"(.*)(apaga|apague|apaguese|apagate)(.*)(tv|televisor|television|tele)(.*)",#cual?
+        [ tvs[0].turn_on_off, False, None
+        ]],
+
+    [r"(.*)(tv|televisor|television|tele)(.*)(apaga|apague|apaguese|apagate)(.*)",#cual?
+        [ tvs[0].turn_on_off, False, None
+        ]],
+
+    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(siguiente|pr(o|ó)ximo) canal(.*)",
+        [ tvs[0].change_channel, True, None
+        ]],
+
+    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)canal (siguiente|pr(o|ó)ximo)(.*)",
+        [ tvs[0].change_channel, True, None
+        ]],
+
+    [r"((.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(anterior) canal(.*)",
+        [ tvs[0].change_channel, False, None
+        ]],
+
+    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)canal (pasado|anterior)(.*)",
+        [ tvs[0].change_channel, False, None
+        ]],
+
+    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)canal (pasado|anterior)(.*)",
+        [ tvs[0].change_channel, False, None
+        ]],
+
+    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)(.*)canal(.*)",
+        [ tvs[0].change_channel, True, None
+        ]],
+
+    [r"(.*)(aumente|incremente|suba)?(.*)volumen(.*)(tv|televisor|television|tele)(.*)",
+        [ tvs[0].change_channel, False, None
+        ]],
+     # falta
+     # default: por favor especifica que tv quieres modificar
+     # capturar datos de expresiones regulares
+     #conflicto volumen tv y equipo?
+     #======================================================================
 ]
 
 
@@ -89,5 +157,7 @@ gPats = [
 # tvs[0].turn_on_off(True)
 # print tvs[0]
 control = Controller_house()
-s = raw_input("TÚ: ")
-print control.respond(s)
+s = "init"
+while(s != "salir"):
+    s = raw_input("TÚ: ")
+    print control.respond(s)

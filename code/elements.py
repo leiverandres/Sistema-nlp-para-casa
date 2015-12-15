@@ -34,7 +34,7 @@ class TV(Power):
     def get_volume(self):
         return self.volume
 
-    def change_channel(self, state):
+    def change_channel(self, state, id = None):
         if(self.isOn):
             if (state):
                 self.channel = (self.channel + 1) % 120
@@ -587,14 +587,14 @@ class Phone:
                         "asfdjikajfi afj kfa ff kafj kajfk ajkfa jskfj",
                         "koaj faś jfáo jsofj aoś jfo af'jaojfóa fsaój"];
 
-    def llamar(self, num):
+    def llamar(self, num, id):
         if(num in self.agenda):
-            return "Llamando a ... " + num
+            return "Llamando ... "
             self.last = num
         else:
             return "el numero no se encuentra en la agenda"
 
-    def llamar_ult(self):
+    def llamar_ult(self, state, id):
         if(not (self.last == "")):
             return "Llamando a ... " + self.last
         else:
@@ -617,6 +617,7 @@ class Phone:
     def remove_agenda(self, num):
         if(num in self.agenda):
             self.agenda.remove(num)
+
 #///////////////////////////////////////////////////////////////////////////////
 
 class Oven(Power):
