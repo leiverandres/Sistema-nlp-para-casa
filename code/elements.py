@@ -38,7 +38,7 @@ def place3(id):
         return "de la segunda habitacion"
     if(id == 12):
         return "del baño"
-    
+
 # Mapea el id con la ubicacion de los lamparas
 def place4(id):
     if(id == 1):
@@ -147,7 +147,7 @@ class TV(Power):
                 self.volume -= 1
                 return "Volumen --: " + str(self.volume)
         else:
-            return "El tv " + place6(self.id) + "esta apagado, enciendalo."
+            return "El tv " + place6(self.id) + " esta apagado, enciendalo."
 
     def __str__(self):
         s = ""
@@ -284,12 +284,15 @@ class Shower(Power):
 class Dishwasher(Power):
     def __init__(self, id):
         Power.__init__(self, "Lavaplatos", "")
-        self.haveDish = False
+        self.haveDish = True
         self.time = 0
         self.id = id
 
     def get_have_dish(self):
-        return self.haveDish
+        if(self.haveDish):
+            return "Si, hay platos por lavar"
+        else:
+            return "No, no hay platos por lavar"
 
     def set_time(self, time):
         self.time = time
@@ -301,7 +304,10 @@ class Dishwasher(Power):
         if(self.haveDish):
             self.isOn = True
             self.set_time(time)
+            self.haveDish = False
+            return "Limpiando platos"
         else:
+            self.haveDish = True
             return "No hay platos sucios para lavar en el lavaplatos"
 
     def __str__(self):
@@ -321,7 +327,7 @@ class SoundSystem(Power):
         self.stations = ["88.2", "89.6", "95.6", "98.4", "100.2", "102.5", "103.9", "105.7", "106.9", "107.9"]
         self.index_station = 0
         self.id = id
-        
+
     def get_volume(self):
         return self.volume
 
@@ -385,7 +391,7 @@ class Curtains(Power):
         Power.__init__(self, "Cortinas", place5(id))
         self.cant = 0 #0 es cerrada, 100 es totalmente abierta
         self.id = id
-    
+
     def get_cant(self):
         return self.cant
 
@@ -441,7 +447,7 @@ class Printer(Power):
         Power.__init__(self, "Impresora", "")
         self.sheets = 10 #Numero de hojas que tiene la impresora
         self.id = id
-    
+
     def get_sheets(self):
         return self.sheets
 
@@ -524,7 +530,7 @@ class Air(Power):
         Power.__init__(self, "Aire acondicionado", "")
         self.temp = 25 #grados centigrados
         self.id = id
-    
+
     def get_temp(self):
         return self.temp
 
@@ -560,7 +566,7 @@ class Alert(Power):
         Power.__init__(self, "Alarma", place2(id))
         self.volume = 7 #max 10
         self.id = id
-    
+
     def get_volume(self):
         return self.volume
 
@@ -746,7 +752,7 @@ class Washer(Power):
       self.index_state = 4
       self.state = ["Lana", "Delicado", "Sintetico", "Resistente", "Intensivo"]
       self.id = id
-    
+
     def get_time(self):
         return self.time
 
@@ -861,7 +867,7 @@ class Oven(Power):
         self.temp = 0 #Centigrados
         self.time = 0 #Minutos
         self.id = id
-        
+
     def get_temp(self):
         return self.temp
 
@@ -894,7 +900,7 @@ class Dryer(Power):
         self.index_state = 0
         self.state = ["Presecado", "Delicado", "Regular", "Mix"]
         self.id = id
-    
+
     def get_time(self):
         return self.time
 

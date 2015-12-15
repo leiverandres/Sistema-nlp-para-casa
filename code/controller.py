@@ -42,6 +42,12 @@ acondicionado = Air(1)
 sonido        = [SoundSystem(1), SoundSystem(2)]
 alarmas       = [Alert(1), Alert(2)]
 #//////////////////////////////////////////////////////////////////////
+def print_objs(objs, state):
+    s = ""
+    for i in range(len(objs)):
+        s += objs[i].turn_on_off(state) + "\n"
+    return s
+
 def print_all():
     s =  "\t\t\t _____________________________________________\n"
     s += "\t\t\t|                                             |\n"
@@ -141,59 +147,103 @@ class Controller_house:
 
 gPats = [
     #========================= TV ========================================
-    [r'(.*)(enciende|prende|prenda|encienda|enciendete|enciendase|prendase|prendete)(.*)(tv|televisor|television|tele)(.*)',#cual?
+    [r'(.*)(enciende|prende|prenda|encienda)(.*)(tv|televisor|television|tele)(.*)(sala|primer piso|piso (primero|1|uno))(.*)',
         [ tvs[0].turn_on_off, True
         ]],
 
-    [r'(.*)(tv|televisor|television|tele)(.*)(enciende|prende|prenda|encienda|enciendete|enciendase|prendase|prendete)(.*)',#cual?
-        [ tvs[0].turn_on_off, True
+    [r'(.*)(enciende|prende|prenda|encienda)(.*)(tv|televisor|television|tele)(.*)(primera habitaci(o|ó)n)(.*)',
+        [ tvs[1].turn_on_off, True
         ]],
 
-    [r'(.*)(apaga|apague|apaguese|apagate)(.*)(tv|televisor|television|tele)(.*)',#cual?
+    [r'(.*)(enciende|prende|prenda|encienda)(.*)(tv|televisor|television|tele)(.*)(segunda habitaci(o|ó)n)(.*)',
+        [ tvs[2].turn_on_off, True
+        ]],
+
+    [r'(.*)(enciende|prende|prenda|encienda)(.*)(todos )?(tvs|televisores|televisiones|teles)(.*)',
+        [ print_objs, tvs, True
+        ]],
+
+    [r'(.*)(apaga|apague)(.*)(tv|televisor|television|tele)(.*)(sala|primer piso|piso (primero|1|uno))(.*)',
         [ tvs[0].turn_on_off, False
         ]],
 
-    [r'(.*)(tv|televisor|television|tele)(.*)(apaga|apague|apaguese|apagate)(.*)',#cual?
-        [ tvs[0].turn_on_off, False
+    [r'(.*)(apaga|apague)(.*)(tv|televisor|television|tele)(.*)(primera habitaci(o|ó)n)(.*)',
+        [ tvs[1].turn_on_off, False
         ]],
 
-    [r'(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(siguiente|pr(o|ó)ximo) canal(.*)',
+    [r'(.*)(apaga|apague)(.*)(tv|televisor|television|tele)(.*)(segunda habitaci(o|ó)n)(.*)',
+        [ tvs[2].turn_on_off, False
+        ]],
+
+    [r'(.*)(apaga|apague)(.*)(todos )?(tvs|televisores|televisiones|teles)(.*)',
+        [ print_objs, tvs, False
+        ]],
+
+    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(siguiente|pr(o|ó)ximo) canal(.*)(tv|televisor|television|tele)(.*)(sala|primer piso|piso (primero|1|uno))(.*)",
         [ tvs[0].change_channel, True
         ]],
 
-    [r'(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)canal (siguiente|pr(o|ó)ximo)(.*)',
+
+    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(siguiente|pr(o|ó)ximo) canal(.*)(tv|televisor|television|tele)(.*)(primera habitaci(o|ó)n)(.*)",
+        [ tvs[1].change_channel, True
+        ]],
+
+
+    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(siguiente|pr(o|ó)ximo) canal(.*)(tv|televisor|television|tele)(.*)(segunda habitaci(o|ó)n)(.*)",
+        [ tvs[2].change_channel, True
+        ]],
+
+    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)canal (siguiente|pr(o|ó)ximo)(.*)(tv|televisor|television|tele)(.*)(sala|primer piso|piso (primero|1|uno))(.*)",
         [ tvs[0].change_channel, True
         ]],
 
-    [r'(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(anterior) canal(.*)',
+
+    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)canal (siguiente|pr(o|ó)ximo)(.*)(tv|televisor|television|tele)(.*)(primera habitaci(o|ó)n)(.*)",
+        [ tvs[1].change_channel, True
+        ]],
+
+
+    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)canal (siguiente|pr(o|ó)ximo)(.*)(tv|televisor|television|tele)(.*)(segunda habitaci(o|ó)n)(.*)",
+        [ tvs[2].change_channel, True
+        ]],
+
+    [r'(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)canal (pasado|anterior)(.*)(tv|televisor|television|tele)(.*)(sala|primer piso|piso (primero|1|uno))(.*)',
         [ tvs[0].change_channel, False
         ]],
 
-    [r'(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)canal (pasado|anterior)(.*)',
-        [ tvs[0].change_channel, False
+    [r'(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)canal (pasado|anterior)(.*)(tv|televisor|television|tele)(.*)(primera habitaci(o|ó)n)(.*)',
+        [ tvs[1].change_channel, False
         ]],
 
-    [r'(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)canal (pasado|anterior)(.*)',
-        [ tvs[0].change_channel, False
+    [r'(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)canal (pasado|anterior)(.*)(tv|televisor|television|tele)(.*)(segunda habitaci(o|ó)n)(.*)',
+        [ tvs[2].change_channel, False
         ]],
 
-    [r'(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)(.*)canal(.*)',
-        [ tvs[0].change_channel, True
-        ]],
-
-    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube)(.*)volumen(.*)(tv|televisor|television|tele)(.*)',
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)volumen(.*)(tv|televisor|television|tele)(.*)(sala|primer piso|piso (primero|1|uno))(.*)',
         [ tvs[0].change_volume, True
         ]],
 
-    [r'(.*)m(a|á)s(.*)volumen(.*)',
-        [ tvs[0].change_volume, True
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)volumen(.*)(tv|televisor|television|tele)(.*)(primera habitaci(o|ó)n)(.*)',
+        [ tvs[1].change_volume, True
         ]],
 
-    [r'(.*)(disminuya|disminuye|baja|baje)(.*)volumen(.*)(tv|televisor|television|tele)(.*)',
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)volumen(.*)(tv|televisor|television|tele)(.*)(segunda habitaci(o|ó)n)(.*)',
+        [ tvs[2].change_volume, True
+        ]],
+
+    [r'(.*)(disminuya|disminuye|baja|baje|reduce|reduzca|merme|merma|menos)(.*)volumen(.*)(tv|televisor|television|tele)(.*)(sala|primer piso|piso (primero|1|uno))(.*)',
         [ tvs[0].change_volume, False
         ]],
+
+    [r'(.*)(disminuya|disminuye|baja|baje|reduce|reduzca|merme|merma|menos)(.*)volumen(.*)(tv|televisor|television|tele)(.*)(primera habitaci(o|ó)n)(.*)',
+        [ tvs[1].change_volume, False
+        ]],
+
+    [r'(.*)(disminuya|disminuye|baja|baje|reduce|reduzca|merme|merma|menos)(.*)volumen(.*)(tv|televisor|television|tele)(.*)(segunda habitaci(o|ó)n)(.*)',
+        [ tvs[2].change_volume, False
+        ]],
+
      # falta
-     # hace tv cada piso
      # set un vol o channel especefico
      # default: por favor especifica que tv quieres modificar
      # capturar datos de expresiones regulares
@@ -201,12 +251,12 @@ gPats = [
 
      #============================= light ===================================
 
-     [r'(.*)(enciende|prende|prenda|encienda|enciendete|enciendase|prendase|prendete)(.*)luz(.*)',
+     [r'(.*)(enciende|prende|prenda|encienda)(.*)luz(.*)',
          [ lamparas[0].turn_on_off, True
          ]],
 
-    [r'(.*)(apaga|apague|apaguese|apagate)(.*)luz(.*)',
-        [ lamparas[0].turn_on_off, False, if((type(resp[i]) == str) in resp)
+    [r'(.*)(apaga|apague)(.*)luz(.*)',
+        [ lamparas[0].turn_on_off, False
         ]],
 
     [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube)(.*)luz(.*)',
@@ -228,6 +278,7 @@ gPats = [
     #falta
     #set un valor de intensidad
     #cual luz
+    #luces otros sitios
     #=========================== shower =====================================
 
     [r'(.*)(abra|abre|activa|active|enciende|encienda)(.*)(ducha|llave)(.*)',
@@ -246,18 +297,45 @@ gPats = [
         [ ducha.up_down_temp, False
         ]],
 
-    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube)(.*)flujo(.*)agua(.*)(ducha|llave)?(.*)',
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube)(.*)flujo(.*)(agua)?(.*)(ducha|llave)(.*)',
         [ ducha.up_down_flow, True
         ]],
 
-    [r'(.*)(disminuya|disminuye|baja|baje)(.*)flujo(.*)agua(.*)(ducha|llave)?(.*)',
+    [r'(.*)(disminuya|disminuye|baja|baje)(.*)flujo(.*)(agua)?(.*)(ducha|llave)?(.*)',
         [ ducha.up_down_flow, False
-        ]]
+        ]],
 
-    #============================ Dishwasher =================================
+    #================================= Dishwasher =============================
 
+    [r'(.*)(enciende|prende|prenda|encienda)(.*)lavaplatos(.*)',
+        [ lavaplatos.turn_on_off, True
+        ]],
+
+    [r'(.*)(hay|todos|estan)(.*)platos(.*)(sucios|por lavar|para lavar)(\?)?(.*)',
+        [ lavaplatos.get_have_dish
+        ]],
+
+    [r'(.*)(limpie|limpia|lave|lava)(.*)platos(.*)(sucios|por lavar|para lavar)?(.*)',
+        [ lavaplatos.wash, 10
+        ]],
+
+    # capturar set time
+
+    #================================ Sound System ============================
+
+    #================================= ventanas ===============================
+
+    #================================= printer ================================
+
+    #================================= Email ==================================
+
+    #================================= Air ====================================
+
+    #================================= Alarmas ================================
 
 ]
+
+#agregar ? computador, triturador de comida, licuadora,
 #Haciendo pruebas
 control = Controller_house()
 # print print_all()
