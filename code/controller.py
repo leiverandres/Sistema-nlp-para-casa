@@ -68,28 +68,6 @@ class Controller_house:
         pass
 
 gPats = [
-    #phone requests
-    # [r"""((.*)(llama|llamar|llamada|llame)(.*)(ultimo|ultima)(numero|contacto)(.*)) |
-    #     ((.*)(ultimo|ultima)(.*)(llamada|numero|contacto)(.*))""",
-    #     [ telefono.llamar_ult, 0, 0
-    #     ]],
-    #
-    # [r"(.*)(llama|llamar|llamada|llame)(.*)(numero|contacto)(.*)",
-    #     [ telefono.llamar, 0, 0
-    #     ]],
-    #
-    # [r"(.*)(llama|llamar|llamada|llame)(.*)(numero|contacto)(.*)",
-    #     [ telefono.llamar, 0, 0
-        # ]],
-
-    #tv
-    # pon el siguiente canal
-    #pasalo de canal
-    #siguiente canal
-    # siguiente canal
-    #cambia canal
-    #siguiente
-    # pasa al siguiente canal
     #========================= TV ========================================
     [r"(.*)(enciende|prende|prenda|encienda|enciendete|enciendase|prendase|prendete)(.*)(tv|televisor|television|tele)(.*)",#cual?
         [ tvs[0].turn_on_off, True, None
@@ -155,7 +133,7 @@ while(s != "salir"):
 =======
 #Haciendo pruebas
 print tvs[0]
-print tvs[1] 
+print tvs[1]
 print tvs[2]
 
 print telefono
@@ -169,14 +147,14 @@ print lavaplatos
 print horno
 print nevera
 
-print lamparas[0] 
-print lamparas[1] 
+print lamparas[0]
+print lamparas[1]
 print lamparas[2]
-print ventanas[0] 
-print ventanas[1] 
-print ventanas[2] 
-print ventanas[3] 
-print ventanas[4] 
+print ventanas[0]
+print ventanas[1]
+print ventanas[2]
+print ventanas[3]
+print ventanas[4]
 print ventanas[5]
 print ventanas[6]
 print ventanas[7]
