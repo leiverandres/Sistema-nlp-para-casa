@@ -6,7 +6,9 @@ st = raw_input()
 # Podemos utilizar la sintaxis especial (?P<nombre>patron) 
 # que nos ofrece Python para nombrar estos grupos y que sea mas facil identificarlos.
 
-m = re.compile(r"(\w*)( )?(?P<numero>[0-9]+)( min(utos)?)")
+
+# (.*) => ((\w*)( ))*
+m = re.compile(r"((\w*)( ))*(?P<numero>[0-9]+)( min(utos)?)")
 # Formas de usarse:
 #s = m.search(st)
 s = m.match(st)
