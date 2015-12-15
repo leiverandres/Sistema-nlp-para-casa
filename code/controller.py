@@ -537,7 +537,7 @@ gPats = [
         [ True, estufa.turn_on_off, 1, True 
         ]],
         
-    [ r'(por favor )?(apaga|apague) la hornila (?P<numbers1>[0-9]+)',
+    [ r'(por favor )?(apaga|apague) la hornilla (?P<numbers1>[0-9]+)',
         [ True, estufa.turn_on_off, 1, False 
         ]],
     
