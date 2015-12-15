@@ -413,7 +413,6 @@ class Email:
 
     def remove_mesa(self, index):#index debe venir index 1
         if(index <= self.to_read):
-            
             self.to_read -= 1
             return "mensaje eliminado:\n" + self.inbox.pop(index)
         else:
