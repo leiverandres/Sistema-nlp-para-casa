@@ -128,14 +128,15 @@ def print_all():
     s += "\n" + nevera.__str__() + "\n\n"
     return s
 
-def pull_data(match):
-    if(match.group("numbers1")):
-       return int(match.group("numbers1"))
-    #elif(match.group("numbers2")):
-    #    return int(match.group("numbers2"))
-    #elif(match.group("msj")):
-    #    return match.group("msj")
-    return ""
+def pull_data(extract, match, current):
+    if(extract):
+        if(match.group("numbers1")):
+            return int(match.group("numbers1"))
+        elif(match.group("numbers2")):
+            return int(match.group("numbers2"))
+        elif(match.group("msj")):
+            return match.group("msj")
+    return current
 
 #//////////////////////////////////////////////////////////////////////
 class Controller_house:
@@ -156,26 +157,24 @@ class Controller_house:
           match = self.keys[i].match(str)
           if match:
             resp = self.values[i]
-            if(len(resp) == 1):
-                return resp[0]()
-            elif(len(resp) == 2):
-                s = pull_data(match)
-                if s:
-                    return resp[0](s)
-                return resp[0](resp[1])
+            if(len(resp) == 2):
+                return resp[1]()
             elif(len(resp) == 3):
-                return resp[0](resp[1], resp[2])
+                s = pull_data(resp[0], match, resp[2])
+                return resp[1](s)
+            elif(len(resp) == 4):
+                return resp[1](resp[2], resp[3])
             else:
                 return "Error, no hay argumentos ni función"
 
 gPats = [
     #========================= TV ========================================
-#    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)(tv|televisor|television|tele)(.*)(sala|primer piso|piso (primero|1|uno))(.*)',
-#        [ tvs[0].turn_on_off, True
-#        ]],
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)(tv|televisor|television|tele)(.*)(sala|primer piso|piso (primero|1|uno))(.*)',
+        [ False, tvs[0].turn_on_off, True
+        ]],
     
-     [r"(pon|pasalo|cambia|pasa|pase|ponga|cambie)( en el| el) canal (?P<numbers1>[0-9]+)( en el)( tv| televisor| television| tele)( del| de la)( sala| primer piso| piso (primero|1|uno))",
-        [ tvs[0].set_channel, 1
+     [r"(pon|pasalo|ponlo|cambia|pasa|pase|ponga|cambie)( el| en el) canal (?P<numbers1>[0-9]+)( en el| del)( tv| televisor| television| tele)( del| de la)( sala| primer piso| piso (primero|1|uno))",
+        [ True, tvs[0].set_channel, 1
         ]],
 
     # [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)(tv|televisor|television|tele)(.*)(primera habitaci(o|ó)n)(.*)',
@@ -531,7 +530,7 @@ control = Controller_house()
 # print print_all()
 exit = ["salir", "adios", "hasta luego", "hasta pronto", "chao"]
 s = ''
-tvs[0].turn_on_off(True)
+#tvs[0].turn_on_off(True)
 while(s not in exit):
     s = raw_input("TÚ: ")
     print control.respond(s)
