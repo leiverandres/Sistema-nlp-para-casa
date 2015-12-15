@@ -8,7 +8,7 @@ st = raw_input()
 
 
 # (.*) => ((\w*)( )*)*
-m = re.compile(r"((\w*)( ))*(?P<numero>[0-9]+)( min(utos)?)")
+m = re.compile(r"((\w*)( )*)*(?P<numero>[0-9]+)( min(utos)?)")
 # Formas de usarse:
 #s = m.search(st)
 s = m.match(st)
