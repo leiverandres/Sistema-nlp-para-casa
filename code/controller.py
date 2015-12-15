@@ -74,6 +74,14 @@ def luz_default():
     s = random.choice(ans)
     return s
 
+def estufa_default():
+    ans = ["Especifique la hornilla sobre la que quiere actuar",
+            "No puedo definir a que hornilla te refieres",
+            "Dame un poco mas de detalle, que hornilla quieres modificar",
+            "Repite la instrucción especificando la hornilla"]
+    s = random.choice(ans)
+    return s
+
 def print_objs(objs, state):
     s = ""
     for i in range(len(objs)):
@@ -605,20 +613,26 @@ gPats = [
      # set time and state
 
      #=================================  Stove ==================================
-    [r'(por favor )?(enciende|prende|prenda|encienda) la hornilla (?P<numbers1>[0-9]+)',
-         True, estufa.turn_on_off, 1, True
-        ],
+    [r'(por favor )?(enciende|prende|prenda|encienda) la hornilla (?P<numbers1>[0-9]+)(( )(.*))?',
+        [ True, estufa.turn_on_off, 1, True
+        ]],
 
-    [r'(por favor )?(apaga|apague) la hornilla (?P<numbers1>[0-9]+)',
+    [r'(por favor )?(apaga|apague) la hornilla (?P<numbers1>[0-9]+)(( )(.*))?',
         [ True, estufa.turn_on_off, 1, False
         ]],
 
-    [r'(por favor )?((¿)cual es|muestreme|digame) el estado de la hornilla (?P<numbers1>[0-9]+)(\?)?',
-        [ True,  estufa.get_hornilla, 1
+    [r'(por favor )?((¿)cual es|muestreme|digame) el estado de la hornilla (?P<numbers1>[0-9]+)(( )(.*))?',
+        [ True, estufa.get_hornilla, 1
         ]],
 
-    #falta setear la intensidad
-
+    [r'(por favor )?(suba|sube|aumente|aumenta|incremente|incrementa|m(a|á)s) la intensidad de la hornilla (?P<numbers1>[0-9]+)(( )(.*))?',
+        [ True, estufa.change_intensity_hornilla, 1, True
+        ]],
+        
+    [r'(por favor )?(disminuya|disminuye|baja|baje|menos|merme) la intensidad de la hornilla (?P<numbers1>[0-9]+)(( )(.*))?',
+        [ True, estufa.change_intensity_hornilla, 1, False
+        ]],
+        
      [r'(.*)(enciende|prende|prenda|encienda)(.*)(todas)? las hornillas(.*)',
         [ False, estufa.all, True
         ]],
@@ -627,7 +641,9 @@ gPats = [
         [ False, estufa.all, False
         ]],
 
-    #el default
+    [r'(.*)hornilla(.*)',
+        [ False, estufa_default
+        ]],
 
      #================================= phone ==================================
 
