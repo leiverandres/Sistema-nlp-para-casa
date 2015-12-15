@@ -7,7 +7,7 @@ st = raw_input()
 # que nos ofrece Python para nombrar estos grupos y que sea mas facil identificarlos.
 
 
-# (.*) => ((\w*)( ))*
+# (.*) => ((\w*)( )*)*
 m = re.compile(r"((\w*)( ))*(?P<numero>[0-9]+)( min(utos)?)")
 # Formas de usarse:
 #s = m.search(st)
