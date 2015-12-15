@@ -244,11 +244,9 @@ gPats = [
         [ False, tvs[0].change_channel, True
         ]],
 
-
     [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(siguiente|pr(o|ó)ximo|al) canal(.*)(tv|televisor|television|tele)(.*)(primera habitaci(o|ó)n)(.*)",
         [ False, tvs[1].change_channel, True
         ]],
-
 
     [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(siguiente|pr(o|ó)ximo|al) canal(.*)(tv|televisor|television|tele)(.*)(segunda habitaci(o|ó)n)(.*)",
         [ False, tvs[2].change_channel, True
@@ -258,11 +256,9 @@ gPats = [
         [ False, tvs[0].change_channel, True
         ]],
 
-
     [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)canal (siguiente|pr(o|ó)ximo|al)(.*)(tv|televisor|television|tele)(.*)(primera habitaci(o|ó)n)(.*)",
         [ False, tvs[1].change_channel, True
         ]],
-
 
     [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)canal (siguiente|pr(o|ó)ximo|al)(.*)(tv|televisor|television|tele)(.*)(segunda habitaci(o|ó)n)(.*)",
         [ False, tvs[2].change_channel, True
@@ -466,7 +462,7 @@ gPats = [
         [ True, luces[9].set_intensity, 1
         ]],
 
-    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )((de|en) la)? luz de la segunda habotaci(o|ó)n',
+    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )((de|en) la)? luz de la segunda habitaci(o|ó)n',
         [ True, luces[10].set_intensity, 1
         ]],
 
@@ -482,43 +478,109 @@ gPats = [
         [ False, luces[1].up_down_intensity, True
         ]],
 
-    [r'(.*)(m(a|á)s)(.*)luz(.*)entrada(.*)',
-        [ False, luces[0].up_down_intensity, True
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)luz(.*)(patio|zona de lavado)(.*)',
+        [ False, luces[2].up_down_intensity, True
         ]],
 
-    [r'(.*)(m(a|á)s)(.*)luz(.*)sala(.*)',
-        [ False, luces[1].up_down_intensity, True
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)luz(.*)comedor(.*)',
+        [ False, luces[3].up_down_intensity, True
         ]],
 
-    [r'(.*)(disminuya|disminuye|baja|baje)(.*)luz(.*)entrada(.*)',
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)luz(.*)cocina(.*)',
+        [ False, luces[4].up_down_intensity, True
+        ]],
+
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)luz(.*)pasillo(.*)primer piso(.*)',
+        [ False, luces[5].up_down_intensity, True
+        ]],
+
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)luz(.*)escaleras(.*)',
+        [ False, luces[6].up_down_intensity, True
+        ]],
+
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)luz(.*)pasillo(.*)segundo piso(.*)',
+        [ False, luces[7].up_down_intensity, True
+        ]],
+
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)luz(.*)sala(.*)segundo piso(.*)',
+        [ False, luces[8].up_down_intensity, True
+        ]],
+
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)luz(.*)primera habitaci(o|ó)n(.*)',
+        [ False, luces[9].up_down_intensity, True
+        ]],
+
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)luz(.*)segunda habitaci(o|ó)n(.*)',
+        [ False, luces[10].up_down_intensity, True
+        ]],
+
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)luz(.*)baño(.*)',
+        [ False, luces[11].up_down_intensity, True
+        ]],
+
+    [r'(.*)(disminuya|disminuye|baja|baje|menos)(.*)luz(.*)entrada(.*)',
         [ False, luces[0].up_down_intensity, False
         ]],
 
-    [r'(.*)(disminuya|disminuye|baja|baje)(.*)luz(.*)sala(.*)',
+    [r'(.*)(disminuya|disminuye|baja|baje|menos)(.*)luz(.*)sala(.*)',
         [ False, luces[1].up_down_intensity, False
         ]],
 
-    [r'(.*)menos(.*)luz(.*)entrada(.*)',
-        [ False, luces[0].up_down_intensity, False
+    [r'(.*)(disminuya|disminuye|baja|baje|menos)(.*)luz(.*)(patio|zona de lavado)(.*)',
+        [ False, luces[2].up_down_intensity, False
         ]],
 
-    [r'(.*)menos(.*)luz(.*)sala(.*)',
-        [ False, luces[1].up_down_intensity, False
+    [r'(.*)(disminuya|disminuye|baja|baje|menos)(.*)luz(.*)comedor(.*)',
+        [ False, luces[3].up_down_intensity, False
+        ]],
+
+    [r'(.*)(disminuya|disminuye|baja|baje|menos)(.*)luz(.*)cocina(.*)',
+        [ False, luces[4].up_down_intensity, False
+        ]],
+
+    [r'(.*)(disminuya|disminuye|baja|baje|menos)(.*)luz(.*)pasillo(.*)primer piso(.*)',
+        [ False, luces[5].up_down_intensity, False
+        ]],
+
+    [r'(.*)(disminuya|disminuye|baja|baje|menos)(.*)luz(.*)escaleras(.*)',
+        [ False, luces[6].up_down_intensity, False
+        ]],
+
+    [r'(.*)(disminuya|disminuye|baja|baje|menos)(.*)luz(.*)pasillo(.*)segundo piso(.*)',
+        [ False, luces[7].up_down_intensity, False
+        ]],
+
+    [r'(.*)(disminuya|disminuye|baja|baje|menos)(.*)luz(.*)sala(.*)segundo piso(.*)',
+        [ False, luces[8].up_down_intensity, False
+        ]],
+
+    [r'(.*)(disminuya|disminuye|baja|baje|menos)(.*)luz(.*)primera habitaci(o|ó)n(.*)',
+        [ False, luces[9].up_down_intensity, False
+        ]],
+
+    [r'(.*)(disminuya|disminuye|baja|baje|menos)(.*)luz(.*)segunda habitaci(o|ó)n(.*)',
+        [ False, luces[10].up_down_intensity, False
+        ]],
+
+    [r'(.*)(disminuya|disminuye|baja|baje|menos)(.*)luz(.*)baño(.*)',
+        [ False, luces[11].up_down_intensity, False
         ]],
 
     [r'(.*)luz(.*)',
         [ False, luz_default
         ]],
 
-     #falta
-     #luces otros sitios
      #================================= Air ====================================
     [r'(.*)(apaga|apague|desactive|desactiva)(.*)aire( acondicionado)?(.*)',
         [ False, acondicionado.turn_on_off, False
         ]],
 
-        [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)aire( acondicionado)?(.*)',
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)aire( acondicionado)?(.*)',
         [ False, acondicionado.turn_on_off, True
+        ]],
+
+    [r'(por favor )?(ponga|pon|pongale|coloque|coloquele|coloca) (?P<numbers1>[0-9]+)( grados)?(( de| como| a la)? temperatura)(( del)? aire( acondicionado)?)',
+        [ True, acondicionado.put_temp, 1
         ]],
 
     [r'(.*)(suba|sube|aumente|aumenta|incremente|incrementa|m(a|á)s)(.*)temperatura(.*)aire( acondicionado)?(.*)',
@@ -528,9 +590,7 @@ gPats = [
     [r'(.*)(disminuya|disminuye|baja|baje)(.*)temperatura(.*)aire( acondicionado)?(.*)',
         [ False, acondicionado.up_down_temp, False
         ]],
-
-     # falta
-     # put una temperatura x
+        
      #=========================== shower =====================================
 
     [r'(.*)(abra|abre|activa|active|enciende|encienda|activa|active)(.*)(ducha|llave)(.*)',
@@ -712,11 +772,11 @@ gPats = [
     [r'(por favor )?(suba|sube|aumente|aumenta|incremente|incrementa|m(a|á)s) la intensidad de la hornilla (?P<numbers1>[0-9]+)(( )(.*))?',
         [ True, estufa.change_intensity_hornilla, 1, True
         ]],
-        
+
     [r'(por favor )?(disminuya|disminuye|baja|baje|menos|merme) la intensidad de la hornilla (?P<numbers1>[0-9]+)(( )(.*))?',
         [ True, estufa.change_intensity_hornilla, 1, False
         ]],
-        
+
      [r'(.*)(enciende|prende|prenda|encienda)(.*)(todas)? las hornillas(.*)',
         [ False, estufa.all, True
         ]],
