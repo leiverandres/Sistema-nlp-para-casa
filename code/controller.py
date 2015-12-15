@@ -546,6 +546,7 @@ gPats = [
         ]],
     
     #falta setear la intensidad
+    
      [ r'(.*)(enciende|prende|prenda|encienda)(.*)(todas)? las hornillas(.*)',
         [ False, estufa.all, True 
         ]],
@@ -553,6 +554,7 @@ gPats = [
     [ r'(.*)(apaga|apague)(.*)(todas)? las hornillas(.*)',
         [ False, estufa.all, False 
         ]],
+        
     #el default
 
      #================================= phone ==================================
