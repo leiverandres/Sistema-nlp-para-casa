@@ -202,7 +202,6 @@ class Controller_house:
                 return resp[1](s1, s2)
             elif(len(resp) == 5):
                 s = pull_data(resp[0], match, resp[3], resp[4]) # Caso especial para impresora
-                print s
                 return resp[1](s[0], s[1])
             else:
                 return "Error, no hay argumentos ni función"
