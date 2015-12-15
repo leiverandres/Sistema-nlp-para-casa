@@ -74,6 +74,14 @@ def luz_default():
     s = random.choice(ans)
     return s
 
+def lampara_default():
+    ans = ["Especifique la lampara sobre la que quiere actuar",
+            "No puedo definir a que lampara te refieres",
+            "Dame un poco mas de detalle, que lampara quieres modificar",
+            "Repite la instrucción especificando la lampara"]
+    s = random.choice(ans)
+    return s
+
 def estufa_default():
     ans = ["Especifique la hornilla sobre la que quiere actuar",
             "No puedo definir a que hornilla te refieres",
@@ -153,14 +161,15 @@ def print_all():
     s += "\n" + nevera.__str__() + "\n\n"
     return s
 
-def pull_data(extract, match, current):
+def pull_data(extract, match, current, opc = False):
     if(extract):
-        if(match.group("numbers1")):
-            return int(match.group("numbers1"))
-        elif(match.group("numbers2")):
-            return int(match.group("numbers2"))
-        elif(match.group("msj")):
-            return match.group("msj")
+        if(not opc):
+            if(match.group("numbers1")):
+                return int(match.group("numbers1"))
+            elif(match.group("msj")):
+                return match.group("msj")
+        if(opc):
+            return [int(match.group("numbers1")), int(match.group("numbers2"))]
     return current
 
 #//////////////////////////////////////////////////////////////////////
@@ -191,6 +200,10 @@ class Controller_house:
                 s1 = pull_data(resp[0], match, resp[2])
                 s2 = pull_data(resp[0], match, resp[3])
                 return resp[1](s1, s2)
+            elif(len(resp) == 5):
+                s = pull_data(resp[0], match, resp[3], resp[4]) # Caso especial para impresora
+                print s
+                return resp[1](s[0], s[1])
             else:
                 return "Error, no hay argumentos ni función"
 
@@ -200,15 +213,15 @@ gPats = [
         [ False, tvs[0].turn_on_off, True
         ]],
 
-    [r"(pon|pasalo|ponlo|cambia|pasa|pase|ponga|cambie)( el| en el| al) canal (?P<numbers1>[0-9]+)( en el| del)( tv| televisor| television| tele)( del| de la)( sala| primer piso| piso (primero|1|uno))",
+    [r"(pon|pasalo|ponlo|cambia|pasa|pase|ponga|cambie)( el| en el| al) canal (?P<numbers1>[0-9]+)( en el| del)( tv| televisor| television| tele)( del| de la)( sala| primer piso| piso (primero|1|uno))(.*)",
         [ True, tvs[0].set_channel, 1
         ]],
 
-    [r"(pon|pasalo|ponlo|cambia|pasa|pase|ponga|cambie)( el| en el| al) canal (?P<numbers1>[0-9]+)( en el| del)( tv| televisor| television| tele)( del| de la)( primera habitaci(o|ó)n)",
+    [r"(pon|pasalo|ponlo|cambia|pasa|pase|ponga|cambie)( el| en el| al) canal (?P<numbers1>[0-9]+)( en el| del)( tv| televisor| television| tele)( del| de la)( primera habitaci(o|ó)n)(.*)",
         [ True, tvs[1].set_channel, 1
         ]],
 
-    [r"(pon|pasalo|ponlo|cambia|pasa|pase|ponga|cambie)( el| en el| al) canal (?P<numbers1>[0-9]+)( en el| del)( tv| televisor| television| tele)( del| de la)( segunda habitaci(o|ó)n)",
+    [r"(pon|pasalo|ponlo|cambia|pasa|pase|ponga|cambie)( el| en el| al) canal (?P<numbers1>[0-9]+)( en el| del)( tv| televisor| television| tele)( del| de la)( segunda habitaci(o|ó)n)(.*)",
         [ True, tvs[2].set_channel, 1
         ]],
 
@@ -311,6 +324,18 @@ gPats = [
     [r'(.*)volumen(.*)(tv|televisor|television|tele)(.*)(segunda habitaci(o|ó)n)(.*)',
         [ False, tvs[2].get_volume
         ]],
+    
+    [r'(.*)canal(.*)(tv|televisor|television|tele)(.*)(sala|primer piso|piso (primero|1|uno))(.*)',
+        [ False, tvs[0].get_channel
+        ]],
+
+    [r'(.*)canal(.*)(tv|televisor|television|tele)(.*)(primera habitaci(o|ó)n)(.*)',
+        [ False, tvs[1].get_channel
+        ]],
+
+    [r'(.*)canal(.*)(tv|televisor|television|tele)(.*)(segunda habitaci(o|ó)n)(.*)',
+        [ False, tvs[2].get_channel
+        ]],
 
     [r'(.*)(tv|televisor|television|tele)(.*)',
         [ False, tv_default
@@ -338,7 +363,7 @@ gPats = [
         [ False, luces[4].turn_on_off, True
         ]],
 
-    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)luz(.*)pasillo(.*)primer piso(.*)',
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)luz(.*)(pasillo|corredor)(.*)primer piso(.*)',
         [ False, luces[5].turn_on_off, True
         ]],
 
@@ -346,7 +371,7 @@ gPats = [
         [ False, luces[6].turn_on_off, True
         ]],
 
-    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)luz(.*)pasillo(.*)segundo piso(.*)',
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)luz(.*)(pasillo|corredor)(.*)segundo piso(.*)',
         [ False, luces[7].turn_on_off, True
         ]],
 
@@ -390,7 +415,7 @@ gPats = [
         [ False, luces[4].turn_on_off, False
         ]],
 
-    [r'(.*)(apaga|apague)(.*)luz(.*)pasillo(.*)primer piso(.*)',
+    [r'(.*)(apaga|apague)(.*)luz(.*)(pasillo|corredor)(.*)primer piso(.*)',
         [ False, luces[5].turn_on_off, False
         ]],
 
@@ -398,7 +423,7 @@ gPats = [
         [ False, luces[6].turn_on_off, False
         ]],
 
-    [r'(.*)(apaga|apague)(.*)luz(.*)pasillo(.*)segundo piso(.*)',
+    [r'(.*)(apaga|apague)(.*)luz(.*)(pasillo|corredor)(.*)segundo piso(.*)',
         [ False, luces[7].turn_on_off, False
         ]],
 
@@ -422,51 +447,51 @@ gPats = [
         [ False, print_objs, luces, False
         ]],
 
-    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )((de|en) la)? luz de la entrada',
+    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad)(.*)luz de la entrada(.*)',
         [ True, luces[0].set_intensity, 1
         ]],
 
-    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )((de|en) la)? luz de la sala',
+    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad)(.*)luz de la sala(.*)',
         [ True, luces[1].set_intensity, 1
         ]],
 
-    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )((de|en) la)? luz del (patio|zona de lavado)',
+    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad)(.*)luz del (patio|zona de lavado)(.*)',
         [ True, luces[2].set_intensity, 1
         ]],
 
-    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )((de|en) la)? luz del comedor',
+    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad)(.*)luz del comedor(.*)',
         [ True, luces[3].set_intensity, 1
         ]],
 
-    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )((de|en) la)? luz de la cocina',
+    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad)(.*)luz de la cocina(.*)',
         [ True, luces[4].set_intensity, 1
         ]],
 
-    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )((de|en) la)? luz del pasillo del primer piso',
+    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad)(.*)luz del (pasillo|corredor) del primer piso(.*)',
         [ True, luces[5].set_intensity, 1
         ]],
 
-    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )((de|en) la)? luz de las escaleras',
+    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad)(.*)luz de las escaleras(.*)',
         [ True, luces[6].set_intensity, 1
         ]],
 
-    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )((de|en) la)? luz del pasillo del segundo piso',
+    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad)(.*)luz del (pasillo|corredor) del segundo piso(.*)',
         [ True, luces[7].set_intensity, 1
         ]],
 
-    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )((de|en) la)? luz la sala del segundo piso',
+    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad)(.*)luz la sala del segundo piso(.*)',
         [ True, luces[8].set_intensity, 1
         ]],
 
-    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )((de|en) la)? luz de la primera habitaci(o|ó)n',
+    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad)(.*)luz de la primera habitaci(o|ó)n(.*)',
         [ True, luces[9].set_intensity, 1
         ]],
 
-    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )((de|en) la)? luz de la segunda habitaci(o|ó)n',
+    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad)(.*)luz de la segunda habitaci(o|ó)n(.*)',
         [ True, luces[10].set_intensity, 1
         ]],
 
-    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )((de|en) la)? luz del baño',
+    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad)(.*)luz del baño(.*)',
         [ True, luces[11].set_intensity, 1
         ]],
 
@@ -490,7 +515,7 @@ gPats = [
         [ False, luces[4].up_down_intensity, True
         ]],
 
-    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)luz(.*)pasillo(.*)primer piso(.*)',
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)luz(.*)(pasillo|corredor)(.*)primer piso(.*)',
         [ False, luces[5].up_down_intensity, True
         ]],
 
@@ -498,7 +523,7 @@ gPats = [
         [ False, luces[6].up_down_intensity, True
         ]],
 
-    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)luz(.*)pasillo(.*)segundo piso(.*)',
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)luz(.*)(pasillo|corredor)(.*)segundo piso(.*)',
         [ False, luces[7].up_down_intensity, True
         ]],
 
@@ -538,7 +563,7 @@ gPats = [
         [ False, luces[4].up_down_intensity, False
         ]],
 
-    [r'(.*)(disminuya|disminuye|baja|baje|menos)(.*)luz(.*)pasillo(.*)primer piso(.*)',
+    [r'(.*)(disminuya|disminuye|baja|baje|menos)(.*)luz(.*)(pasillo|corredor)(.*)primer piso(.*)',
         [ False, luces[5].up_down_intensity, False
         ]],
 
@@ -546,7 +571,7 @@ gPats = [
         [ False, luces[6].up_down_intensity, False
         ]],
 
-    [r'(.*)(disminuya|disminuye|baja|baje|menos)(.*)luz(.*)pasillo(.*)segundo piso(.*)',
+    [r'(.*)(disminuya|disminuye|baja|baje|menos)(.*)luz(.*)(pasillo|corredor)(.*)segundo piso(.*)',
         [ False, luces[7].up_down_intensity, False
         ]],
 
@@ -565,40 +590,163 @@ gPats = [
     [r'(.*)(disminuya|disminuye|baja|baje|menos)(.*)luz(.*)baño(.*)',
         [ False, luces[11].up_down_intensity, False
         ]],
+    
+    [r'(.*)intensidad(.*)luz(.*)entrada(.*)',
+        [ False, luces[0].get_intensity
+        ]],
+    
+    [r'(.*)intensidad(.*)luz(.*)sala(.*)',
+        [ False, luces[1].get_intensity
+        ]],
+    
+    [r'(.*)intensidad(.*)luz(.*)(patio|zona de lavado)(.*)',
+        [ False, luces[2].get_intensity
+        ]],
+    
+    [r'(.*)intensidad(.*)luz(.*)comedor(.*)',
+        [ False, luces[3].get_intensity
+        ]],
+    
+    [r'(.*)intensidad(.*)luz(.*)cocina(.*)',
+        [ False, luces[4].get_intensity
+        ]],
+    
+    [r'(.*)intensidad(.*)luz(.*)(pasillo|corredor)(.*)primer piso(.*)',
+        [ False, luces[5].get_intensity
+        ]],
+    
+    [r'(.*)intensidad(.*)luz(.*)escaleras(.*)',
+        [ False, luces[6].get_intensity
+        ]],
+    
+    [r'(.*)intensidad(.*)luz(.*)(pasillo|corredor)(.*)segundo piso(.*)',
+        [ False, luces[7].get_intensity
+        ]],
+    
+    [r'(.*)intensidad(.*)luz(.*)sala(.*)segundo piso(.*)',
+        [ False, luces[8].get_intensity
+        ]],
+    
+    [r'(.*)intensidad(.*)luz(.*)primera habitaci(o|ó)n(.*)',
+        [ False, luces[9].get_intensity
+        ]],
+    
+    [r'(.*)intensidad(.*)luz(.*)segunda habitaci(o|ó)n(.*)',
+        [ False, luces[10].get_intensity
+        ]],
+    
+    [r'(.*)intensidad(.*)luz(.*)baño(.*)',
+        [ False, luces[11].get_intensity
+        ]],
 
     [r'(.*)luz(.*)',
         [ False, luz_default
         ]],
+     
+     #================================= Lamparas ================================
+     
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)l(á|a)mpara(.*)de la izquierda de la primera habitaci(o|ó)n(.*)',
+        [ False, lamparas[0].turn_on_off, True
+        ]],
+    
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)l(á|a)mpara(.*)de la derecha de la primera habitaci(o|ó)n(.*)',
+        [ False, lamparas[1].turn_on_off, True
+        ]],
+    
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)l(á|a)mpara(.*)de la segunda habitaci(o|ó)n(.*)',
+        [ False, lamparas[2].turn_on_off, True
+        ]],
+    
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)(todas)?(.*)l(á|a)mparas(.*)',
+        [ False, print_objs, lamparas, True
+        ]],
+    
+    [r'(.*)(apaga|apague)(.*)(.*)l(á|a)mpara(.*)de la izquierda de la primera habitaci(o|ó)n(.*)',
+        [ False, lamparas[0].turn_on_off, False
+        ]],
+    
+    [r'(.*)(apaga|apague)(.*)(.*)l(á|a)mpara(.*)de la derecha de la primera habitaci(o|ó)n(.*)',
+        [ False, lamparas[1].turn_on_off, False
+        ]],
+    
+    [r'(.*)(apaga|apague)(.*)(.*)l(á|a)mpara(.*)de la segunda habitaci(o|ó)n(.*)',
+        [ False, lamparas[2].turn_on_off, False
+        ]],
+    
+    [r'(.*)(apaga|apague)(.*)(todas)?(.*)l(á|a)mparas(.*)',
+        [ False, print_objs, lamparas, False
+        ]],
+        
+    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )(.*)l(á|a)mpara(.*)de la izquierda de la primera habitaci(o|ó)n(.*)',
+        [ True, lamparas[0].set_intensity, 1
+        ]],
+        
+    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )(.*)l(á|a)mpara(.*)de la derecha de la primera habitaci(o|ó)n(.*)',
+        [ True, lamparas[1].set_intensity, 1
+        ]],
+    
+    [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )(.*)l(á|a)mpara(.*)de la segunda habitaci(o|ó)n(.*)',
+        [ True, lamparas[2].set_intensity, 1
+        ]],
 
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)l(á|a)mpara(.*)de la izquierda de la primera habitaci(o|ó)n(.*)',
+        [ False, lamparas[0].up_down_intensity, True
+        ]],
+    
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)l(á|a)mpara(.*)de la derecha de la primera habitaci(o|ó)n(.*)',
+        [ False, lamparas[1].up_down_intensity, True
+        ]],
+        
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)l(á|a)mpara(.*)de la segunda habitaci(o|ó)n(.*)',
+        [ False, lamparas[2].up_down_intensity, True
+        ]],
+    
+    [r'(.*)intensidad(.*)l(á|a)mpara(.*)de la izquierda de la primera habitaci(o|ó)n(.*)',
+        [ False, lamparas[0].get_intensity
+        ]],
+    
+    [r'(.*)intensidad(.*)l(á|a)mpara(.*)de la derecha de la primera habitaci(o|ó)n(.*)',
+        [ False, lamparas[1].get_intensity
+        ]],
+    
+    [r'(.*)intensidad(.*)l(á|a)mpara(.*)de la segunda habitaci(o|ó)n(.*)',
+        [ False, lamparas[2].get_intensity
+        ]],
+    
+    [r'(.*)l(á|a)mpara(.*)',
+        [ False, lampara_default
+        ]],
+     
      #================================= Air ====================================
-    [r'(.*)(apaga|apague|desactive|desactiva)(.*)aire( acondicionado)?(.*)',
+     
+    [r'(.*)(apaga|apague|desactive|desactiva)(.*)aire(.*)',
         [ False, acondicionado.turn_on_off, False
         ]],
 
-    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)aire( acondicionado)?(.*)',
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)aire(.*)',
         [ False, acondicionado.turn_on_off, True
         ]],
 
-    [r'(por favor )?(ponga|pon|pongale|coloque|coloquele|coloca) (?P<numbers1>[0-9]+)( grados)?(( de| como| a la)? temperatura)(( del)? aire( acondicionado)?)',
+    [r'(por favor )?(ponga|pon|pongale|coloque|coloquele|coloca) (?P<numbers1>[0-9]+)( grados)?((.*)temperatura)(.*)aire(.*)',
         [ True, acondicionado.put_temp, 1
         ]],
 
-    [r'(.*)(suba|sube|aumente|aumenta|incremente|incrementa|m(a|á)s)(.*)temperatura(.*)aire( acondicionado)?(.*)',
+    [r'(.*)(suba|sube|aumente|aumenta|incremente|incrementa|m(a|á)s)(.*)temperatura(.*)aire(.*)',
         [ False, acondicionado.up_down_temp, True
         ]],
 
-    [r'(.*)(disminuya|disminuye|baja|baje)(.*)temperatura(.*)aire( acondicionado)?(.*)',
+    [r'(.*)(disminuya|disminuye|baja|baje)(.*)temperatura(.*)aire(.*)',
         [ False, acondicionado.up_down_temp, False
+        ]],
+    
+    [r'(.*)temperatura(.*)aire(.*)',
+        [ False, acondicionado.get_temp
         ]],
 
      #=========================== shower =====================================
 
     [r'(.*)(abra|abre|activa|active|enciende|encienda|activa|active)(.*)(ducha|llave)(.*)',
         [ False, ducha.turn_on_off, True
-        ]],
-
-    [r'(.*)(apaga|apague)(.*)(ducha|llave)(.*)',
-        [ False, ducha.turn_on_off, False
         ]],
 
     [r'(.*)(cierre|cierra|desactiva|desactive|apaga|apague)(.*)(ducha|llave)(.*)',
@@ -609,18 +757,26 @@ gPats = [
         [ False, ducha.up_down_temp, True
         ]],
 
-    [r'(.*)(disminuya|disminuye|baja|baje)(.*)temperatura(.*)(ducha|llave)(.*)',
+    [r'(.*)(disminuya|disminuye|baja|baje|merme)(.*)temperatura(.*)(ducha|llave)(.*)',
         [ False, ducha.up_down_temp, False
         ]],
 
-    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)flujo(.*)(agua)?(.*)(ducha|llave)(.*)',
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)(flujo|corriente|salida)(.*)(ducha|llave)(.*)',
         [ False, ducha.up_down_flow, True
         ]],
 
-    [r'(.*)(disminuya|disminuye|baja|baje)(.*)flujo(.*)(agua)?(.*)(ducha|llave)?(.*)',
+    [r'(.*)(disminuya|disminuye|baja|baje)(.*)(flujo|corriente|salida)(.*)(ducha|llave)(.*)',
         [ False, ducha.up_down_flow, False
         ]],
-
+     
+    [r'(.*)(flujo|corriente|salida)(.*)(ducha|llave)(.*)',
+        [ False, ducha.get_flow
+        ]],
+        
+    [r'(.*)temperatura(.*)(ducha|llave)(.*)',
+        [ False, ducha.get_temp
+        ]],
+    
      #================================= Dishwasher =============================
 
     [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)lavaplatos(.*)',
@@ -631,23 +787,27 @@ gPats = [
         [ False, lavaplatos.turn_on_off, False
         ]],
 
-    [r'(por favor )?(ponga|pon|pongale|coloque|coloquele|coloca) (?P<numbers1>[0-9]+)( min|minutos)( de tiempo)?( al)? lavaplatos',
+    [r'(por favor )?(ponga|pon|pongale|coloque|coloquele|coloca) (?P<numbers1>[0-9]+) (min|minutos)(.*)lavaplatos(.*)',
         [ True, lavaplatos.set_time, 1
         ]],
 
-    [r'(.*)(hay|todos|estan)(.*)platos(.*)(sucios|por lavar|para lavar)(\?)?(.*)',
+    [r'(.*)(hay|todos|estan)(.*)platos(.*)(sucios|por lavar|para lavar)(.*)',
         [ False, lavaplatos.get_have_dish
         ]],
 
-    [r'(.*)(limpie|limpia|lave|lava)(.*)platos(.*)(sucios|por lavar|para lavar)?(.*)',
-        [ False, lavaplatos.wash, 10
+    [r'(por favor )?(limpie|limpia|lave|lava) (el|los) plato(s)?( sucios| por lavar| para lavar)?( en| durante)? (?P<numbers1>[0-9]+) (min|minutos)(.*)',
+        [ True, lavaplatos.wash, 1
+        ]],
+    
+    [r'(.*)tiempo(.*)(limpieza|lavado)(.*)',
+        [ False, lavaplatos.get_time 
         ]],
 
-     #================================ Sound System ============================
+     #================================ Equipos de Sonido ============================
 
-     #================================= ventanas ===============================
+     #================================= Ventanas ===============================
 
-     #================================= printer ================================
+     #================================= Impresora ================================
 
     [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)impresora(.*)',
         [ False, impresora.turn_on_off, True
@@ -656,13 +816,23 @@ gPats = [
     [r'(.*)(apaga|apague)(.*)impresora(.*)',
         [ False, impresora.turn_on_off, False
         ]],
-
-    [r'(.*)(imprima|imprime|imprimir)(.*)(copias)?(.*)',
-        [ False, impresora.print_out, 5, 1
+    
+    [r'(por favor )?(ponga|pon|coloque|coloca|añada|agregue|agrega) (?P<numbers1>[0-9]+) hoja(.*)impresora(.*)',
+        [ True, impresora.put_sheets, 1
         ]],
 
-     # falta
-     # capturar copias y No paginas
+    [r'(por favor )?(pon a)?(imprima|imprime|imprimir) (?P<numbers1>[0-9]+) (hoja(s)?|p(a|á)gina(s)?) (y saca |y )?(?P<numbers2>[0-9]+) (copia(s)|duplicado(s)|fotocopia(s))(.*)',
+        [ True, impresora.print_out, 1, 1, True
+        ]],
+    
+    [r'(por favor )?(pon a)?(imprima|imprime|imprimir) (?P<numbers1>[0-9]+) (copia(s)?|hoja(s)?|p(a|á)gina(s)?)(.*)',
+        [ True, impresora.print_out, 1
+        ]],
+    
+    [r'(.*)hoja(.*)impresora(.*)',
+        [ False, impresora.get_sheets
+        ]],
+
      #================================= Email ==================================
     [r'(.*)(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme)(.*)(mensajes|correos)(.*)',
         [ False, correos.list_mesa
@@ -821,8 +991,6 @@ gPats = [
     [r'(.*)',
         [ False, ans_default
         ]],
-
-
 ]
 #apague .. no puedo determinar que apagar
 #agregar ? computador, triturador de comida, licuadora,

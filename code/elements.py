@@ -81,6 +81,8 @@ class Power:
         self.isOn = False
         self.obj = obj
         self.name = id
+        if self.name:
+            self.name += " "
 
     def get_Power(self):
         return self.isOn
@@ -88,16 +90,16 @@ class Power:
     def turn_on_off(self, state):
         if(state):
             if(self.isOn):
-                return "El/La(s) "+ self.obj + " " + self.name + " ya esta encendida/abierta(s)."
+                return "El/La(s) "+ self.obj + " " + self.name + "ya esta encendid(a/o)/abiert(a/o)(s)."
             else:
                 self.isOn = True
-                return  self.obj + " " + self.name + " encendida."
+                return self.obj + " " + self.name + "encendid(a/o)."
         else:
             if(not self.isOn):
-                return "El/La(s) "+ self.obj + " " + self.name + " ya esta apagada/cerrada(s)."
+                return "El/La(s) "+ self.obj + " " + self.name + "ya esta apagad(a/o)/cerrad(a/o)(s)."
             else:
                 self.isOn = False
-                return self.obj + " " + self.name + " apagada."
+                return self.obj + " " + self.name + "apagad(a/o)."
 
 #///////////////////////////////////////////////////////////////////////////////
 class TV(Power):
@@ -178,7 +180,7 @@ class Light(Power): # Clase para las luces de la casa y para las lamparas
 
     def get_intensity(self):
         if(self.isOn):
-            return "La intensidad actual de la " + self.obj + " " + self.place + " " + str(self.intensity)
+            return "La intensidad actual de la " + self.obj + " " + self.place + " es de " + str(self.intensity) + "%"
         else:
             return "La " + self.obj + " " + self.place + " esta apagada, enciendala"
 
@@ -190,39 +192,39 @@ class Light(Power): # Clase para las luces de la casa y para las lamparas
         if(cant == 0):
             self.turn_on_off(True)
             self.intensity = 15
-            return s + "La intensidad actual de la " + self.obj + " " + self.place + " " + str(self.intensity)
+            return s + "Ud. ha puesto el modo " + str(cant) + " en la intensidad, la intensidad actual de la " + self.obj + " " + self.place + " es de " + str(self.intensity) + "%"
         elif(cant == 1):
             self.turn_on_off(True)
             self.intensity = 50
-            return "La intensidad actual de la " + self.obj + " " + self.place + " " + str(self.intensity)
+            return"Ud. ha puesto el modo " + str(cant) + " en la intensidad, la intensidad actual de la " + self.obj + " " + self.place + " es de " + str(self.intensity) + "%"
         elif(cant == 2):
             self.turn_on_off(True)
             self.intensity = 75
-            return "La intensidad actual de la " + self.obj + " " + self.place + " " + str(self.intensity)
+            return "Ud. ha puesto el modo " + str(cant) + " en la intensidad, la intensidad actual de la " + self.obj + " " + self.place + " es de " + str(self.intensity) + "%"
 
     def up_down_intensity(self, state):
         if(state):
             if((self.intensity + 10) > 100):
                 self.intensity = 100
-                return "La intensidad de la " + self.obj + " " + self.place + " esta en su maximo valor " + str(self.intensity)
+                return "La intensidad de la " + self.obj + " " + self.place + " esta en su maximo valor " + str(self.intensity) + "%"
             else:
                 self.intensity += 10
                 self.turn_on_off(True)
-                return "La intensidad de la " + self.obj + " " + self.place + " esta en " + str(self.intensity)
+                return "La intensidad de la " + self.obj + " " + self.place + " esta en " + str(self.intensity) + "%"
         else:
             if((self.intensity - 10) < 0):
                 self.intensity = 0
                 self.turn_on_off(False)
-                return "La intensidad de la " + self.obj + " " + self.place + " esta en su minimo valor " + str(self.intensity)
+                return "La intensidad de la " + self.obj + " " + self.place + " esta en su minimo valor " + str(self.intensity) + "%"
             else:
                 self.intensity -= 10
                 self.turn_on_off(True)
-                return "La intensidad de la " + self.obj + " " + self.place + " esta en " + str(self.intensity)
+                return "La intensidad de la " + self.obj + " " + self.place + " esta en " + str(self.intensity) + "%"
 
     def __str__(self):
         s = ""
         if(self.isOn):
-            s += "La " + self.obj + " " + self.place + " esta encendida y su intensidad es " + str(self.intensity) + "%"
+            s += "La " + self.obj + " " + self.place + " esta encendida y su intensidad es de " + str(self.intensity) + "%"
         else:
             s += "La " + self.obj + " " + self.place + " esta apagada"
         return s
@@ -484,9 +486,12 @@ class Printer(Power):
         return "La impresora tiene " + str(self.sheets) + " hoja(s) disponibles"
 
     def print_out(self, pages, copies = 1):
+        s = ""
         if(pages*copies <= self.sheets):
             self.sheets -= pages*copies
-            return "Documentos impresos...","La impresora tiene ahora " + str(self.sheets) + " hoja(s) disponibles"
+            s += "Documentos impresos ... ud. ha impreso " + str(pages) + " paginas y " + str(copies) + " copias\n"
+            s += "La impresora tiene ahora " + str(self.sheets) + " hoja(s) disponibles"
+            return s
         else:
             return "Por favor ponga al menos " + str(pages*copies - self.sheets) + " hoja(s) en la impresora para poder imprimir su documento"
 
@@ -564,7 +569,7 @@ class Air(Power):
     def get_temp(self):
         if(self.isOn):
             return "La temperatura del Aire acondicionado esta en " + str(self.temp) + " °C"
-        return "El aire acondicionado esta apagado, enciendalo"
+        return "El Aire acondicionado esta apagado, enciendalo"
 
     def put_temp(self, temp):
         if(self.isOn):
@@ -581,14 +586,14 @@ class Air(Power):
                 self.temp -= 1
             return "La temperatura esta en " + str(self.temp) + " °C"
         else:
-            return "No puedo modifica la temperatura, el aire esta apagado"
+            return "No puedo modifica la temperatura, el Aire esta apagado"
 
     def __str__(self):
         s = ""
         if(self.isOn):
-            s += "El aire acondicionado esta encendido y actualmente esta en una temperatura de " + str(self.temp) + "°C"
+            s += "El Aire acondicionado esta encendido y actualmente esta en una temperatura de " + str(self.temp) + "°C"
         else:
-            s += "El aire acondicionado esta apagado"
+            s += "El Aire acondicionado esta apagado"
         return s
 #////////////////////////////////////////////////////////////////////////////
 
