@@ -695,13 +695,19 @@ class Stove:
         if(id <= 0 or id > 4):
             return "La hornilla especificada no es valida"
         else:
-            self.hornillas[id - 1].turn_on_off(state)
+            return self.hornillas[id - 1].turn_on_off(state)
 
     def change_intensity_hornilla(self, id, state):
         if(id <= 0 or id > 4):
             return "La hornilla especificada no es valida"
         else:
-            self.hornillas[id - 1].change_intensity(state)
+            return self.hornillas[id - 1].change_intensity(state)
+    
+    def all(self, state):
+        s = ""
+        for i in range(len(self.hornillas)):
+            s += self.hornillas[i].turn_on_off(state) + "\n"
+        return s
 
     def __str__(self):
         s = ""
