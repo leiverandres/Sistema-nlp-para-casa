@@ -764,7 +764,7 @@ class Fridge:
         self.no_elem = len(self.elements)
 
     def get_no_elem(self):
-        return "La nevera tiene " + str(self.no_elem) + " articulos"
+        return "La nevera tiene una temperatura de " + str(self.temp) +" °C y tiene " + str(self.no_elem) + " articulos"
 
     def get_elements(self):
         s = ""

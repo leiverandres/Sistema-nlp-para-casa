@@ -1293,7 +1293,7 @@ gPats = [
 
      #================================= Nevera =================================
      
-    [r'(.*)(cuant(os|a))( comida| alimentos| articulos) hay(.*)(nevera|refrigerador)(.*)',
+    [r'(.*)(cuant(os|a))( comida| alimentos| articulos| elementos) (hay|tiene)(.*)(nevera|refrigerador)(.*)',
         [ False, nevera.get_no_elem
         ]],
 
