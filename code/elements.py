@@ -690,7 +690,7 @@ class Stove:
 
 class Fridge:
     def __init__(self):
-        self.isOn = False
+        self.isOn = True
         self.temp = 15
         self.elements = ["pastel", "fruta", "carne", "pollo", "verduras", "quesadillas", "vino", "cerveza"]
         self.no_elem = len(self.elements)
@@ -754,10 +754,10 @@ class Washer(Power):
       self.id = id
 
     def get_time(self):
-        return self.time
+        return str(self.time) + " min"
 
     def get_state(self):
-        return self.state
+        return self.state[self.index_state]
 
     def change_time(self, minute):
         self.isOn = True
@@ -773,6 +773,11 @@ class Washer(Power):
                 return "El estado que desea no existe, se pondra el estado por defecto"
         else:
             return "No es posible ir a ese estado porque la lavadora esta apagada"
+
+    def wash(self, time = 5):
+        self.isOn = True
+        self.change_time(time)
+        return "Lavando.."
 
     def __str__(self):
         s = ""
@@ -869,10 +874,10 @@ class Oven(Power):
         self.id = id
 
     def get_temp(self):
-        return self.temp
+        return str(self.temp) + "°c"
 
     def get_time(self):
-        return self.time
+        return str(self.time) + "min"
 
     def change_time(self, minute):
         self.isOn = True
@@ -895,22 +900,27 @@ class Oven(Power):
 
 class Dryer(Power):
     def __init__(self, id):
-        Power.__init__(self, "Secadora", id)
+        Power.__init__(self, "Secadora", "")
         self.time = 0
         self.index_state = 0
         self.state = ["Presecado", "Delicado", "Regular", "Mix"]
         self.id = id
 
     def get_time(self):
-        return self.time
+        return str(self.time) + " min"
 
     def get_state(self):
-        return self.state
+        return self.state[self.index_state]
 
     def change_time(self, minute):
         self.isOn = True
         self.time = minute
         return "El tiempo de secado es de " + str(self.time) + " minutos"
+
+    def dry(self, time = 5):
+        self.isOn = True
+        self.change_time(time)
+        return "Secando..."
 
     def change_state(self, state = "Regular"):
         if(self.isOn):

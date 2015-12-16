@@ -259,7 +259,7 @@ gPats = [
         [ lamparas[0].turn_on_off, False
         ]],
 
-    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube)(.*)luz(.*)',
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)luz(.*)',
         [ lamparas[0].up_down_intensity, True
         ]],
 
@@ -279,6 +279,25 @@ gPats = [
     #set un valor de intensidad
     #cual luz
     #luces otros sitios
+    #================================= Air ====================================
+    [r'(.*)(apaga|apague|desactive|desactiva)(.*)aire( acondicionado)?(.*)',
+        [ acondicionado.turn_on_off, False
+        ]],
+
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)aire( acondicionado)?(.*)',
+        [ acondicionado.turn_on_off, True
+        ]],
+
+    [r'(.*)(suba|sube|aumente|aumenta|incremente|incrementa|m(a|á)s)(.*)temperatura(.*)aire( acondicionado)?(.*)',
+        [ acondicionado.up_down_temp, True
+        ]],
+
+    [r'(.*)(disminuya|disminuye|baja|baje)(.*)temperatura(.*)aire( acondicionado)?(.*)',
+        [ acondicionado.up_down_temp, False
+        ]],
+
+    # falta
+    # put una temperatura x
     #=========================== shower =====================================
 
     [r'(.*)(abra|abre|activa|active|enciende|encienda|activa|active)(.*)(ducha|llave)(.*)',
@@ -293,7 +312,7 @@ gPats = [
         [ ducha.turn_on_off, False
         ]],
 
-    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube)(.*)temperatura(.*)(ducha|llave)(.*)',
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)temperatura(.*)(ducha|llave)(.*)',
         [ ducha.up_down_temp, True
         ]],
 
@@ -301,7 +320,7 @@ gPats = [
         [ ducha.up_down_temp, False
         ]],
 
-    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube)(.*)flujo(.*)(agua)?(.*)(ducha|llave)(.*)',
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)flujo(.*)(agua)?(.*)(ducha|llave)(.*)',
         [ ducha.up_down_flow, True
         ]],
 
@@ -350,13 +369,122 @@ gPats = [
     # falta
     # capturar copias y No paginas
     #================================= Email ==================================
+    [r'(.*)(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme)(.*)(mensajes|correos)(.*)',
+        [ correos.list_mesa
+        ]],
 
-    #================================= Air ====================================
+    [r'(.*)(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme)(.*) ultimo (mensaje|correo)(.*)',
+        [ correos.show_last_mesa
+        ]],
 
+    [r'(.*)(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme)(.*)(mensaje|correo) m(a|á)s nuevo(.*)',
+        [ correos.show_last_mesa
+        ]],
+
+    [r'(.*)(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme)(.*) primer (mensaje|correo)(.*)',
+        [ correos.show_oldest_mesa
+        ]],
+
+    [r'(.*)(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme)(.*)(mensaje|correo) m(a|á)s viejo(.*)',
+        [ correos.show_oldest_mesa
+        ]],
+
+    [r'(.*)(hay)?(mensajes|correos)( por leer| sin leer)?( \?)?(.*)',
+        [ correos.without_read
+        ]],
+
+    # falta
+    # mostrar x mensaje
+    # enviar correo
     #================================= Alarmas ================================
 
-]
+    #================================= friege =================================
+    [r'(.*)(cuant(os|a))( comida| alimentos| articulos) hay(.*)(nevera|refrigerador)(.*)',
+        [ nevera.get_no_elem
+        ]],
 
+    [r'(.*)(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme)(.*)(comida|alimentos|articulos)(.*)(hay)?(.*)(nevera|refrigerador)(.*)',
+        [ nevera.get_elements
+        ]],
+
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)temperatura(.*)(nevera|refrigerador)(.*)',
+        [ nevera.up_down_temp, True
+        ]],
+
+    [r'(.*)(disminuya|disminuye|baja|baje|menos)(.*)temperatura(.*)(nevera|refrigerador)(.*)',
+        [ nevera.up_down_temp, False
+        ]],
+
+    # falta
+    # add and rm elementos
+    # put temperatura
+
+    #================================= dryer ==================================
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)secadora(.*)',
+        [ secadora.turn_on_off, True
+        ]],
+
+    [r'(.*)(apaga|apague)(.*)secadora(.*)',
+        [ secadora.turn_on_off, False
+        ]],
+
+    [r'(.*)(seque|seca)(.*)ropa(.*)(lavada|mojada)?(.*)',
+        [ secadora.dry, 8
+        ]],
+
+    [r'(.*)(cuanto)?(.*)tiempo(.*)secadora(.*)',
+        [ secadora.get_time
+        ]],
+
+    [r'(.*)(cual)?(.*)estado(.*)secadora(.*)',
+        [ secadora.get_state
+        ]],
+    #================================= washer =================================
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)lavadora(.*)',
+        [ lavadora.turn_on_off, True
+        ]],
+
+    [r'(.*)(apaga|apague)(.*)lavadora(.*)',
+        [ lavadora.turn_on_off, False
+        ]],
+
+    [r'(.*)(limpie|limpia|lave|lava)(.*)ropa(.*)(sucia|por lavar|para lavar)?(.*)',
+        [ lavadora.wash, 10
+        ]],
+
+    [r'(.*)(cuanto)?(.*)tiempo(.*)lavadora(.*)',
+        [ lavadora.get_time
+        ]],
+
+    [r'(.*)(cual)?(.*)estado(.*)lavadora(.*)',
+        [ lavadora.get_state
+        ]],
+
+    # falta
+    # set time and state
+
+    #================================= phone ==================================
+
+    #================================= oven ===================================
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)horno(.*)',
+        [ horno.turn_on_off, True
+        ]],
+
+    [r'(.*)(apaga|apague)(.*)horno(.*)',
+        [ horno.turn_on_off, False
+        ]],
+
+    [r'(.*)(cuanto)?(.*)tiempo(.*)horno(.*)',
+        [ horno.get_time
+        ]],
+
+    [r'(.*)(cual)?(.*)temperatura(.*)horno(.*)',
+        [ horno.get_temp
+        ]],
+
+    # falta change time and temp
+]
+#apague .. no puedo determinar que apagar
 #agregar ? computador, triturador de comida, licuadora,
 #Haciendo pruebas
 control = Controller_house()
