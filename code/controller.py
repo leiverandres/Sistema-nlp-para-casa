@@ -187,7 +187,7 @@ def print_all():
 
     s += "Estado de la nevera:"
     s += "\n" + nevera.__str__()
-    s += '='*72
+    s += '=' * 72
     return s
 
 def pull_data(extract, match, current, opc = False):
