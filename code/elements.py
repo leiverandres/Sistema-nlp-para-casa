@@ -644,25 +644,6 @@ class Alert(Power):
             return "El volumen de la alarma " + place2(self.id) + " esta en " + str(self.volume)
         return "La alarma " + place2(self.id) + " esta apagada/desactivada"
 
-    def up_down_vol(self, state):
-        if(self.isOn):
-            if(state):
-                if((self.volume + 1) > 10):
-                    self.volume =  10
-                    return "El volumen de la alarma " + place2(self.id) + " esta en su maximo valor 10"
-                else:
-                    self.volume += 1
-                    return "El volumen de la alarma " + place2(self.id) + " esta en " + str(self.volume)
-            else:
-                if((self.volume - 1) < 2):
-                    self.volumen = 2
-                    return "El volumen " + place2(self.id) + " esta en su minimo valor 2"
-                else:
-                    self.volume -= 1
-                    return "El volumen de la alarma " + place2(self.id) + " esta en " + str(self.volume)
-        else:
-            return "No puedo modificar el volumen, la alarma " + place2(self.id) + " esta apagada"
-
     def __str__(self):
         s = ""
         if(self.isOn):
