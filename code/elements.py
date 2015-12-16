@@ -148,9 +148,13 @@ class TV(Power):
         if(self.isOn):
             if(state):
                 self.volume += 1
+                if(self.volume > 100):
+                    self.volume = 100
                 return "El TV "+ place6(self.id) +" tiene el volumen ++: " + str(self.volume)
             else:
                 self.volume -= 1
+                if(self.volume < 0):
+                    self.volume = 0
                 return "El TV "+ place6(self.id) +" tiene el volumen --: " + str(self.volume)
         else:
             return "El TV " + place6(self.id) + " esta apagado, enciendalo."
@@ -366,6 +370,21 @@ class SoundSystem(Power):
         if(self.isOn):
             return "La cancion actual en el equipo " + place1(self.id) + " es el track #" + str(self.song)
         return "El equipo "+ place1(self.id) + " esta apagado, enciendalo"
+    
+    def change_volume(self, state):
+        if(self.isOn):
+            if(state):
+                self.volume += 1
+                if(self.volume > 100):
+                    self.volume = 100
+                return "El equipo "+ place1(self.id) +" tiene el volumen ++: " + str(self.volume)
+            else:
+                self.volume -= 1
+                if(self.volume < 0):
+                    self.volume = 0
+                return "El equipo"+ place1(self.id) +" tiene el volumen --: " + str(self.volume)
+        else:
+            return "El equipo" + place1(self.id) + " esta apagado, enciendalo."
 
     def change_station(self, station = "88.2"):
         if(self.isOn):
@@ -425,7 +444,7 @@ class Curtains:
     def get_cant(self):
         return "Las Cortinas " + place5(self.id) + " estan abiertas en un " + str(self.cant)+"%"
 
-    def turn_open_closed(self, state):
+    def turn_on_off(self, state):
         if(state):
             if(self.isOn):
                 return "Las Cortinas " + place5(self.id) + " ya estan abiertas."
@@ -510,10 +529,10 @@ class Email:
         self.to_read = len(self.inbox)
 
     def get_mesa(self):
-        return "Hay " + str(self.get_mesa()) + " mensajes en la bandeja de entrada"
+        return "Hay " + str(self.to_read) + " mensajes en la bandeja de entrada"
 
     def without_read(self):
-        return "Hay " + str(self.get_mesa()) + " mensajes sin leer"
+        return "Hay " + str(self.to_read) + " mensajes sin leer"
 
     def list_mesa(self):
         s = ""
@@ -527,8 +546,9 @@ class Email:
 
     def show_one_mesa(self, index):
         s = ""
-        if(index <= self.to_read):
-            s += "Mesaje numero " + str(index) + ": "
+        if(index > 0 and index <= self.to_read):
+            index -= 1
+            s += "Mesaje numero " + str(index + 1) + ": "
             return s + self.inbox[index]
         else:
             return "No existe el mensaje solicitado"
@@ -553,7 +573,7 @@ class Email:
         else:
             return "No existe el mensaje solicitado"
 
-    def send_mesaje(self, string):
+    def send_msj(self, string):
         return "Mensaje enviado:\n" + string
 
     def __str__(self):
@@ -601,8 +621,23 @@ class Air(Power):
 class Alert(Power):
     def __init__(self, id):
         Power.__init__(self, "Alarma", place2(id))
-        self.volume = 7 #max 10
+        self.volume = 30 #max 100
         self.id = id
+    
+    def change_volume(self, state):
+        if(self.isOn):
+            if(state):
+                self.volume += 1
+                if(self.volume > 100):
+                    self.volume = 100
+                return "La alarma "+ place2(self.id) +" tiene el volumen ++: " + str(self.volume)
+            else:
+                self.volume -= 1
+                if(self.volume < 0):
+                    self.volume = 0
+                return "La alarma "+ place2(self.id) +" tiene el volumen --: " + str(self.volume)
+        else:
+            return "La alarma " + place2(self.id) + " esta apagado, enciendalo."
 
     def get_volume(self):
         if(self.isOn):
@@ -784,7 +819,7 @@ class Washer(Power):
       Power.__init__(self, "Lavadora", "")
       self.time = 0
       self.index_state = 4
-      self.state = ["Lana", "Delicado", "Sintetico", "Resistente", "Intensivo"]
+      self.state = ["lana", "delicado", "sintetico", "resistente", "intensivo"]
       self.id = id
       
     def get_all_state(self):
@@ -805,11 +840,12 @@ class Washer(Power):
         self.time = minute
         return "El tiempo de lavado es de " + str(self.time) + " minutos"
 
-    def change_state(self, state = "Delicado"):
+    def change_state(self, state = "delicado"):
+        state = state.lower()
         if(self.isOn):
             if(state in self.state):
                 self.index_state = self.state.index(state)
-                return "La estado actual es : " + self.state[self.index_state]
+                return "La estado actual de la lavadora es " + self.state[self.index_state]
             else:
                 return "El estado que desea no existe, se pondra el estado por defecto"
         else:
@@ -818,7 +854,7 @@ class Washer(Power):
     def wash(self, time = 5):
         self.isOn = True
         self.change_time(time)
-        return "Lavando.."
+        return "Lavando ..."
 
     def __str__(self):
         s = ""
@@ -843,9 +879,10 @@ class Phone:
     def llamar(self, num):
         if(num in self.agenda):
             self.last = num
-            return "Llamando a ... " + num
         else:
-            return "el numero no se encuentra en la agenda"
+            self.last = num
+            self.agenda.append(num)
+        return "Llamando a ... " + num
 
     def llamar_ult(self):
         if(not (self.last == "")):
@@ -855,7 +892,7 @@ class Phone:
 
     def add_mesa(self, mesa):
         self.mensajes.append(mesa)
-        return "mensaje agregado"
+        return "El mensaje " + mesa +" ha sido agregado"
 
     def remove_mesa(self, index):
         if index <= len(self.mensajes) and index > 0:
@@ -864,7 +901,7 @@ class Phone:
             self.mensajes.remove(msj)
             return "El mensaje: " + msj + " se ha eliminado"
         else:
-            return "El mensaje #" + index + " no existe o no se encuentra disponible"
+            return "El mensaje #" + str(index + 1) + " no existe o no se encuentra disponible"
 
     def list_msj(self):
         s = ""
@@ -899,7 +936,7 @@ class Phone:
     def remove_agenda(self, num):
         if(num in self.agenda):
             self.agenda.remove(num)
-        return "Contacto removido"
+        return "EL contacto " + num + " ha sido removido"
 
     def __str__(self):
         s = ""
@@ -949,7 +986,7 @@ class Dryer(Power):
         Power.__init__(self, "Secadora", "")
         self.time = 0
         self.index_state = 0
-        self.state = ["Presecado", "Delicado", "Regular", "Mix"]
+        self.state = ["presecado", "delicado", "regular", "mix"]
         self.id = id
 
     def get_time(self):
@@ -975,11 +1012,12 @@ class Dryer(Power):
         self.change_time(time)
         return "Secando..."
 
-    def change_state(self, state = "Regular"):
+    def change_state(self, state = "regular"):
+        state = state.lower()
         if(self.isOn):
             if(state in self.state):
                 self.index_state = self.state.index(state)
-                return "La estado actual es : " + self.state[self.index_state]
+                return "La estado actual de la secadora es " + self.state[self.index_state]
             else:
                 return "El estado que desea no existe, se pondra el estado por defecto"
         else:
@@ -992,3 +1030,35 @@ class Dryer(Power):
         else:
             s += "La secadora esta apagada"
         return s
+
+class Blender(Power):
+    def __init__(self, id):
+        Power.__init__(self, "Licuadora", "")
+        self.mode = 0
+        self.id = id
+    
+    def get_mode(self):
+        if(self.isOn):
+            return "La licuadora esta en el (modo/velocidad) " + str(self.mode)
+        return "La licuadora esta apagada, enciendala"
+    
+    def twist(self, mode = 1):
+        if(self.isOn):
+            if(mode > 0 and mode <= 5):
+                self.mode = mode
+                return self.get_mode()
+            else:
+                if(mode == 0):
+                    return "La licuadora ha sido apagada y esta en el (modo/velocidad) 0"
+                else:
+                    return "El modo pedido no es valido, por favor intentelo de nuevo"
+        return "La licuadora esta apagada, enciendala"
+    
+    def __str__(self):
+        s = ""
+        if(self.isOn):
+            s += "La licuadora esta encendida y esta en el (modo/velocidad) " + str(self.mode)
+        else:
+            s += "La licuadora esta apagada"
+        return s
+        

@@ -17,6 +17,7 @@ lavaplatos    = Dishwasher(1)
 estufa        = Stove()
 horno         = Oven(1)
 nevera        = Fridge()
+licuadora     = Blender(1)
 
 #Pasillo
 impresora     = Printer(1)
@@ -90,6 +91,30 @@ def estufa_default():
     s = random.choice(ans)
     return s
 
+def sonido_default():
+    ans = ["Especifique el equipo de sonido sobre la que quiere actuar",
+            "No puedo definir a que equipo de sonido te refieres",
+            "Dame un poco mas de detalle, que equipo de sonido quieres modificar",
+            "Repite la instrucción especificando el equipo de sonido"]
+    s = random.choice(ans)
+    return s
+
+def alarma_default():
+    ans = ["Especifique la alarma sobre la que quiere actuar",
+            "No puedo definir a que alarma te refieres",
+            "Dame un poco mas de detalle, que alarma quieres modificar",
+            "Repite la instrucción especificando la alarma"]
+    s = random.choice(ans)
+    return s
+
+def ventana_default():
+    ans = ["Especifique la cortina de la ventana sobre la que quiere actuar",
+            "No puedo definir a que cortina de la ventana te refieres",
+            "Dame un poco mas de detalle, que cortina de la ventana quieres modificar",
+            "Repite la instrucción especificando la cortina de la ventana"]
+    s = random.choice(ans)
+    return s
+
 def print_objs(objs, state):
     s = ""
     for i in range(len(objs)):
@@ -151,6 +176,9 @@ def print_all():
     s += "Estado del lavaplatos:"
     s += "\n" + lavaplatos.__str__() + "\n\n"
 
+    s += "Estado de licuadora:"
+    s += "\n" + licuadora.__str__() + "\n\n"
+
     s += "Estado de la estufa:"
     s += "\n" + estufa.__str__() + "\n\n"
 
@@ -158,16 +186,18 @@ def print_all():
     s += "\n" + horno.__str__() + "\n\n"
 
     s += "Estado de la nevera:"
-    s += "\n" + nevera.__str__() + "\n\n"
+    s += "\n" + nevera.__str__()
+    s += "======================================="
     return s
 
 def pull_data(extract, match, current, opc = False):
     if(extract):
         if(not opc):
-            if(match.group("numbers1")):
+            if(type(current) == str):
+                if(match.group("msj")):
+                    return match.group("msj")
+            elif(match.group("numbers1")):
                 return int(match.group("numbers1"))
-            elif(match.group("msj")):
-                return match.group("msj")
         if(opc):
             return [int(match.group("numbers1")), int(match.group("numbers2"))]
     return current
@@ -181,8 +211,10 @@ class Controller_house:
     def questions(self):
         opc = ["Estoy preparado para una nueva orden.",
                 "Que otra orden deseas darme?",
-                "Puedo irme a descansar?",
-                "Te sientes a gusto con lo que hago?"]
+                "Bienvenido/a que orden deseas darme",
+                "Dime que deseas",
+                "En que te puedo ayudar",
+                "En que te podria colaborar"]
         ans = random.choice(opc)
         return ans
 
@@ -207,6 +239,44 @@ class Controller_house:
                 return "Error, no hay argumentos ni función"
 
 gPats = [
+     #================================= Telefono ===============================
+     
+    [r'(por favor )?(llama|llame|marca|marque|timbra) (a |al |a el )( numero | #)?(?P<msj>[0-9]+)(( )(.*))?',
+        [ True, telefono.llamar, ""
+        ]],
+    
+    [r'(por favor )?(responde|contesta|conteste|responda|atiende|atienda) la llamada( en el| en| el| del)?( telefono | tel )?( del numero| del #)? (?P<msj>[0-9]+)(( )(.*))?',
+        [ True, telefono.contesta, ""
+        ]],
+    
+    [r'(por favor )?(guarda|guarde|añade|añada|coloque|coloca|pone|ponga|pon|deje|deja) (el|este|el siguiente|el sgte) (msj|mensaje) en el (telefono|tel) (?P<msj>((\w+)( )*)+)',
+        [ True, telefono.add_mesa, ""
+        ]],
+        
+    [r'(por favor )?(elimine|borre|borra|elimina|suprime|suprima) en el telefono el (msj(s)? |mensaje(s)? )(#|numero )?(?P<numbers1>[0-9]+)(( )(.*))?',
+        [ True, telefono.remove_mesa, 1
+        ]],
+    
+    [r'(por favor )?(guarda|guarde|añade|añada|coloque|coloca|pone|ponga|pon|deje|deja) (el|este|el siguiente|el sgte) (numero|#) (?P<msj>[0-9]+) en el (telefono|tel)(.*)',
+        [ True, telefono.add_agenda, ""
+        ]],
+        
+    [r'(por favor )?(elimine|borre|borra|elimina|suprime|suprima) (en el |en |el|del )?telefono el (numero |#)?(?P<msj>[0-9]+)(( )(.*))?',
+       [ True, telefono.remove_agenda, ""
+       ]],
+        
+    [r'(.*)(llama|llame|marca|marque|timbra)(.*)((u|ú)ltim(a|o))(.*)(n(ú|u)mero|llamada)(.*)(hech(o|a)|realizad(o|a)|registrad(o|a)|marcad(o|a)|timbrad(o|a)|llamad(o|a))(.*)',
+        [ False, telefono.llamar_ult
+        ]],
+        
+    [r'(.*)(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme)(.*)(msj(s)?|mensajes)(.*)telefono(.*)',
+        [ False, telefono.list_msj
+        ]],
+    
+    [r'(.*)(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme)(.*)(agenda|contacto(s)?)(.*)telefono(.*)',
+        [ False, telefono.list_contacts
+        ]],
+    
     #========================= TV =============================================
     [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)(tv|televisor|television|tele)(.*)(sala|primer piso|piso (primero|1|uno))(.*)',
         [ False, tvs[0].turn_on_off, True
@@ -340,7 +410,7 @@ gPats = [
         [ False, tv_default
         ]],
 
-  #============================= light ========================================
+  #============================= Luces ========================================
 
     [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)luz(.*)entrada(.*)',
         [ False, luces[0].turn_on_off, True
@@ -716,7 +786,7 @@ gPats = [
         [ False, lampara_default
         ]],
 
-     #================================= Air ===================================
+     #================================= Aire Acondicionado ===================================
 
     [r'(.*)(apaga|apague|desactive|desactiva)(.*)aire(.*)',
         [ False, acondicionado.turn_on_off, False
@@ -726,7 +796,7 @@ gPats = [
         [ False, acondicionado.turn_on_off, True
         ]],
 
-    [r'(por favor )?(ponga|pon|pongale|coloque|coloquele|coloca) (?P<numbers1>[0-9]+)( grados)?((.*)temperatura)(.*)aire(.*)',
+    [r'(por favor )?(ponga|pon|pongale|coloque|coloquele|coloca) (?P<numbers1>[0-9]+)( grados|°(c|C))(.*)temperatura(.*)aire(.*)',
         [ True, acondicionado.put_temp, 1
         ]],
 
@@ -742,7 +812,7 @@ gPats = [
         [ False, acondicionado.get_temp
         ]],
 
-     #=========================== shower ======================================
+     #=========================== Ducha ======================================
 
     [r'(.*)(abra|abre|activa|active|enciende|encienda|activa|active)(.*)(ducha|llave)(.*)',
         [ False, ducha.turn_on_off, True
@@ -776,35 +846,42 @@ gPats = [
         [ False, ducha.get_temp
         ]],
 
-     #================================= Dishwasher =============================
-
-    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)lavaplatos(.*)',
-        [ False, lavaplatos.turn_on_off, True
+     #================================= Lavadora =================================
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)lavadora(( )(.*))?',
+        [ False, lavadora.turn_on_off, True
         ]],
 
-    [r'(.*)(apaga|apague)(.*)lavaplatos(.*)',
-        [ False, lavaplatos.turn_on_off, False
+    [r'(.*)(apaga|apague)(.*)lavadora(( )(.*))?',
+        [ False, lavadora.turn_on_off, False
         ]],
 
-    [r'(por favor )?(ponga|pon|pongale|coloque|coloquele|coloca) (?P<numbers1>[0-9]+) (min|minutos)(.*)lavaplatos(.*)',
-        [ True, lavaplatos.set_time, 1
+    [r'(por favor )?(limpie|limpia|lave|lava) la ropa( sucia| por lavar| para lavar)?( en| durante| por) (?P<numbers1>[0-9]+) (min|minutos)(( )(.*))?',
+        [ True, lavadora.wash, 1
+        ]],
+        
+    [r'(por favor )?(ponga|pon|coloque|coloca) la lavadora( en| a) (?P<numbers1>[0-9]+) (min|minutos)(( )(.*))?',
+        [ True, lavadora.change_time, 1
+        ]],
+        
+    [r'(por favor )?cambie el tiempo de lavado de la lavadora( en| a) (?P<numbers1>[0-9]+) (min|minutos)(( )(.*))?',
+        [ True, lavadora.change_time, 1
+        ]],
+        
+    [r'(por favor )?(pon|pasalo|cambia|pasa|pase|ponga|cambie) el (estado|modo) de la lavadora (a|al|el|en) (?P<msj>[A-Za-z]+)(( )(.*))?',
+        [ True, lavadora.change_state, ""
         ]],
 
-    [r'(.*)(hay|todos|estan)(.*)platos(.*)(sucios|por lavar|para lavar)(.*)',
-        [ False, lavaplatos.get_have_dish
+    [r'(.*)(cuanto)?(.*)tiempo(.*)lavadora(( )(.*))?',
+        [ False, lavadora.get_time
         ]],
 
-    [r'(por favor )?(limpie|limpia|lave|lava) (el|los) plato(s)?( sucios| por lavar| para lavar)?( en| durante)? (?P<numbers1>[0-9]+) (min|minutos)(.*)',
-        [ True, lavaplatos.wash, 1
-        ]],
-
-    [r'(.*)tiempo(.*)(limpieza|lavado)(.*)',
-        [ False, lavaplatos.get_time
+    [r'(.*)(cual)?(.*)estado(.*)lavadora(( )(.*))?',
+        [ False, lavadora.get_state
         ]],
 
      #================================ Equipos de Sonido ======================
 
-    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)(equipo( de sonido)?|sonido)(.*)primer piso(.*)',
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)(equipo( de sonido)?|sonido)(.*)(primer piso|sala)(.*)',
         [ False, sonido[0].turn_on_off, True
         ]],
 
@@ -820,19 +897,19 @@ gPats = [
         [ False, print_objs, sonido, False
         ]],
 
-    [r'(.*)(apaga|apague)(.*)(equipo( de sonido)?|sonido)(.*)',
+    [r'(.*)(apaga|apague)(.*)(equipo( de sonido)?|sonido)(.*)(primer piso|sala)(.*)',
         [ False, sonido[0].turn_on_off, False
         ]],
 
-    [r'(.*)(apaga|apague)(.*)(equipo( de sonido)?|sonido)(.*)',
+    [r'(.*)(apaga|apague)(.*)(equipo( de sonido)?|sonido)(.*)segundo piso(.*)',
         [ False, sonido[1].turn_on_off, False
         ]],
 
-    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(siguiente|pr(o|ó)ximo) (estaci(o|ó)n|emisora)(.*)(equipo( de sonido)?|sonido)(.*)primer piso(.*)",
+    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(siguiente|pr(o|ó)ximo) (estaci(o|ó)n|emisora)(.*)(equipo( de sonido)?|sonido)(.*)(primer piso|sala)(.*)",
         [ False, sonido[0].next_back_station, True
         ]],
 
-    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(siguiente|pr(o|ó)xima) (canci(o|ó)n|tema)(.*)(equipo( de sonido)?|sonido)(.*)primer piso(.*)",
+    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(siguiente|pr(o|ó)xima) (canci(o|ó)n|tema|track)(.*)(equipo( de sonido)?|sonido)(.*)(primer piso|sala)(.*)",
         [ False, sonido[0].next_back_song, True
         ]],
 
@@ -840,14 +917,48 @@ gPats = [
         [ False, sonido[1].next_back_station, True
         ]],
 
-    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(siguiente|pr(o|ó)xima) (canci(o|ó)n|tema)(.*)(equipo( de sonido)?|sonido)(.*)segundo piso(.*)",
+    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(siguiente|pr(o|ó)xima) (canci(o|ó)n|tema|track)(.*)(equipo( de sonido)?|sonido)(.*)segundo piso(.*)",
         [ False, sonido[1].next_back_song, True
         ]],
+        
+    [r'(por favor )?(ponga|pon|pongale|coloque|coloquele|coloca)( en el| el)( equipo( de sonido)?|sonido)( de | en el | del )(primer piso|sala)( la| en la)? (emisora|estaci(o|ó)n)(numero|#)? (?P<msj>(\d+)(\.)(\d+))',
+        [ True, sonido[0].change_station, "" 
+        ]],
+        
+   [r'(por favor )?(ponga|pon|pongale|coloque|coloquele|coloca)( en el| el)( equipo( de sonido)?|sonido)( de | en el | del )segundo piso( la| en la)? (emisora|estaci(o|ó)n)(numero|#)? (?P<msj>(\d+)(\.)(\d+))',
+        [ True, sonido[1].change_station, "" 
+        ]],
+    
+    [r'(.*)volumen(.*)(equipo( de sonido)?|sonido)(.*)(primer piso|sala)(.*)',
+        [False, sonido[0].get_volume
+        ]],
 
-     #================================= Ventanas ==============================
+    [r'(.*)volumen(.*)(equipo( de sonido)?|sonido)(.*)segundo piso(.*)',
+        [False, sonido[1].get_volume
+        ]],
+        
+    [r'(.*)(estaci(o|ó)n(es)?|emisora(s)?)(.*)(equipo( de sonido)?|sonido)(.*)(primer piso|sala)(.*)',
+        [False, sonido[0].get_stations()
+        ]],
+        
+    [r'(.*)(estaci(o|ó)n(es)?|emisora(s)?)(.*)(equipo( de sonido)?|sonido)(.*)segundo piso(.*)',
+        [False, sonido[1].get_stations()
+        ]],
+        
+    [r'(.*)(canci(o|ó)n|tema|track)(.*)(equipo( de sonido)?|sonido)(.*)(primer piso|sala)(.*)',
+        [False, sonido[0].get_num_song
+        ]],
+        
+    [r'(.*)(canci(o|ó)n|tema|track)(.*)(equipo( de sonido)?|sonido)(.*)segundo piso(.*)',
+        [False, sonido[1].get_num_song
+        ]],
+    
+    [r'(.*)(equipo( de sonido)?|sonido)(.*)',
+        [ False, sonido_default
+        ]],
 
      #================================= Impresora =============================
-
+     
     [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)impresora(.*)',
         [ False, impresora.turn_on_off, True
         ]],
@@ -873,36 +984,315 @@ gPats = [
         ]],
 
      #================================= Email ==================================
-    [r'(.*)(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme)(.*)(mensajes|correos)(.*)',
+     
+     [r'(por favor )?(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme) el (msj |mensaje |correo )(#|numero )?(?P<numbers1>[0-9]+)(( )(.*))?',
+        [ True, correos.show_one_mesa, 1
+        ]],
+    
+    [r'(por favor )?(elimine|borre|borra|elimina|suprime|suprima) el (msj |mensaje |correo )(#|numero )?(?P<numbers1>[0-9]+)(( )(.*))?',
+        [ True, correos.remove_mesa, 1
+        ]],
+        
+    [r'(por favor )?(envia|envie|manda|mande|emita|emite|dirija|dirige) el (msj |mensaje |correo )(?P<msj>((\w+)( )*)+)',
+        [ True, correos.send_msj, ""
+        ]],
+    
+    [r'(.*)(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme)(.*)(msj(s)?|mensajes|correos)(.*)',
         [ False, correos.list_mesa
         ]],
 
-    [r'(.*)(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme)(.*) ultimo (mensaje|correo)(.*)',
+    [r'(.*)(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme)(.*) (u|ú)ltimo (msj(s)?|mensaje|correo)(.*)',
         [ False, correos.show_last_mesa
         ]],
 
-    [r'(.*)(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme)(.*)(mensaje|correo) m(a|á)s nuevo(.*)',
+    [r'(.*)(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme)(.*)(msj(s)?|mensaje|correo) m(a|á)s (nuevo|reciente)(.*)',
         [ False, correos.show_last_mesa
         ]],
 
-    [r'(.*)(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme)(.*) primer (mensaje|correo)(.*)',
+    [r'(.*)(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme)(.*) primer (msj(s)?|mensaje|correo)(.*)',
         [ False, correos.show_oldest_mesa
         ]],
 
-    [r'(.*)(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme)(.*)(mensaje|correo) m(a|á)s viejo(.*)',
+    [r'(.*)(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme)(.*)(msj(s)?|mensaje|correo) m(a|á)s viejo(.*)',
         [ False, correos.show_oldest_mesa
         ]],
 
-    [r'(.*)(hay)?(mensajes|correos)( por leer| sin leer)?( \?)?(.*)',
+    [r'(.*)(hay)?(msj(s)?|mensajes|correos) en la bandeja( de entrada )?( por leer)?(.*)',
+        [ False, correos.get_mesa
+        ]],
+        
+    [r'(.*)(hay)?(msj(s)?|mensajes|correos)( por leer| sin leer)?(.*)',
         [ False, correos.without_read
         ]],
-
-     # falta
-     # mostrar x mensaje
-     # enviar correo
+     
+     #================================= Ventanas ===============================
+     
+    [r'(.*)(abre|abra|destape|destapa) m(a|á)s(.*)cortina(.*)de la primera ventana de la sala(.*)',
+        [ False, ventanas[0].up_down_cant, True
+        ]],
+    
+    [r'(.*)(abre|abra|destape|destapa) m(a|á)s(.*)cortina(.*)de la segunda ventana de la sala(.*)',
+        [ False, ventanas[1].up_down_cant, True
+        ]],
+    
+    [r'(.*)(abre|abra|destape|destapa) m(a|á)s(.*)cortina(.*)de la ventana de la cocina(.*)',
+        [ False, ventanas[2].up_down_cant, True
+        ]],
+    
+    [r'(.*)(abre|abra|destape|destapa) m(a|á)s(.*)cortina(.*)de la primera ventana del comedor(.*)',
+        [ False, ventanas[3].up_down_cant, True
+        ]],
+    
+    [r'(.*)(abre|abra|destape|destapa) m(a|á)s(.*)cortina(.*)de la segunda ventana del comedor(.*)',
+        [ False, ventanas[4].up_down_cant, True
+        ]],
+    
+    [r'(.*)(abre|abra|destape|destapa) m(a|á)s(.*)cortina(.*)de la ventana de la (primera habitaci(o|ó)n|habitaci(o|ó)n(.*)(1|uno))(.*)',
+        [ False, ventanas[5].up_down_cant, True
+        ]],
+    
+    [r'(.*)(abre|abra|destape|destapa) m(a|á)s(.*)cortina(.*)de la ventana de la (segunda habitaci(o|ó)n|habitaci(o|ó)n(.*)(2|dos))(.*)',
+        [ False, ventanas[6].up_down_cant, True
+        ]],
+    
+    [r'(.*)(abre|abra|destape|destapa) m(a|á)s(.*)cortina(.*)de la ventana de la sala del (segundo piso|piso(.*)(2|dos))(.*)',
+        [ False, ventanas[7].up_down_cant, True
+        ]],
+    
+    [r'(.*)(abre|abra|destape|destapa) m(a|á)s(.*)cortina(.*)de la ventana del pasillo del (segundo piso|piso(.*)(2|dos))(.*)',
+        [ False, ventanas[8].up_down_cant, True
+        ]],
+    
+    [r'(.*)(cierre|cierra|tape|tapa) m(a|á)s(.*)cortina(.*)de la primera ventana de la sala(.*)',
+        [ False, ventanas[0].up_down_cant, False
+        ]],
+    
+    [r'(.*)(cierre|cierra|tape|tapa) m(a|á)s(.*)cortina(.*)de la segunda ventana de la sala(.*)',
+        [ False, ventanas[1].up_down_cant, False
+        ]],
+    
+    [r'(.*)(cierre|cierra|tape|tapa) m(a|á)s(.*)cortina(.*)de la ventana de la cocina(.*)',
+        [ False, ventanas[2].up_down_cant, False
+        ]],
+    
+    [r'(.*)(cierre|cierra|tape|tapa) m(a|á)s(.*)cortina(.*)de la primera ventana del comedor(.*)',
+        [ False, ventanas[3].up_down_cant, False
+        ]],
+    
+    [r'(.*)(cierre|cierra|tape|tapa) m(a|á)s(.*)cortina(.*)de la segunda ventana del comedor(.*)',
+        [ False, ventanas[4].up_down_cant, False
+        ]],
+    
+    [r'(.*)(cierre|cierra|tape|tapa) m(a|á)s(.*)cortina(.*)de la ventana de la (primera habitaci(o|ó)n|habitaci(o|ó)n(.*)(1|uno))(.*)',
+        [ False, ventanas[5].up_down_cant, False
+        ]],
+    
+    [r'(.*)(cierre|cierra|tape|tapa) m(a|á)s(.*)cortina(.*)de la ventana de la (segunda habitaci(o|ó)n|habitaci(o|ó)n(.*)(2|dos))(.*)',
+        [ False, ventanas[6].up_down_cant, False
+        ]],
+    
+    [r'(.*)(cierre|cierra|tape|tapa) m(a|á)s(.*)cortina(.*)de la ventana de la sala del (segundo piso|piso(.*)(2|dos))(.*)',
+        [ False, ventanas[7].up_down_cant, False
+        ]],
+    
+    [r'(.*)(cierre|cierra|tape|tapa) m(a|á)s(.*)cortina(.*)de la ventana del pasillo del (segundo piso|piso(.*)(2|dos))(.*)',
+        [ False, ventanas[8].up_down_cant, False
+        ]],
+     
+    [r'(.*)(abre|abra|destape|destapa)(.*)cortina(.*)de la primera ventana de la sala(.*)',
+        [ False, ventanas[0].turn_on_off, True
+        ]],
+    
+    [r'(.*)(abre|abra|destape|destapa)(.*)cortina(.*)de la segunda ventana de la sala(.*)',
+        [ False, ventanas[1].turn_on_off, True
+        ]],
+    
+    [r'(.*)(abre|abra|destape|destapa)(.*)cortina(.*)de la ventana de la cocina(.*)',
+        [ False, ventanas[2].turn_on_off, True
+        ]],
+    
+    [r'(.*)(abre|abra|destape|destapa)(.*)cortina(.*)de la primera ventana del comedor(.*)',
+        [ False, ventanas[3].turn_on_off, True
+        ]],
+    
+    [r'(.*)(abre|abra|destape|destapa)(.*)cortina(.*)de la segunda ventana del comedor(.*)',
+        [ False, ventanas[4].turn_on_off, True
+        ]],
+    
+    [r'(.*)(abre|abra|destape|destapa)(.*)cortina(.*)de la ventana de la (primera habitaci(o|ó)n|habitaci(o|ó)n(.*)(1|uno))(.*)',
+        [ False, ventanas[5].turn_on_off, True
+        ]],
+    
+    [r'(.*)(abre|abra|destape|destapa)(.*)cortina(.*)de la ventana de la (segunda habitaci(o|ó)n|habitaci(o|ó)n(.*)(2|dos))(.*)',
+        [ False, ventanas[6].turn_on_off, True
+        ]],
+    
+    [r'(.*)(abre|abra|destape|destapa)(.*)cortina(.*)de la ventana de la sala del (segundo piso|piso(.*)(2|dos))(.*)',
+        [ False, ventanas[7].turn_on_off, True
+        ]],
+    
+    [r'(.*)(abre|abra|destape|destapa)(.*)cortina(.*)de la ventana del pasillo del (segundo piso|piso(.*)(2|dos))(.*)',
+        [ False, ventanas[8].turn_on_off, True
+        ]],
+    
+    [r'(.*)(abre|abra|destape|destapa)(.*)cortina(.*)(todas)?(.*)(ventana)?(.*)',
+        [ False, print_objs, ventanas, True
+        ]],
+    
+    [r'(.*)(cierre|cierra|tape|tapa)(.*)cortina(.*)de la primera ventana de la sala(.*)',
+        [ False, ventanas[0].turn_on_off, False
+        ]],
+    
+    [r'(.*)(cierre|cierra|tape|tapa)(.*)cortina(.*)de la segunda ventana de la sala(.*)',
+        [ False, ventanas[1].turn_on_off, False
+        ]],
+    
+    [r'(.*)(cierre|cierra|tape|tapa)(.*)cortina(.*)de la ventana de la cocina(.*)',
+        [ False, ventanas[2].turn_on_off, False
+        ]],
+    
+    [r'(.*)(cierre|cierra|tape|tapa)(.*)cortina(.*)de la primera ventana del comedor(.*)',
+        [ False, ventanas[3].turn_on_off, False
+        ]],
+    
+    [r'(.*)(cierre|cierra|tape|tapa)(.*)cortina(.*)de la segunda ventana del comedor(.*)',
+        [ False, ventanas[4].turn_on_off, False
+        ]],
+    
+    [r'(.*)(cierre|cierra|tape|tapa)(.*)cortina(.*)de la ventana de la (primera habitaci(o|ó)n|habitaci(o|ó)n(.*)(1|uno))(.*)',
+        [ False, ventanas[5].turn_on_off, False
+        ]],
+    
+    [r'(.*)(cierre|cierra|tape|tapa)(.*)cortina(.*)de la ventana de la (segunda habitaci(o|ó)n|habitaci(o|ó)n(.*)(2|dos))(.*)',
+        [ False, ventanas[6].turn_on_off, False
+        ]],
+    
+    [r'(.*)(cierre|cierra|tape|tapa)(.*)cortina(.*)de la ventana de la sala del (segundo piso|piso(.*)(2|dos))(.*)',
+        [ False, ventanas[7].turn_on_off, False
+        ]],
+    
+    [r'(.*)(cierre|cierra|tape|tapa)(.*)cortina(.*)de la ventana del pasillo del (segundo piso|piso(.*)(2|dos))(.*)',
+        [ False, ventanas[8].turn_on_off, False
+        ]],
+    
+    [r'(.*)(cierre|cierra|tape|tapa)(.*)cortina(.*)(todas)?(.*)(ventana)?(.*)',
+        [ False, print_objs, ventanas, False
+        ]],
+    
+    [r'(.*)(digame|diga|muestre|muestra|muestrame)?(.*)estado(.*)cortina(.*)de la primera ventana de la sala(.*)',
+        [ False, ventanas[0].get_cant
+        ]],
+    
+    [r'(.*)(digame|diga|muestre|muestra|muestrame)?(.*)estado(.*)cortina(.*)de la segunda ventana de la sala(.*)',
+        [ False, ventanas[1].get_cant
+        ]],
+    
+    [r'(.*)(digame|diga|muestre|muestra|muestrame)?(.*)estado(.*)cortina(.*)de la ventana de la cocina(.*)',
+        [ False, ventanas[2].get_cant
+        ]],
+    
+    [r'(.*)(digame|diga|muestre|muestra|muestrame)?(.*)estado(.*)cortina(.*)de la primera ventana del comedor(.*)',
+        [ False, ventanas[3].get_cant
+        ]],
+    
+    [r'(.*)(digame|diga|muestre|muestra|muestrame)?(.*)estado(.*)cortina(.*)de la segunda ventana del comedor(.*)',
+        [ False, ventanas[4].get_cant
+        ]],
+    
+    [r'(.*)(digame|diga|muestre|muestra|muestrame)?(.*)estado(.*)cortina(.*)de la ventana de la (primera habitaci(o|ó)n|habitaci(o|ó)n(.*)(1|uno))(.*)',
+        [ False, ventanas[5].get_cant
+        ]],
+    
+    [r'(.*)(digame|diga|muestre|muestra|muestrame)?(.*)estado(.*)cortina(.*)de la ventana de la (segunda habitaci(o|ó)n|habitaci(o|ó)n(.*)(2|dos))(.*)',
+        [ False, ventanas[6].get_cant
+        ]],
+    
+    [r'(.*)(digame|diga|muestre|muestra|muestrame)?(.*)estado(.*)cortina(.*)de la ventana de la sala del (segundo piso|piso(.*)(2|dos))(.*)',
+        [ False, ventanas[7].get_cant
+        ]],
+    
+    [r'(.*)(digame|diga|muestre|muestra|muestrame)?(.*)estado(.*)cortina(.*)de la ventana del pasillo del (segundo piso|piso(.*)(2|dos))(.*)',
+        [ False, ventanas[8].get_cant
+        ]],
+    
+    [r'(.*)(cortina|ventana)(.*)',
+        [ False, ventana_default
+        ]],
+     
      #================================= Alarmas ================================
+     
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)alarma(.*)puerta(.*)',
+        [ False, alarmas[0].turn_on_off, True
+        ]],
+    
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)alarma(.*)ventana(.*)',
+        [ False, alarmas[1].turn_on_off, True
+        ]],
+    
+    [r'(.*)(apague|apaga|desactiva|desactive)(.*)alarma(.*)puerta(.*)',
+        [ False, alarmas[0].turn_on_off, False
+        ]],
+    
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)(todas|las)(.*)alarma(.*)',
+        [ False, print_objs, alarmas, True
+        ]],
+    
+    [r'(.*)(apague|apaga|desactiva|desactive)(.*)(todas|las)(.*)alarma(.*)',
+        [ False, print_objs, alarmas, False
+        ]],
+    
+    [r'(.*)(apague|apaga|desactiva|desactive)(.*)alarma(.*)ventana(.*)',
+        [ False, alarmas[1].turn_on_off, False
+        ]],
+        
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)volumen(.*)alarma(.*)puerta(.*)',
+        [ False, alarmas[0].change_volume, True
+        ]],
+        
+    [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)volumen(.*)alarma(.*)ventana(.*)',
+        [ False, alarmas[1].change_volume, True
+        ]],
 
-     #================================= fridge =================================
+    [r'(.*)(disminuya|disminuye|baja|baje|reduce|reduzca|merme|merma|menos)(.*)volumen(.*)alarma(.*)puerta(.*)',
+        [ False, alarmas[0].change_volume, False
+        ]],
+    
+    [r'(.*)(disminuya|disminuye|baja|baje|reduce|reduzca|merme|merma|menos)(.*)volumen(.*)alarma(.*)ventana(.*)',
+        [ False, alarmas[1].change_volume, False
+        ]],
+    
+    [r'(.*)volumen(.*)alarma(.*)puerta(.*)',
+        [False, alarmas[0].get_volume
+        ]],
+    
+    [r'(.*)volumen(.*)alarma(.*)ventana(.*)',
+        [False, alarmas[1].get_volume
+        ]],
+    
+    [r'(.*)alarma(.*)',
+        [ False, alarma_default
+        ]],
+     
+     #================================= Licuadora ==============================
+     
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)licuadora(.*)',
+        [ False, licuadora.turn_on_off, True
+        ]],
+    
+    [r'(.*)(apaga|apague|desactiva|desactive)(.*)licuadora(.*)',
+        [ False, licuadora.turn_on_off, False
+        ]],
+    
+    [r'(por favor )?(pon(ga)?( a)?|pongale|coloque|coloquele|coloca|deje|deja) la licuadora (en el|el|en)? (modo|velocidad) (#|n(ú|u)mero )?(?P<numbers1>[0-9]+)(( )(.*))?',
+        [ True, licuadora.twist, 1
+        ]],
+    
+    [r'(.*)(muestra|muestre|muestrame|muestreme|liste|lista|listame|listeme)? (modo|velocidad)(.*)licuadora',
+        [ False, licuadora.get_mode
+        ]],
+
+     #================================= Nevera =================================
+     
     [r'(.*)(cuant(os|a))( comida| alimentos| articulos) hay(.*)(nevera|refrigerador)(.*)',
         [ False, nevera.get_no_elem
         ]],
@@ -911,6 +1301,10 @@ gPats = [
         [ False, nevera.get_elements
         ]],
 
+    [r'(por favor )?(pon(ga)?( a)?|pongale|coloque|coloquele|coloca) (?P<numbers1>[0-9]+)( grados| °(c|C))(.*)temperatura(.*)nevera(.*)',
+        [ True, nevera.put_temp, 1
+        ]],
+        
     [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)temperatura(.*)(nevera|refrigerador)(.*)',
         [ False, nevera.up_down_temp, True
         ]],
@@ -919,11 +1313,8 @@ gPats = [
         [ False, nevera.up_down_temp, False
         ]],
 
-     # falta
-     # add and rm elementos
-     # put temperatura
-
-     #================================= dryer ==================================
+     #================================= Secadora ==================================
+     
     [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)secadora(.*)',
         [ False, secadora.turn_on_off, True
         ]],
@@ -932,42 +1323,62 @@ gPats = [
         [ False, secadora.turn_on_off, False
         ]],
 
-    [r'(.*)(seque|seca)(.*)ropa(.*)(lavada|mojada)?(.*)',
-        [ False, secadora.dry, 8
+    [r'(por favor )?(pon(ga)? a )?(seque|seca|secar) la ropa( lavada| mojada)?( en| durante| por) (?P<numbers1>[0-9]+) (min|minutos)(( )(.*))?',
+        [ True, secadora.dry, 1
         ]],
 
+    [r'(por favor )?(pon|pasalo|cambia|pasa|pase|ponga|cambie|deje|deja) el (estado|modo) de la secadora (en|a|al|el) (?P<msj>[A-Za-z]+)(( )(.*))?',
+        [ True, secadora.change_state, ""
+        ]],
+
+    [r'(por favor )?(ponga|pon|coloque|coloca)(la secadora)( en| a) (?P<numbers1>[0-9]+) (min|minutos)(( )(.*))?',
+        [ True, secadora.change_time, 1
+        ]],
+        
+    [r'(por favor )?(cambie el tiempo de secado( de la secadora)?( en| a)) (?P<numbers1>[0-9]+) (min|minutos)?(.*)',
+        [ True, secadora.change_time, 1
+        ]],
+        
     [r'(.*)(cuanto)?(.*)tiempo(.*)secadora(.*)',
         [ False, secadora.get_time
         ]],
-
+    
     [r'(.*)(cual)?(.*)estado(.*)secadora(.*)',
         [ False, secadora.get_state
         ]],
-     #================================= washer =================================
-    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)lavadora(.*)',
-        [ False, lavadora.turn_on_off, True
+        
+    [r'(.*)(modos|estados)(.*)secadora(.*)',
+        [ False, secadora.get_all_state
         ]],
 
-    [r'(.*)(apaga|apague)(.*)lavadora(.*)',
-        [ False, lavadora.turn_on_off, False
+     #================================= Lavaplatos =============================
+
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)lavaplatos(.*)',
+        [ False, lavaplatos.turn_on_off, True
         ]],
 
-    [r'(.*)(limpie|limpia|lave|lava)(.*)ropa(.*)(sucia|por lavar|para lavar)?(.*)',
-        [ False, lavadora.wash, 10
+    [r'(.*)(apaga|apague)(.*)lavaplatos(.*)',
+        [ False, lavaplatos.turn_on_off, False
         ]],
 
-    [r'(.*)(cuanto)?(.*)tiempo(.*)lavadora(.*)',
-        [ False, lavadora.get_time
+    [r'(por favor )?(ponga|pon|pongale|coloque|coloquele|coloca|deje|deja) (?P<numbers1>[0-9]+) (min|minutos)(.*)lavaplatos(.*)',
+        [ True, lavaplatos.set_time, 1
         ]],
 
-    [r'(.*)(cual)?(.*)estado(.*)lavadora(.*)',
-        [ False, lavadora.get_state
+    [r'(por favor )?(limpie|limpia|lave|lava) (el|los) plato(s)?( sucios| por lavar| para lavar)?( en| durante| por)? (?P<numbers1>[0-9]+) (min|minutos)(.*)',
+        [ True, lavaplatos.wash, 1
+        ]],
+        
+    [r'(.*)(hay|todos|estan)(.*)platos(.*)(sucios|por lavar|para lavar)(.*)',
+        [ False, lavaplatos.get_have_dish
         ]],
 
-     # falta
-     # set time and state
+    [r'(.*)tiempo(.*)(limpieza|lavado)(.*)',
+        [ False, lavaplatos.get_time
+        ]],
 
-     #=================================  Stove ==================================
+     #=================================  Estufa ==================================
+     
     [r'(por favor )?(enciende|prende|prenda|encienda) la hornilla (?P<numbers1>[0-9]+)(( )(.*))?',
         [ True, estufa.turn_on_off, 1, True
         ]],
@@ -1000,15 +1411,22 @@ gPats = [
         [ False, estufa_default
         ]],
 
-     #================================= phone ==================================
-
-     #================================= oven ===================================
+     #================================= Horno ===================================
+     
     [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)horno(.*)',
         [ False, horno.turn_on_off, True
         ]],
 
     [r'(.*)(apaga|apague)(.*)horno(.*)',
         [ False, horno.turn_on_off, False
+        ]],
+        
+    [r'(por favor )?(cambie|ponga|pon|coloque|coloca|modifique|deje|deja) el tiempo de (calentado|calentamiendo|cocci(ó|o)n) del horno( en| a) (?P<numbers1>[0-9]+)( min| minutos)?(.*)?',
+        [ True, horno.change_time, 1
+        ]],
+
+    [r'(por favor )?(cambie|ponga|pon|coloque|coloca|modifique|deje|deja) la temperatura del horno( en| a) (?P<numbers1>[0-9]+)( °(c|C)| grados)?(.*)?',
+        [ True, horno.change_temp, 1
         ]],
 
     [r'(.*)(cuanto)?(.*)tiempo(.*)horno(.*)',
@@ -1018,11 +1436,14 @@ gPats = [
     [r'(.*)(cual)?(.*)temperatura(.*)horno(.*)',
         [ False, horno.get_temp
         ]],
-
-     # falta change time and temp
+    
+     # Estado de toda la casa
+     [r'(.*)casa(.*)',
+        [ False, print_all
+        ]],
 
      # respuesta de salida
-    [r'(salir|adios|hasta luego|hasta pronto|chao)(.*)',
+    [r'(.*)(salir|adios|hasta luego|hasta pronto|chao)(.*)',
         [ False, exit_default
         ]],
 
@@ -1031,15 +1452,4 @@ gPats = [
         [ False, ans_default
         ]],
 ]
-#apague .. no puedo determinar que apagar
-#agregar ? computador, triturador de comida, licuadora,
-#Haciendo pruebas
-#print print_all()
-control = Controller_house()
-# print print_all()
-exit = ["salir", "adios", "hasta luego", "hasta pronto", "chao"]
-s = ''
-#tvs[0].turn_on_off(True)
-while(s not in exit):
-    s = raw_input("TÚ: ")
-    print control.respond(s)
+
