@@ -21,7 +21,8 @@ def interface():
           s = "salir"
           print s
         while s[-1] in "!.": s = s[:-1]
-        print "Casa: " + control.respond(s) + "\n" + control.questions()
+        print "Casa: " + control.respond(s) + "\n" 
+        if(s not in exit): control.questions()
 
 if __name__ == "__main__":
   interface()
