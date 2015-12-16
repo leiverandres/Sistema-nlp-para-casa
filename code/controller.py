@@ -207,7 +207,7 @@ class Controller_house:
                 return "Error, no hay argumentos ni función"
 
 gPats = [
-    #========================= TV ========================================
+    #========================= TV =============================================
     [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)(tv|televisor|television|tele)(.*)(sala|primer piso|piso (primero|1|uno))(.*)',
         [ False, tvs[0].turn_on_off, True
         ]],
@@ -323,7 +323,7 @@ gPats = [
     [r'(.*)volumen(.*)(tv|televisor|television|tele)(.*)(segunda habitaci(o|ó)n)(.*)',
         [ False, tvs[2].get_volume
         ]],
-    
+
     [r'(.*)canal(.*)(tv|televisor|television|tele)(.*)(sala|primer piso|piso (primero|1|uno))(.*)',
         [ False, tvs[0].get_channel
         ]],
@@ -340,7 +340,7 @@ gPats = [
         [ False, tv_default
         ]],
 
-  #============================= light ===================================
+  #============================= light ========================================
 
     [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)luz(.*)entrada(.*)',
         [ False, luces[0].turn_on_off, True
@@ -589,51 +589,51 @@ gPats = [
     [r'(.*)(disminuya|disminuye|baja|baje|menos)(.*)luz(.*)baño(.*)',
         [ False, luces[11].up_down_intensity, False
         ]],
-    
+
     [r'(.*)intensidad(.*)luz(.*)entrada(.*)',
         [ False, luces[0].get_intensity
         ]],
-    
+
     [r'(.*)intensidad(.*)luz(.*)sala(.*)',
         [ False, luces[1].get_intensity
         ]],
-    
+
     [r'(.*)intensidad(.*)luz(.*)(patio|zona de lavado)(.*)',
         [ False, luces[2].get_intensity
         ]],
-    
+
     [r'(.*)intensidad(.*)luz(.*)comedor(.*)',
         [ False, luces[3].get_intensity
         ]],
-    
+
     [r'(.*)intensidad(.*)luz(.*)cocina(.*)',
         [ False, luces[4].get_intensity
         ]],
-    
+
     [r'(.*)intensidad(.*)luz(.*)(pasillo|corredor)(.*)primer piso(.*)',
         [ False, luces[5].get_intensity
         ]],
-    
+
     [r'(.*)intensidad(.*)luz(.*)escaleras(.*)',
         [ False, luces[6].get_intensity
         ]],
-    
+
     [r'(.*)intensidad(.*)luz(.*)(pasillo|corredor)(.*)segundo piso(.*)',
         [ False, luces[7].get_intensity
         ]],
-    
+
     [r'(.*)intensidad(.*)luz(.*)sala(.*)segundo piso(.*)',
         [ False, luces[8].get_intensity
         ]],
-    
+
     [r'(.*)intensidad(.*)luz(.*)primera habitaci(o|ó)n(.*)',
         [ False, luces[9].get_intensity
         ]],
-    
+
     [r'(.*)intensidad(.*)luz(.*)segunda habitaci(o|ó)n(.*)',
         [ False, luces[10].get_intensity
         ]],
-    
+
     [r'(.*)intensidad(.*)luz(.*)baño(.*)',
         [ False, luces[11].get_intensity
         ]],
@@ -641,49 +641,49 @@ gPats = [
     [r'(.*)luz(.*)',
         [ False, luz_default
         ]],
-     
-     #================================= Lamparas ================================
-     
+
+     #================================= Lamparas ==============================
+
     [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)l(á|a)mpara(.*)de la izquierda de la primera habitaci(o|ó)n(.*)',
         [ False, lamparas[0].turn_on_off, True
         ]],
-    
+
     [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)l(á|a)mpara(.*)de la derecha de la primera habitaci(o|ó)n(.*)',
         [ False, lamparas[1].turn_on_off, True
         ]],
-    
+
     [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)l(á|a)mpara(.*)de la segunda habitaci(o|ó)n(.*)',
         [ False, lamparas[2].turn_on_off, True
         ]],
-    
+
     [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)(todas)?(.*)l(á|a)mparas(.*)',
         [ False, print_objs, lamparas, True
         ]],
-    
+
     [r'(.*)(apaga|apague)(.*)(.*)l(á|a)mpara(.*)de la izquierda de la primera habitaci(o|ó)n(.*)',
         [ False, lamparas[0].turn_on_off, False
         ]],
-    
+
     [r'(.*)(apaga|apague)(.*)(.*)l(á|a)mpara(.*)de la derecha de la primera habitaci(o|ó)n(.*)',
         [ False, lamparas[1].turn_on_off, False
         ]],
-    
+
     [r'(.*)(apaga|apague)(.*)(.*)l(á|a)mpara(.*)de la segunda habitaci(o|ó)n(.*)',
         [ False, lamparas[2].turn_on_off, False
         ]],
-    
+
     [r'(.*)(apaga|apague)(.*)(todas)?(.*)l(á|a)mparas(.*)',
         [ False, print_objs, lamparas, False
         ]],
-        
+
     [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )(.*)l(á|a)mpara(.*)de la izquierda de la primera habitaci(o|ó)n(.*)',
         [ True, lamparas[0].set_intensity, 1
         ]],
-        
+
     [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )(.*)l(á|a)mpara(.*)de la derecha de la primera habitaci(o|ó)n(.*)',
         [ True, lamparas[1].set_intensity, 1
         ]],
-    
+
     [r'(por favor )?(ponga|pon|coloque|coloca) (?P<numbers1>[0-9]+)( (de|en|como) intensidad )(.*)l(á|a)mpara(.*)de la segunda habitaci(o|ó)n(.*)',
         [ True, lamparas[2].set_intensity, 1
         ]],
@@ -691,33 +691,33 @@ gPats = [
     [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)l(á|a)mpara(.*)de la izquierda de la primera habitaci(o|ó)n(.*)',
         [ False, lamparas[0].up_down_intensity, True
         ]],
-    
+
     [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)l(á|a)mpara(.*)de la derecha de la primera habitaci(o|ó)n(.*)',
         [ False, lamparas[1].up_down_intensity, True
         ]],
-        
+
     [r'(.*)(aumente|aumenta|incremente|incrementa|suba|sube|m(a|á)s)(.*)l(á|a)mpara(.*)de la segunda habitaci(o|ó)n(.*)',
         [ False, lamparas[2].up_down_intensity, True
         ]],
-    
+
     [r'(.*)intensidad(.*)l(á|a)mpara(.*)de la izquierda de la primera habitaci(o|ó)n(.*)',
         [ False, lamparas[0].get_intensity
         ]],
-    
+
     [r'(.*)intensidad(.*)l(á|a)mpara(.*)de la derecha de la primera habitaci(o|ó)n(.*)',
         [ False, lamparas[1].get_intensity
         ]],
-    
+
     [r'(.*)intensidad(.*)l(á|a)mpara(.*)de la segunda habitaci(o|ó)n(.*)',
         [ False, lamparas[2].get_intensity
         ]],
-    
+
     [r'(.*)l(á|a)mpara(.*)',
         [ False, lampara_default
         ]],
-     
-     #================================= Air ====================================
-     
+
+     #================================= Air ===================================
+
     [r'(.*)(apaga|apague|desactive|desactiva)(.*)aire(.*)',
         [ False, acondicionado.turn_on_off, False
         ]],
@@ -737,12 +737,12 @@ gPats = [
     [r'(.*)(disminuya|disminuye|baja|baje)(.*)temperatura(.*)aire(.*)',
         [ False, acondicionado.up_down_temp, False
         ]],
-    
+
     [r'(.*)temperatura(.*)aire(.*)',
         [ False, acondicionado.get_temp
         ]],
 
-     #=========================== shower =====================================
+     #=========================== shower ======================================
 
     [r'(.*)(abra|abre|activa|active|enciende|encienda|activa|active)(.*)(ducha|llave)(.*)',
         [ False, ducha.turn_on_off, True
@@ -767,15 +767,15 @@ gPats = [
     [r'(.*)(disminuya|disminuye|baja|baje)(.*)(flujo|corriente|salida)(.*)(ducha|llave)(.*)',
         [ False, ducha.up_down_flow, False
         ]],
-     
+
     [r'(.*)(flujo|corriente|salida)(.*)(ducha|llave)(.*)',
         [ False, ducha.get_flow
         ]],
-        
+
     [r'(.*)temperatura(.*)(ducha|llave)(.*)',
         [ False, ducha.get_temp
         ]],
-    
+
      #================================= Dishwasher =============================
 
     [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)lavaplatos(.*)',
@@ -797,16 +797,56 @@ gPats = [
     [r'(por favor )?(limpie|limpia|lave|lava) (el|los) plato(s)?( sucios| por lavar| para lavar)?( en| durante)? (?P<numbers1>[0-9]+) (min|minutos)(.*)',
         [ True, lavaplatos.wash, 1
         ]],
-    
+
     [r'(.*)tiempo(.*)(limpieza|lavado)(.*)',
-        [ False, lavaplatos.get_time 
+        [ False, lavaplatos.get_time
         ]],
 
-     #================================ Equipos de Sonido ============================
+     #================================ Equipos de Sonido ======================
 
-     #================================= Ventanas ===============================
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)(equipo( de sonido)?|sonido)(.*)primer piso(.*)',
+        [ False, sonido[0].turn_on_off, True
+        ]],
 
-     #================================= Impresora ================================
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)(equipo( de sonido)?|sonido)(.*)segundo piso(.*)',
+        [ False, sonido[1].turn_on_off, True
+        ]],
+
+    [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)(todos)?(.*)(equipos( de sonido)?|sonidos)(.*)',
+        [ False, print_objs, sonido, True
+        ]],
+
+    [r'(.*)(apaga|apague)(.*)(todos)?(.*)(equipos( de sonido)?|sonidos)(.*)',
+        [ False, print_objs, sonido, False
+        ]],
+
+    [r'(.*)(apaga|apague)(.*)(equipo( de sonido)?|sonido)(.*)',
+        [ False, sonido[0].turn_on_off, False
+        ]],
+
+    [r'(.*)(apaga|apague)(.*)(equipo( de sonido)?|sonido)(.*)',
+        [ False, sonido[1].turn_on_off, False
+        ]],
+
+    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(siguiente|pr(o|ó)ximo) (estaci(o|ó)n|emisora)(.*)(equipo( de sonido)?|sonido)(.*)primer piso(.*)",
+        [ False, sonido[0].next_back_station, True
+        ]],
+
+    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(siguiente|pr(o|ó)xima) (canci(o|ó)n|tema)(.*)(equipo( de sonido)?|sonido)(.*)primer piso(.*)",
+        [ False, sonido[0].next_back_song, True
+        ]],
+
+    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(siguiente|pr(o|ó)xima) (estaci(o|ó)n|emisora)(.*)(equipo( de sonido)?|sonido)(.*)segundo piso(.*)",
+        [ False, sonido[1].next_back_station, True
+        ]],
+
+    [r"(.*)(pon|pasalo|cambia|pasa|pase|ponga|cambie)?(.*)(siguiente|pr(o|ó)xima) (canci(o|ó)n|tema)(.*)(equipo( de sonido)?|sonido)(.*)segundo piso(.*)",
+        [ False, sonido[1].next_back_song, True
+        ]],
+
+     #================================= Ventanas ==============================
+
+     #================================= Impresora =============================
 
     [r'(.*)(enciende|prende|prenda|encienda|activa|active)(.*)impresora(.*)',
         [ False, impresora.turn_on_off, True
@@ -815,7 +855,7 @@ gPats = [
     [r'(.*)(apaga|apague)(.*)impresora(.*)',
         [ False, impresora.turn_on_off, False
         ]],
-    
+
     [r'(por favor )?(ponga|pon|coloque|coloca|añada|agregue|agrega) (?P<numbers1>[0-9]+) hoja(.*)impresora(.*)',
         [ True, impresora.put_sheets, 1
         ]],
@@ -823,12 +863,12 @@ gPats = [
     [r'(por favor )?(pon a)?(imprima|imprime|imprimir) (?P<numbers1>[0-9]+) (hoja(s)?|p(a|á)gina(s)?) (y saca |y )?(?P<numbers2>[0-9]+) (copia(s)|duplicado(s)|fotocopia(s))(.*)',
         [ True, impresora.print_out, 1, 1, True
         ]],
-    
+
     [r'(por favor )?(pon a)?(imprima|imprime|imprimir) (?P<numbers1>[0-9]+) (copia(s)?|hoja(s)?|p(a|á)gina(s)?)(.*)',
         [ True, impresora.print_out, 1
         ]],
-    
-    [r'(.*)hoja(.*)impresora(.*)',
+
+    [r'(.*)hojas(.*)impresora(.*)',
         [ False, impresora.get_sheets
         ]],
 
